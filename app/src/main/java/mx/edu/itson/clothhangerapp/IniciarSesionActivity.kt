@@ -1,6 +1,7 @@
 package mx.edu.itson.clothhangerapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
@@ -33,6 +34,10 @@ class IniciarSesionActivity : AppCompatActivity() {
             if (etEmail.text.isBlank() || etContrasenia.text.isBlank()) {
                 tvError.text = "Asegúrese de llenar todos los campos."
                 tvError.visibility = View.VISIBLE
+            } else {
+                val intent = Intent(this, Principal::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
         }
     }

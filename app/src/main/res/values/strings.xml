@@ -5,6 +5,7 @@
     <string name="button_registrarme">registrarme.</string>
     <string name="hint_email">Email</string>
     <string name="hint_contrasenia">Contraseña</string>
+    <string name="hint_buscar">Buscar</string>
     <string name="entrar">Entrar</string>
 
 

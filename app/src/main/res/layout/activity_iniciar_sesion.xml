@@ -93,6 +93,7 @@
         android:background="@drawable/round_button"
         android:fontFamily="@font/lexend_deca_medium"
         android:text="@string/entrar"
+        android:textAllCaps="false"
         android:textSize="24sp"
         android:textColor="@color/black"
         android:layout_marginTop="50dp" />
