@@ -13,4 +13,9 @@
     <string name="pregunta_cuenta">¿Ya tienes una cuenta?</string>
     <string name="iniciar_sesion">Iniciar sesión</string>
     <string name="registrarse">Registrarse</string>
+    <string name="tops_tag">Tops</string>
+    <string name="bottoms_tag">Bottoms</string>
+    <string name="zapatos_tag">Zapatos</string>
+    <string name="bodysuits_tag">Bodysuits</string>
+    <string name="accesorios_tag">Accesorios</string>
 </resources>

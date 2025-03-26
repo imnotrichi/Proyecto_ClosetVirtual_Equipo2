@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/cream"
-    tools:context=".Principal">
+    tools:context=".PrincipalActivity">
 
 
     <LinearLayout
@@ -38,7 +38,86 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="450dp">
+        android:layout_height="450dp"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ToggleButton
+                    android:id="@+id/tbTops"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/tag_view_off"
+                    android:textOn="@string/tops_tag"
+                    android:textOff="@string/tops_tag"
+                    android:textAllCaps="false"
+                    android:paddingVertical="5dp"
+                    android:fontFamily="@font/lexend_deca_light"
+                    android:layout_margin="10dp"/>
+
+                <ToggleButton
+                    android:id="@+id/tbBottoms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/tag_view_off"
+                    android:textOn="@string/bottoms_tag"
+                    android:textOff="@string/bottoms_tag"
+                    android:textAllCaps="false"
+                    android:paddingVertical="5dp"
+                    android:fontFamily="@font/lexend_deca_light"
+                    android:layout_margin="10dp"/>
+
+                <ToggleButton
+                    android:id="@+id/tbZapatos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/tag_view_off"
+                    android:textOn="@string/zapatos_tag"
+                    android:textOff="@string/zapatos_tag"
+                    android:textAllCaps="false"
+                    android:paddingVertical="5dp"
+                    android:fontFamily="@font/lexend_deca_light"
+                    android:layout_margin="10dp"/>
+
+                <ToggleButton
+                    android:id="@+id/tbBodysuits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/tag_view_off"
+                    android:textOn="@string/bodysuits_tag"
+                    android:textOff="@string/bodysuits_tag"
+                    android:textAllCaps="false"
+                    android:paddingVertical="5dp"
+                    android:fontFamily="@font/lexend_deca_light"
+                    android:layout_margin="10dp"/>
+
+                <ToggleButton
+                    android:id="@+id/tbAccesorios"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/tag_view_off"
+                    android:textOn="@string/accesorios_tag"
+                    android:textOff="@string/accesorios_tag"
+                    android:textAllCaps="false"
+                    android:paddingVertical="5dp"
+                    android:fontFamily="@font/lexend_deca_light"
+                    android:layout_margin="10dp"/>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <ListView
+            android:id="@+id/ltCategorias"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
 
     </LinearLayout>
 
