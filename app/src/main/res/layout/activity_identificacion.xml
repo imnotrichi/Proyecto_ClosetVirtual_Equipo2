@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_inicio_sesion"
+    tools:context=".IdentificacionActivity">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="321dp"
+        android:fontFamily="@font/lexend_deca_semi_bold"
+        android:textSize="40sp"
+        android:text="@string/titulo_identificacion"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/cream"
+        android:layout_marginTop="120dp" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/pregunta_cuenta"
+        android:fontFamily="@font/lexend_deca_light"
+        android:textSize="20sp"
+        android:textColor="@color/cream"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"/>
+
+    <Button
+        android:id="@+id/btnIniciarSesion"
+        android:layout_width="310dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/lexend_deca_medium"
+        android:text="@string/iniciar_sesion"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp" />
+
+    <Button
+        android:id="@+id/btnRegistrarse"
+        android:layout_width="310dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/lexend_deca_medium"
+        android:text="@string/registrarse"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="100dp" />
+
+</LinearLayout>

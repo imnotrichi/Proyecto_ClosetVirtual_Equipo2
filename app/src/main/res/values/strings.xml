@@ -6,4 +6,10 @@
     <string name="hint_email">Email</string>
     <string name="hint_contrasenia">Contraseña</string>
     <string name="entrar">Entrar</string>
+
+
+    <string name="titulo_identificacion">Identifícate</string>
+    <string name="pregunta_cuenta">¿Ya tienes una cuenta?</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="registrarse">Registrarse</string>
 </resources>
