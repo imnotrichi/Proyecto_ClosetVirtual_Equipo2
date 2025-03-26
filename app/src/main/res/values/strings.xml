@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ClothHangerApp</string>
+    <string name="saludo">Es un gusto tenerte aquí de nuevo</string>
+    <string name="no_tengo_cuenta">No tengo una cuenta,</string>
+    <string name="button_registrarme">registrarme.</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_contrasenia">Contraseña</string>
+    <string name="entrar">Entrar</string>
 </resources>
