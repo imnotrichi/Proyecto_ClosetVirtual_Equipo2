@@ -255,54 +255,59 @@ class PrincipalActivity : MenuNavegable() {
                 putExtra("nombre", articuloSeleccionado.nombre)
                 putExtra("imagen", articuloSeleccionado.imagen)
                 putExtra("categoria", articuloSeleccionado.categoria)
+                putExtra("color", articuloSeleccionado.color)
+                putExtra("estampado", articuloSeleccionado.estampado)
+                putExtra("tags", articuloSeleccionado.tags)
+                putExtra("totalUsos", articuloSeleccionado.totalUsos)
+                putExtra("usosMes", articuloSeleccionado.usosMes)
             }
             startActivity(intent)
         }
     }
 
     fun agregarTops() {
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top", "Rosa", "Sí", "Cute", "20", "5"))
     }
 
     fun agregarBottoms() {
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom", "Rosa", "Sí", "Cute", "20", "5"))
     }
 
     fun agregarZapatos() {
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos", "Rosa", "Sí", "Cute", "20", "5"))
     }
 
     fun agregarBodysuits() {
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit", "Rosa", "Sí", "Cute", "20", "5"))
     }
 
     fun agregarAccesorios() {
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio", "Rosa", "Sí", "Cute", "20", "5"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio", "Rosa", "Sí", "Cute", "20", "5"))
     }
 
     private class AdaptadorArticulos:BaseAdapter {
