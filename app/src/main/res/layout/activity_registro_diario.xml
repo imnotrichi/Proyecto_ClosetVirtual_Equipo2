@@ -162,20 +162,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
         android:gravity="center|center_vertical">
 
         <Button
             android:id="@+id/btnConfirmar"
             android:layout_width="200dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:text="@string/confirmar"
             android:background="@drawable/round_button_negro"
             android:fontFamily="@font/lexend_deca_medium"
             android:textSize="18sp"
             android:textColor="@color/white"
             android:textAllCaps="false"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center|bottom|right">
+
+        <Button
+            android:id="@+id/btnRegisrarPrenda"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_agregar_prenda"
+            android:gravity="center"
+            android:text="@string/agregar_prenda"
+            android:textColor="@color/cream"
+            android:textSize="45sp" />
 
     </LinearLayout>
 

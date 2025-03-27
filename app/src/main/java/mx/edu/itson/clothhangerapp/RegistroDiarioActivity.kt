@@ -19,6 +19,7 @@ class RegistroDiarioActivity : MenuNavegable() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_registro_diario)
 
+        val btnRegistrarPrenda:Button = findViewById(R.id.btnRegisrarPrenda)
         val btnTop:Button = findViewById(R.id.btnSeleccionarTop)
         val btnBottom:Button = findViewById(R.id.btnSeleccionarBottom)
         val btnBodysuit:Button = findViewById(R.id.btnSeleccionarBodysuit)
@@ -38,6 +39,12 @@ class RegistroDiarioActivity : MenuNavegable() {
                         btnTop.setBackgroundResource(articulo!!)
                 }
             }
+        }
+
+        btnRegistrarPrenda.setOnClickListener {
+            val intent = Intent(this, RegistrarPrendaActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
 
         btnTop.setOnClickListener{
