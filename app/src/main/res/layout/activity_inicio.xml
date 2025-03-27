@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_inicio"
+    tools:context=".InicioActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="441dp"
+        android:layout_height="424dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/closet_virtual" />
+
+    <TextView
+        android:layout_width="325dp"
+        android:layout_height="100dp"
+        android:text="@string/bienvenida"
+        android:fontFamily="@font/lexend_deca_semi_bold"
+        android:textSize="32sp"
+        android:textColor="@color/cream"/>
+
+    <Button
+        android:id="@+id/btnEntrar"
+        android:layout_width="325dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/round_button"
+        android:layout_gravity="center"
+        android:text="@string/entrar"
+        android:fontFamily="@font/lexend_deca_medium"
+        android:textSize="24sp"
+        android:textAllCaps="false"
+        android:textColor="@color/black"/>
+
+</LinearLayout>
