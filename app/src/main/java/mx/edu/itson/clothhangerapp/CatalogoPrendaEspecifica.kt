@@ -19,21 +19,76 @@ class CatalogoPrendaEspecifica : AppCompatActivity() {
     var adapter: PrendaPreviewAdapter? = null
     var prendas = ArrayList<PrendaPreviewItem>()
 
+    lateinit var categoria: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_catalogo_prenda_especifica)
 
-        prendas.add(PrendaPreviewItem(R.drawable.prenda_floreada, "Android"))
-        prendas.add(PrendaPreviewItem(R.drawable.prenda_floreada, "Android"))
-        prendas.add(PrendaPreviewItem(R.drawable.prenda_floreada, "Android"))
-        prendas.add(PrendaPreviewItem(R.drawable.prenda_floreada, "Android"))
+        categoria = findViewById(R.id.tvCategoriaEspecifica)
+
+
+        when ("accesorios") {
+            "tops" -> cargarTops()
+            "bottoms" -> cargarBottoms()
+            "zapatos" -> cargarZapatos()
+            "body_suits" -> cargarBodysuits()
+            "accesorios" -> cargarAccesorios()
+        }
+
+
 
         adapter = PrendaPreviewAdapter(this, prendas)
         adapter = PrendaPreviewAdapter(this, prendas)
         var cuadricula: GridView = findViewById(R.id.prendasPreviewGridView)
         cuadricula.adapter = adapter
 
+    }
+
+    fun cargarTops() {
+        categoria.text = "Tops"
+
+        prendas.add(PrendaPreviewItem(R.drawable.prenda_floreada, "Blusa Floreada"))
+        prendas.add(PrendaPreviewItem(R.drawable.prenda_floreada, "Blusa Floreada"))
+        prendas.add(PrendaPreviewItem(R.drawable.prenda_floreada, "Blusa Floreada"))
+        prendas.add(PrendaPreviewItem(R.drawable.prenda_floreada, "Blusa Floreada"))
+    }
+
+    fun cargarBottoms() {
+        categoria.text = "Bottoms"
+
+        prendas.add(PrendaPreviewItem(R.drawable.pantalon_mezclilla, "Pantalón"))
+        prendas.add(PrendaPreviewItem(R.drawable.pantalon_mezclilla, "Pantalón"))
+        prendas.add(PrendaPreviewItem(R.drawable.pantalon_mezclilla, "Pantalón"))
+        prendas.add(PrendaPreviewItem(R.drawable.pantalon_mezclilla, "Pantalón"))
+    }
+
+    fun cargarZapatos() {
+        categoria.text = "Zapatos"
+
+        prendas.add(PrendaPreviewItem(R.drawable.zapatilla_roja, "Zapatilla"))
+        prendas.add(PrendaPreviewItem(R.drawable.zapatilla_roja, "Zapatilla"))
+        prendas.add(PrendaPreviewItem(R.drawable.zapatilla_roja, "Zapatilla"))
+        prendas.add(PrendaPreviewItem(R.drawable.zapatilla_roja, "Zapatilla"))
+    }
+
+    fun cargarBodysuits() {
+        categoria.text = "Bodysuits"
+
+        prendas.add(PrendaPreviewItem(R.drawable.bodysuit_negro, "Traje negro"))
+        prendas.add(PrendaPreviewItem(R.drawable.bodysuit_negro, "Traje negro"))
+        prendas.add(PrendaPreviewItem(R.drawable.bodysuit_negro, "Traje negro"))
+        prendas.add(PrendaPreviewItem(R.drawable.bodysuit_negro, "Traje negro"))
+    }
+
+    fun cargarAccesorios() {
+        categoria.text = "Accesorios"
+
+        prendas.add(PrendaPreviewItem(R.drawable.lentes_sol, "Lentes para sol"))
+        prendas.add(PrendaPreviewItem(R.drawable.lentes_sol, "Lentes para sol"))
+        prendas.add(PrendaPreviewItem(R.drawable.lentes_sol, "Lentes para sol"))
+        prendas.add(PrendaPreviewItem(R.drawable.lentes_sol, "Lentes para sol"))
     }
 }
 
