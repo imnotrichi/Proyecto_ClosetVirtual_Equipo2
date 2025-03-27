@@ -5,10 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/cream"
+    android:orientation="vertical"
     tools:context=".PrincipalActivity">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,104 +24,121 @@
         <EditText
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/buscar_edit_text"
-            android:layout_marginTop="7dp"
             android:layout_gravity="right"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/buscar_edit_text"
             android:fontFamily="@font/lexend_deca_light"
-            android:textColorHint="@color/cream"
-            android:textColor="@color/cream"
             android:hint="@string/hint_buscar"
-            android:paddingLeft="10dp"/>
+            android:paddingLeft="10dp"
+            android:textColor="@color/cream"
+            android:textColorHint="@color/cream" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:orientation="vertical">
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ToggleButton
-                    android:id="@+id/tbTops"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:background="@drawable/tag_view_off"
-                    android:textOn="@string/tops_tag"
-                    android:textOff="@string/tops_tag"
-                    android:textAllCaps="false"
-                    android:paddingVertical="5dp"
-                    android:fontFamily="@font/lexend_deca_light"
-                    android:layout_margin="10dp"/>
-
-                <ToggleButton
-                    android:id="@+id/tbBottoms"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:background="@drawable/tag_view_off"
-                    android:textOn="@string/bottoms_tag"
-                    android:textOff="@string/bottoms_tag"
-                    android:textAllCaps="false"
-                    android:paddingVertical="5dp"
-                    android:fontFamily="@font/lexend_deca_light"
-                    android:layout_margin="10dp"/>
-
-                <ToggleButton
-                    android:id="@+id/tbZapatos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:background="@drawable/tag_view_off"
-                    android:textOn="@string/zapatos_tag"
-                    android:textOff="@string/zapatos_tag"
-                    android:textAllCaps="false"
-                    android:paddingVertical="5dp"
-                    android:fontFamily="@font/lexend_deca_light"
-                    android:layout_margin="10dp"/>
-
-                <ToggleButton
-                    android:id="@+id/tbBodysuits"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:background="@drawable/tag_view_off"
-                    android:textOn="@string/bodysuits_tag"
-                    android:textOff="@string/bodysuits_tag"
-                    android:textAllCaps="false"
-                    android:paddingVertical="5dp"
-                    android:fontFamily="@font/lexend_deca_light"
-                    android:layout_margin="10dp"/>
-
-                <ToggleButton
-                    android:id="@+id/tbAccesorios"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:background="@drawable/tag_view_off"
-                    android:textOn="@string/accesorios_tag"
-                    android:textOff="@string/accesorios_tag"
-                    android:textAllCaps="false"
-                    android:paddingVertical="5dp"
-                    android:fontFamily="@font/lexend_deca_light"
-                    android:layout_margin="10dp"/>
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
-
-        <ListView
-            android:id="@+id/ltCategorias"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ToggleButton
+                android:id="@+id/tbTops"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/tag_view_off"
+                android:fontFamily="@font/lexend_deca_light"
+                android:paddingVertical="5dp"
+                android:textAllCaps="false"
+                android:textOff="@string/tops_tag"
+                android:textOn="@string/tops_tag" />
+
+            <ToggleButton
+                android:id="@+id/tbBottoms"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/tag_view_off"
+                android:fontFamily="@font/lexend_deca_light"
+                android:paddingVertical="5dp"
+                android:textAllCaps="false"
+                android:textOff="@string/bottoms_tag"
+                android:textOn="@string/bottoms_tag" />
+
+            <ToggleButton
+                android:id="@+id/tbZapatos"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/tag_view_off"
+                android:fontFamily="@font/lexend_deca_light"
+                android:paddingVertical="5dp"
+                android:textAllCaps="false"
+                android:textOff="@string/zapatos_tag"
+                android:textOn="@string/zapatos_tag" />
+
+            <ToggleButton
+                android:id="@+id/tbBodysuits"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/tag_view_off"
+                android:fontFamily="@font/lexend_deca_light"
+                android:paddingVertical="5dp"
+                android:textAllCaps="false"
+                android:textOff="@string/bodysuits_tag"
+                android:textOn="@string/bodysuits_tag" />
+
+            <ToggleButton
+                android:id="@+id/tbAccesorios"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/tag_view_off"
+                android:fontFamily="@font/lexend_deca_light"
+                android:paddingVertical="5dp"
+                android:textAllCaps="false"
+                android:textOff="@string/accesorios_tag"
+                android:textOn="@string/accesorios_tag" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:src="@drawable/linea_corta" />
+
+        <TextView
+            android:id="@+id/tvCategoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:text="Categoría"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:src="@drawable/linea_larga" />
+
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvArticulos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
 </LinearLayout>

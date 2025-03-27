@@ -1,41 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
         android:layout_gravity="center"
-        app:cardCornerRadius="4dp">
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="6dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="2dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="4dp">
 
             <ImageView
                 android:id="@+id/ivArticulo"
                 android:layout_width="112dp"
-                android:layout_height="103dp"
-                android:src="@drawable/top_rosa_flores"
-                android:layout_gravity="center"/>
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:background="@drawable/round_image"
+                android:scaleType="fitXY"
+                android:src="@drawable/top_rosa_flores"/>
 
-            <TextView
-                android:id="@+id/tvNombreArticulo"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Top flores"
-                android:fontFamily="@font/lexend_deca_regular"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/white"/>
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/tvNombreArticulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/lexend_deca_regular"
+                    android:text="Top flores"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/tvCategoriaArticulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/lexend_deca_regular"
+                    android:text="Top"
+                    android:textColor="@color/cream"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
