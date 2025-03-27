@@ -18,8 +18,16 @@ class IdentificacionActivity : AppCompatActivity() {
 
         val btnIrIniciarSesion: Button = findViewById(R.id.btnIrIniciarSesion)
 
+        val btnIrRegistrarse: Button = findViewById(R.id.btnIrRegistrarse)
+
         btnIrIniciarSesion.setOnClickListener {
             val intent = Intent(this, IniciarSesionActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+
+        btnIrRegistrarse.setOnClickListener {
+            val intent = Intent(this, RegistrarseActivity::class.java)
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }

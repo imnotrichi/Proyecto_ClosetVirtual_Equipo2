@@ -21,28 +21,52 @@ import androidx.recyclerview.widget.RecyclerView
 class PrincipalActivity : AppCompatActivity() {
 
     var articulos:ArrayList<Articulo> = ArrayList<Articulo>()
-    val tbTops: ToggleButton = findViewById(R.id.tbTops)
-    val tbBottoms: ToggleButton = findViewById(R.id.tbBottoms)
-    val tbZapatos: ToggleButton = findViewById(R.id.tbZapatos)
-    val tbBodysuits: ToggleButton = findViewById(R.id.tbBodysuits)
-    val tbAccesorios: ToggleButton = findViewById(R.id.tbAccesorios)
+    var tbTops: ToggleButton? = null
+    var tbBottoms: ToggleButton? = null
+    var tbZapatos: ToggleButton? = null
+    var tbBodysuits: ToggleButton? = null
+    var tbAccesorios: ToggleButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
 
+        tbTops = findViewById(R.id.tbTops)
+        tbBottoms = findViewById(R.id.tbBottoms)
+        tbZapatos = findViewById(R.id.tbZapatos)
+        tbBodysuits = findViewById(R.id.tbBodysuits)
+        tbAccesorios = findViewById(R.id.tbAccesorios)
+
         var tvCategoria:TextView = findViewById(R.id.tvCategoria)
         var lvArticulos:ListView = findViewById(R.id.lvArticulos)
 
-        tbTops.setOnCheckedChangeListener { _, isChecked ->
+        tbTops!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                tbBottoms!!.isChecked = false
+                tbBottoms!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbBottoms!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbZapatos!!.isChecked = false
+                tbZapatos!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbZapatos!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbBodysuits!!.isChecked = false
+                tbBodysuits!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbBodysuits!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbAccesorios!!.isChecked = false
+                tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
                 tvCategoria.text = "Tops"
+                articulos.clear()
                 agregarTops()
 
                 var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                checkearToggleButton(tbTops)
+                tbTops!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_on)
+                tbTops!!.setTextColor(ContextCompat.getColor(this, R.color.white))
             } else {
                 tvCategoria.text = "Categoría"
                 articulos.clear()
@@ -50,19 +74,38 @@ class PrincipalActivity : AppCompatActivity() {
                 var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                checkearToggleButton(tbTops)
+                tbTops!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbTops!!.setTextColor(ContextCompat.getColor(this, R.color.black))
             }
         }
 
-        tbBottoms.setOnCheckedChangeListener { _, isChecked ->
+        tbBottoms!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                tbTops!!.isChecked = false
+                tbTops!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbTops!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbZapatos!!.isChecked = false
+                tbZapatos!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbZapatos!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbBodysuits!!.isChecked = false
+                tbBodysuits!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbBodysuits!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbAccesorios!!.isChecked = false
+                tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
                 tvCategoria.text = "Bottoms"
-                agregarTops()
+                articulos.clear()
+                agregarBottoms()
 
                 var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                checkearToggleButton(tbBottoms)
+                tbBottoms!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_on)
+                tbBottoms!!.setTextColor(ContextCompat.getColor(this, R.color.white))
             } else {
                 tvCategoria.text = "Categoría"
                 articulos.clear()
@@ -70,19 +113,38 @@ class PrincipalActivity : AppCompatActivity() {
                 var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                checkearToggleButton(tbBottoms)
+                tbBottoms!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbBottoms!!.setTextColor(ContextCompat.getColor(this, R.color.black))
             }
         }
 
-        tbZapatos.setOnCheckedChangeListener { _, isChecked ->
+        tbZapatos!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                tbTops!!.isChecked = false
+                tbTops!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbTops!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbBottoms!!.isChecked = false
+                tbBottoms!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbBottoms!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbBodysuits!!.isChecked = false
+                tbBodysuits!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbBodysuits!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbAccesorios!!.isChecked = false
+                tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
                 tvCategoria.text = "Zapatos"
-                agregarTops()
+                articulos.clear()
+                agregarZapatos()
 
                 var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                checkearToggleButton(tbZapatos)
+                tbZapatos!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_on)
+                tbZapatos!!.setTextColor(ContextCompat.getColor(this, R.color.white))
             } else {
                 tvCategoria.text = "Categoría"
                 articulos.clear()
@@ -90,19 +152,38 @@ class PrincipalActivity : AppCompatActivity() {
                 var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                checkearToggleButton(tbZapatos)
+                tbZapatos!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbZapatos!!.setTextColor(ContextCompat.getColor(this, R.color.black))
             }
         }
 
-        tbBodysuits.setOnCheckedChangeListener { _, isChecked ->
+        tbBodysuits!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                tbTops!!.isChecked = false
+                tbTops!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbTops!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbBottoms!!.isChecked = false
+                tbBottoms!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbBottoms!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbZapatos!!.isChecked = false
+                tbZapatos!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbZapatos!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbAccesorios!!.isChecked = false
+                tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
                 tvCategoria.text = "Bodysuits"
-                agregarTops()
+                articulos.clear()
+                agregarBodysuits()
 
                 var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                checkearToggleButton(tbBodysuits)
+                tbBodysuits!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_on)
+                tbBodysuits!!.setTextColor(ContextCompat.getColor(this, R.color.white))
             } else {
                 tvCategoria.text = "Categoría"
                 articulos.clear()
@@ -110,19 +191,38 @@ class PrincipalActivity : AppCompatActivity() {
                 var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                checkearToggleButton(tbBodysuits)
+                tbBodysuits!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbBodysuits!!.setTextColor(ContextCompat.getColor(this, R.color.black))
             }
         }
 
-        tbAccesorios.setOnCheckedChangeListener { _, isChecked ->
+        tbAccesorios!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                tbTops!!.isChecked = false
+                tbTops!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbTops!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbBottoms!!.isChecked = false
+                tbBottoms!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbBottoms!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbZapatos!!.isChecked = false
+                tbZapatos!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbZapatos!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
+                tbBodysuits!!.isChecked = false
+                tbBodysuits!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbBodysuits!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+
                 tvCategoria.text = "Accesorios"
-                agregarTops()
+                articulos.clear()
+                agregarAccesorios()
 
                 var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                checkearToggleButton(tbAccesorios)
+                tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_on)
+                tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.white))
             } else {
                 tvCategoria.text = "Categoría"
                 articulos.clear()
@@ -130,48 +230,55 @@ class PrincipalActivity : AppCompatActivity() {
                 var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                checkearToggleButton(tbAccesorios)
+                tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
+                tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.black))
             }
-        }
-    }
-
-    fun checkearToggleButton(button: ToggleButton) {
-        tbTops.isChecked = false
-        tbTops.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-        tbTops.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-        tbBottoms.isChecked = false
-        tbBottoms.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-        tbBottoms.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-        tbZapatos.isChecked = false
-        tbZapatos.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-        tbZapatos.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-        tbBodysuits.isChecked = false
-        tbBodysuits.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-        tbBodysuits.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-        tbAccesorios.isChecked = false
-        tbAccesorios.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-        tbAccesorios.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-        if (button.isChecked) {
-            tbTops.background = ContextCompat.getDrawable(this, R.drawable.tag_view_on)
-            tbTops.setTextColor(ContextCompat.getColor(this, R.color.white))
-        } else {
-            tbTops.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-            tbTops.setTextColor(ContextCompat.getColor(this, R.color.black))
         }
     }
 
     fun agregarTops() {
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "top"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "top"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "top"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "top"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "top"))
-        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "top"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Top"))
+    }
+
+    fun agregarBottoms() {
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bottom"))
+    }
+
+    fun agregarZapatos() {
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Zapatos"))
+    }
+
+    fun agregarBodysuits() {
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Bodysuit"))
+    }
+
+    fun agregarAccesorios() {
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio"))
+        articulos.add(Articulo("Top flores", R.drawable.top_rosa_flores, "Accesorio"))
     }
 
     private class AdaptadorArticulos:BaseAdapter {
