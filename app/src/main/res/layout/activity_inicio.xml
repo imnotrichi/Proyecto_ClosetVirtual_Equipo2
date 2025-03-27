@@ -22,13 +22,15 @@
         android:text="@string/bienvenida"
         android:fontFamily="@font/lexend_deca_semi_bold"
         android:textSize="32sp"
-        android:textColor="@color/cream"/>
+        android:textColor="@color/cream"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:layout_marginTop="200dp"/>
 
     <Button
         android:id="@+id/btnEntrar"
         android:layout_width="325dp"
         android:layout_height="70dp"
-        android:layout_marginTop="60dp"
         android:background="@drawable/round_button"
         android:layout_gravity="center"
         android:text="@string/entrar"
