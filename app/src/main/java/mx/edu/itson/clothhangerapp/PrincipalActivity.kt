@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
@@ -19,7 +20,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class PrincipalActivity : AppCompatActivity() {
+class PrincipalActivity : MenuNavegable() {
 
     var articulos:ArrayList<Articulo> = ArrayList<Articulo>()
     var tbTops: ToggleButton? = null
@@ -32,6 +33,7 @@ class PrincipalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
 
+
         tbTops = findViewById(R.id.tbTops)
         tbBottoms = findViewById(R.id.tbBottoms)
         tbZapatos = findViewById(R.id.tbZapatos)
@@ -40,6 +42,17 @@ class PrincipalActivity : AppCompatActivity() {
 
         var tvCategoria:TextView = findViewById(R.id.tvCategoria)
         var lvArticulos:ListView = findViewById(R.id.lvArticulos)
+
+        setupBottomNavigation()
+        setSelectedItem(R.id.nav_home)
+
+        val btnRegistrarPrenda:Button = findViewById(R.id.btnRegisrarPrenda)
+
+        btnRegistrarPrenda.setOnClickListener {
+            val intent = Intent(this, RegistrarPrendaActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
 
         tbTops!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {

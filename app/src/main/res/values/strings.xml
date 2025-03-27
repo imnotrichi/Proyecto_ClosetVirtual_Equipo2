@@ -70,4 +70,5 @@
     // Pantalla de outfits
     <string name="outfits">Outfits</string>
     <string name="fecha">26/03/2025</string>
+    <string name="titulo_perfil">Perfil</string>
 </resources>

@@ -41,107 +41,125 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/etNombre"
-        android:layout_width="305dp"
-        android:layout_height="55dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="70dp"
-        android:background="@drawable/dark_round_edit_text"
-        android:fontFamily="@font/lexend_deca_medium"
-        android:hint="@string/hint_nombre"
-        android:inputType="textPersonName"
-        android:paddingHorizontal="10dp"
-        android:shadowColor="#000000"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="8"
-        android:textColor="@color/cream"
-        android:textColorHint="@color/cream" />
-
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="305dp"
-        android:layout_height="55dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/dark_round_edit_text"
-        android:fontFamily="@font/lexend_deca_medium"
-        android:hint="@string/hint_email"
-        android:inputType="textEmailAddress"
-        android:paddingHorizontal="10dp"
-        android:shadowColor="#000000"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="8"
-        android:textColor="@color/cream"
-        android:textColorHint="@color/cream" />
-
-    <EditText
-        android:id="@+id/etContrasenia"
-        android:layout_width="305dp"
-        android:layout_height="55dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/dark_round_edit_text"
-        android:fontFamily="@font/lexend_deca_medium"
-        android:hint="@string/hint_contrasenia"
-        android:inputType="textPassword"
-        android:paddingHorizontal="10dp"
-        android:shadowColor="#000000"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="8"
-        android:textColor="@color/cream"
-        android:textColorHint="@color/cream" />
-
-    <EditText
-        android:id="@+id/etConfirmarContrasenia"
-        android:layout_width="305dp"
-        android:layout_height="55dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/dark_round_edit_text"
-        android:fontFamily="@font/lexend_deca_medium"
-        android:hint="@string/hint_confirmar_contrasenia"
-        android:inputType="textPassword"
-        android:paddingHorizontal="10dp"
-        android:shadowColor="#000000"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="8"
-        android:textColor="@color/cream"
-        android:textColorHint="@color/cream" />
-
-    <TextView
-        android:id="@+id/tvError"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/lexend_deca_light"
-        android:textAlignment="center"
-        android:textColor="@color/red"
-        android:textSize="16sp"
-        android:visibility="invisible" />
-
-    <Button
-        android:id="@+id/btnGuardarCambios"
-        android:layout_width="280dp"
-        android:layout_height="55dp"
+        android:orientation="vertical"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/dark_round_button"
-        android:fontFamily="@font/lexend_deca_medium"
-        android:text="@string/guardar_cambios"
-        android:textAllCaps="false"
-        android:textColor="@color/cream"
-        android:textSize="24sp" />
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/titulo_perfil"
+            android:textColor="@color/black"
+            android:textSize="60sp"
+            android:fontFamily="@font/lexend_deca_semi_bold"
+            android:layout_gravity="center"/>
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="305dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/dark_round_edit_text"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:hint="@string/hint_nombre"
+            android:inputType="textPersonName"
+            android:paddingHorizontal="10dp"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="8"
+            android:textColor="@color/cream"
+            android:textColorHint="@color/cream" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="305dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/dark_round_edit_text"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:hint="@string/hint_email"
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="10dp"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="8"
+            android:textColor="@color/cream"
+            android:textColorHint="@color/cream" />
+
+        <EditText
+            android:id="@+id/etContrasenia"
+            android:layout_width="305dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/dark_round_edit_text"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:hint="@string/hint_contrasenia"
+            android:inputType="textPassword"
+            android:paddingHorizontal="10dp"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="8"
+            android:textColor="@color/cream"
+            android:textColorHint="@color/cream" />
+
+        <EditText
+            android:id="@+id/etConfirmarContrasenia"
+            android:layout_width="305dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/dark_round_edit_text"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:hint="@string/hint_confirmar_contrasenia"
+            android:inputType="textPassword"
+            android:paddingHorizontal="10dp"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="8"
+            android:textColor="@color/cream"
+            android:textColorHint="@color/cream" />
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/lexend_deca_light"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btnGuardarCambios"
+            android:layout_width="280dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/dark_round_button"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:text="@string/guardar_cambios"
+            android:textAllCaps="false"
+            android:textColor="@color/cream"
+            android:textSize="24sp" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layoutDialogo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">  <!-- Oculto al principio -->
@@ -174,5 +192,13 @@
                 android:layout_height="wrap_content"
                 android:text="No" />
         </LinearLayout>
+
     </LinearLayout>
+
+    <include
+        layout="@layout/navigation_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
 </LinearLayout>

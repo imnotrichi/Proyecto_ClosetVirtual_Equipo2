@@ -57,5 +57,11 @@ class RegistrarseActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+
+        btnIniciarSesion.setOnClickListener {
+            val intent = Intent(this, IniciarSesionActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
     }
 }

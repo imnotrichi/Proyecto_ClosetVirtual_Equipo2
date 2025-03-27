@@ -14,7 +14,7 @@
         android:layout_width="321dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:fontFamily="@font/lexend_deca_semi_bold"
         android:text="@string/dejanos_conocerte"
         android:textColor="@color/cream"
@@ -93,6 +93,7 @@
             android:layout_height="wrap_content"
             android:text="@string/button_iniciar_sesion"
             android:textSize="16sp"
+            android:textAllCaps="false"
             android:fontFamily="@font/lexend_deca_light"
             android:textColor="@color/cream"
             android:paddingHorizontal="5dp"
@@ -122,5 +123,5 @@
         android:textAllCaps="false"
         android:textSize="24sp"
         android:textColor="@color/black"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="20dp" />
 </LinearLayout>
