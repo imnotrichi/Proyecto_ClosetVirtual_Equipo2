@@ -13,10 +13,6 @@
         android:theme="@style/Theme.ClothHangerApp"
         tools:targetApi="31">
         <activity
-            android:name=".DetalleOutfitActivity"
-            android:exported="false" >
-        </activity>
-        <activity
             android:name=".InicioActivity"
             android:exported="true">
             <intent-filter>
@@ -24,6 +20,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".DetallePrendaActivity"
+            android:exported="false" >
+        </activity>
+        <activity
+            android:name=".DetalleOutfitActivity"
+            android:exported="false" >
         </activity>
         <activity
             android:name=".CatalogoPrendaEspecifica"

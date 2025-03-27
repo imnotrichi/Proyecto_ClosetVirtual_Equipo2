@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cream"
+    tools:context=".DetallePrendaActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/banner2" />
+
+    <ImageView
+        android:id="@+id/ivImagen"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@drawable/prenda_floreada" />
+
+    <TextView
+        android:id="@+id/tvNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="@color/black"
+        android:layout_gravity="center"
+        android:layout_marginTop="691dp">
+
+        <Button
+            android:id="@+id/btnInicio"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:background="@drawable/icono_inicio"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"/>
+
+        <Button
+            android:id="@+id/btnHoy"
+            android:layout_width="25dp"
+            android:layout_height="50dp"
+            android:background="@drawable/icono_hoy"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"/>
+
+        <Button
+            android:id="@+id/btnOutftis"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:background="@drawable/icono_outfits"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"/>
+
+        <Button
+            android:id="@+id/btnCalendario"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:background="@drawable/icono_calendario"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"/>
+
+        <Button
+            android:id="@+id/btnPerfil"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:background="@drawable/icono_perfil"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
