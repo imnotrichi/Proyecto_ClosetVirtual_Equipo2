@@ -10,6 +10,7 @@
 
     <string name="bienvenida">Crea tu propio estilo, ahora.</string>
 
+    //Pantalla Detalle Prenda
     <string name="editar">Editar</string>
     <string name="borrar">Borrar</string>
     <string name="categoria">Categoría:</string>
@@ -18,7 +19,9 @@
     <string name="tags">Tags:</string>
     <string name="total_usos">Total de usos:</string>
     <string name="usos_mes">Usos este mes:</string>
+    <string name="top_flores">Top flores</string>
 
+    //Pantalla Registro Diario
     <string name="titulo_hoy">¿Qué usarás hoy?</string>
     <string name="seleccionar_top">Seleccionar Top</string>
     <string name="seleccionar_bottom">Seleccionar Bottom</string>

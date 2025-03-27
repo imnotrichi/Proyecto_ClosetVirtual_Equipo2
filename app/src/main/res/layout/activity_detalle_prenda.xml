@@ -15,75 +15,175 @@
         android:layout_height="100dp"
         app:srcCompat="@drawable/banner2" />
 
-    <ImageView
-        android:id="@+id/ivImagen"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        app:srcCompat="@drawable/prenda_floreada" />
-
     <TextView
         android:id="@+id/tvNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="@string/top_flores"
+        android:textAlignment="center"
+        android:fontFamily="@font/lexend_deca_medium"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        android:layout_marginBottom="5dp"/>
 
-    <TextView
-        android:id="@+id/tvCategoria"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="250dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="6dp">
+
+        <LinearLayout
+            android:layout_width="240dp"
+            android:layout_height="290dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/ivImagen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/prenda_floreada" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal"
-        android:background="@color/black"
-        android:layout_gravity="center"
-        android:layout_marginTop="422dp">
+        android:gravity="center">
 
         <Button
-            android:id="@+id/btnInicio"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:background="@drawable/icono_inicio"
-            android:layout_gravity="center"
-            android:layout_marginLeft="40dp"/>
+            android:id="@+id/btnEditar"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_negro"
+            android:text="@string/editar"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:layout_marginRight="35dp"
+            android:fontFamily="@font/lexend_deca_semi_bold"
+            android:textSize="16sp"
+            />
 
         <Button
-            android:id="@+id/btnHoy"
-            android:layout_width="25dp"
-            android:layout_height="50dp"
-            android:background="@drawable/icono_hoy"
+            android:id="@+id/btnBorrar"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_negro"
+            android:text="@string/borrar"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:layout_marginLeft="35dp"
+            android:fontFamily="@font/lexend_deca_semi_bold"
+            android:textSize="16sp"
             android:layout_gravity="center"
-            android:layout_marginLeft="40dp"/>
+            />
 
-        <Button
-            android:id="@+id/btnOutftis"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:background="@drawable/icono_outfits"
-            android:layout_gravity="center"
-            android:layout_marginLeft="40dp"/>
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/btnCalendario"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:background="@drawable/icono_calendario"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"/>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center|center_horizontal">
 
-        <Button
-            android:id="@+id/btnPerfil"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
-            android:background="@drawable/icono_perfil"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/categoria"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
 
+        <TextView
+        android:id="@+id/tvCategoria"
+        android:layout_width="wrap_content"
+            android:layout_marginLeft="5dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lexend_deca_light"
+        android:textSize="16sp"
+        android:text="TextView" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total_usos"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvTotalUsos"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lexend_deca_light"
+            android:textSize="16sp"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:background="@color/black"
+            android:layout_gravity="bottom"
+            android:gravity="bottom">
+
+            <Button
+                android:id="@+id/btnInicio"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:background="@drawable/icono_inicio"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"/>
+
+            <Button
+                android:id="@+id/btnHoy"
+                android:layout_width="25dp"
+                android:layout_height="50dp"
+                android:background="@drawable/icono_hoy"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"/>
+
+            <Button
+                android:id="@+id/btnOutftis"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:background="@drawable/icono_outfits"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"/>
+
+            <Button
+                android:id="@+id/btnCalendario"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:background="@drawable/icono_calendario"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"/>
+
+            <Button
+                android:id="@+id/btnPerfil"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:background="@drawable/icono_perfil"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
