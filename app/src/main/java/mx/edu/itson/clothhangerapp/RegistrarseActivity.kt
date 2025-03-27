@@ -48,7 +48,7 @@ class RegistrarseActivity : AppCompatActivity() {
             } else if (etContrasenia.text.length < 8){
                 tvError.text = "La contraseña debe tener al menos 8 caracteres."
                 tvError.visibility = View.VISIBLE
-            } else if (etContrasenia.text != etConfirmarContrasenia.text){
+            } else if (etContrasenia.text.toString() != etConfirmarContrasenia.text.toString()) {
                 tvError.text = "Las contraseñas no son iguales."
                 tvError.visibility = View.VISIBLE
             } else {
