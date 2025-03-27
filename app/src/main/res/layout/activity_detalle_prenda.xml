@@ -41,7 +41,7 @@
         android:orientation="horizontal"
         android:background="@color/black"
         android:layout_gravity="center"
-        android:layout_marginTop="691dp">
+        android:layout_marginTop="422dp">
 
         <Button
             android:id="@+id/btnInicio"
