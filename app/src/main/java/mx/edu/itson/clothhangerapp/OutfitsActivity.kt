@@ -41,6 +41,11 @@ class OutfitsActivity : MenuNavegable() {
             setImagen(outfitView.findViewById(R.id.ivAccesorio2), outfit.accesorio2)
             setImagen(outfitView.findViewById(R.id.ivAccesorio3), outfit.accesorio3)
 
+            outfitView.findViewById<ImageView>(R.id.ivTop).setOnClickListener {
+                abrirDetalleOutfit(outfit, "Top")
+            }
+
+
             // Agregar evento de clic para abrir la pantalla de detalles
             outfitView.setOnClickListener {
                 val intent = Intent(this, DetalleOutfitActivity::class.java).apply {
@@ -58,6 +63,21 @@ class OutfitsActivity : MenuNavegable() {
 
             llOutfits.addView(outfitView)
         }
+    }
+
+    private fun abrirDetalleOutfit(outfit: Outfit, parte: String) {
+        val intent = Intent(this, DetalleOutfitActivity::class.java).apply {
+            putExtra("fecha", outfit.fecha.timeInMillis)
+            putExtra("parteSeleccionada", parte) // Para identificar la imagen clicada
+            putExtra("top", outfit.top?.imagen ?: -1)
+            putExtra("bodysuit", outfit.bodysuit?.imagen ?: -1)
+            putExtra("bottom", outfit.bottom?.imagen ?: -1)
+            putExtra("zapatos", outfit.zapatos?.imagen ?: -1)
+            putExtra("accesorio1", outfit.accesorio1?.imagen ?: -1)
+            putExtra("accesorio2", outfit.accesorio2?.imagen ?: -1)
+            putExtra("accesorio3", outfit.accesorio3?.imagen ?: -1)
+        }
+        startActivity(intent)
     }
 
     fun agregarOutfits() {
