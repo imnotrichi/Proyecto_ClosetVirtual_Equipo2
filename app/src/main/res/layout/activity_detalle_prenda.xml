@@ -83,7 +83,31 @@
             android:fontFamily="@font/lexend_deca_semi_bold"
             android:textSize="16sp"
             android:layout_gravity="center"
-            />
+            android:layout_marginLeft="40dp"/>
+
+        <Button
+            android:id="@+id/btnOutftis"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:background="@drawable/icono_outfits"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"/>
+
+        <Button
+            android:id="@+id/btnCalendario"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:background="@drawable/icono_calendario"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"/>
+
+        <Button
+            android:id="@+id/btnPerfil"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:background="@drawable/icono_perfil"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"/>
 
     </LinearLayout>
 
