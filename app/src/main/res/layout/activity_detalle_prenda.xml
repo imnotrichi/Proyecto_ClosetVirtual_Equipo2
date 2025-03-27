@@ -83,38 +83,14 @@
             android:fontFamily="@font/lexend_deca_semi_bold"
             android:textSize="16sp"
             android:layout_gravity="center"
-            android:layout_marginLeft="40dp"/>
-
-        <Button
-            android:id="@+id/btnOutftis"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:background="@drawable/icono_outfits"
-            android:layout_gravity="center"
-            android:layout_marginLeft="40dp"/>
-
-        <Button
-            android:id="@+id/btnCalendario"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:background="@drawable/icono_calendario"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"/>
-
-        <Button
-            android:id="@+id/btnPerfil"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
-            android:background="@drawable/icono_perfil"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"/>
+            />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:gravity="center|center_horizontal">
 
@@ -127,13 +103,13 @@
             android:textColor="@color/black"/>
 
         <TextView
-        android:id="@+id/tvCategoria"
-        android:layout_width="wrap_content"
+            android:id="@+id/tvCategoria"
+            android:layout_width="wrap_content"
             android:layout_marginLeft="5dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/lexend_deca_light"
-        android:textSize="16sp"
-        android:text="TextView" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lexend_deca_light"
+            android:textSize="16sp"
+            android:text="TextView" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -156,58 +132,112 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center|center_horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:background="@color/black"
-            android:layout_gravity="bottom"
-            android:gravity="bottom">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/color"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
 
-            <Button
-                android:id="@+id/btnInicio"
-                android:layout_width="40dp"
-                android:layout_height="50dp"
-                android:background="@drawable/icono_inicio"
-                android:layout_gravity="center"
-                android:layout_marginLeft="40dp"/>
+        <TextView
+            android:id="@+id/tvColor"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lexend_deca_light"
+            android:textSize="16sp"
+            android:text="TextView" />
 
-            <Button
-                android:id="@+id/btnHoy"
-                android:layout_width="25dp"
-                android:layout_height="50dp"
-                android:background="@drawable/icono_hoy"
-                android:layout_gravity="center"
-                android:layout_marginLeft="40dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/usos_mes"
+            android:layout_marginLeft="45dp"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
 
-            <Button
-                android:id="@+id/btnOutftis"
-                android:layout_width="40dp"
-                android:layout_height="50dp"
-                android:background="@drawable/icono_outfits"
-                android:layout_gravity="center"
-                android:layout_marginLeft="40dp"/>
+        <TextView
+            android:id="@+id/tvUsosMes"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lexend_deca_light"
+            android:textSize="16sp"
+            android:text="TextView" />
 
-            <Button
-                android:id="@+id/btnCalendario"
-                android:layout_width="70dp"
-                android:layout_height="50dp"
-                android:background="@drawable/icono_calendario"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"/>
-
-            <Button
-                android:id="@+id/btnPerfil"
-                android:layout_width="30dp"
-                android:layout_height="50dp"
-                android:background="@drawable/icono_perfil"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"/>
-        </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/estampado"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvEstampado"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="190dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lexend_deca_light"
+            android:textSize="16sp"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tags"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvTags"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="120dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lexend_deca_light"
+            android:textSize="16sp"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"/>
+
+        <include
+            layout="@layout/navigation_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
+
 
 </LinearLayout>
