@@ -16,7 +16,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.security.Principal
 
-class CatalogoPrendaEspecifica : AppCompatActivity() {
+class CatalogoPrendaEspecifica : MenuNavegable() {
 
     var adapter: PrendaPreviewAdapter? = null
     var prendas = ArrayList<PrendaPreviewItem>()
@@ -30,8 +30,9 @@ class CatalogoPrendaEspecifica : AppCompatActivity() {
 
         categoria = findViewById(R.id.tvCategoriaEspecifica)
 
+        val opcion = intent.getStringExtra("opcion")
 
-        when ("accesorios") {
+        when ("tops") {
             "tops" -> cargarTops()
             "bottoms" -> cargarBottoms()
             "zapatos" -> cargarZapatos()
@@ -45,6 +46,8 @@ class CatalogoPrendaEspecifica : AppCompatActivity() {
         adapter = PrendaPreviewAdapter(this, prendas)
         var cuadricula: GridView = findViewById(R.id.prendasPreviewGridView)
         cuadricula.adapter = adapter
+
+        setupBottomNavigation()
 
     }
 

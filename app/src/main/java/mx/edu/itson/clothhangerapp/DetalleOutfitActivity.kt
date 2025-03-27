@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class DetalleOutfitActivity : AppCompatActivity() {
+class DetalleOutfitActivity : MenuNavegable() {
 
     var outfit: ArrayList<Articulo> = ArrayList<Articulo>()
 
@@ -30,6 +30,8 @@ class DetalleOutfitActivity : AppCompatActivity() {
         var adaptador: AdaptadorOutfit = AdaptadorOutfit(this, outfit)
 
         listView.adapter = adaptador
+
+        setupBottomNavigation()
     }
 
     fun cargarOutfit() {
