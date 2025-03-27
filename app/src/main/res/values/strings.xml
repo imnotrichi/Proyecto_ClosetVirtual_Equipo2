@@ -8,17 +8,6 @@
     <string name="hint_buscar">Buscar</string>
     <string name="entrar">Entrar</string>
 
-
-    <string name="titulo_identificacion">Identifícate</string>
-    <string name="pregunta_cuenta">¿Ya tienes una cuenta?</string>
-    <string name="iniciar_sesion">Iniciar sesión</string>
-    <string name="registrarse">Registrarse</string>
-    <string name="tops_tag">Tops</string>
-    <string name="bottoms_tag">Bottoms</string>
-    <string name="zapatos_tag">Zapatos</string>
-    <string name="bodysuits_tag">Bodysuits</string>
-    <string name="accesorios_tag">Accesorios</string>
-
     <string name="bienvenida">Crea tu propio estilo, ahora.</string>
 
     <string name="editar">Editar</string>
@@ -36,7 +25,17 @@
     <string name="seleccionar_bodysuit">Seleccionar Bodysuit</string>
     <string name="seleccionar_zapatos">Seleccionar Zapatos</string>
     <string name="seleccionar_accesorios">Seleccionar Accesorios</string>
-    
+
+    <string name="titulo_identificacion">Identifícate</string>
+    <string name="pregunta_cuenta">¿Ya tienes una cuenta?</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="tops_tag">Tops</string>
+    <string name="bottoms_tag">Bottoms</string>
+    <string name="zapatos_tag">Zapatos</string>
+    <string name="bodysuits_tag">Bodysuits</string>
+    <string name="accesorios_tag">Accesorios</string>
+
     // Pantalla Registrarse
     <string name="dejanos_conocerte">Déjanos conocerte</string>
     <string name="hint_nombre">Nombre</string>
