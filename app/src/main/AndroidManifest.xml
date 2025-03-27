@@ -13,11 +13,17 @@
         android:theme="@style/Theme.ClothHangerApp"
         tools:targetApi="31">
         <activity
+            android:name=".RegistroDiarioActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetalleOutfitActivity"
-            android:exported="false" >
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".InicioActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".CatalogoPrendaEspecifica"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".CatalogoPrendaEspecifica"
-            android:exported="false" />
         <activity
             android:name=".ConfiguracionActivity"
             android:exported="false" />
@@ -42,11 +45,10 @@
             android:exported="false" />
         <activity
             android:name=".IniciarSesionActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".IdentificacionActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

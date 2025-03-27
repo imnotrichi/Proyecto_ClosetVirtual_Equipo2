@@ -63,6 +63,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         >
 
         <ListView
@@ -84,5 +85,11 @@
             android:textSize="45sp" />
 
     </FrameLayout>
+
+    <include
+        layout="@layout/navigation_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 
 </LinearLayout>
