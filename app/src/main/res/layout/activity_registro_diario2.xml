@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cream"
+    tools:context=".RegistroDiario2Activity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/banner2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/linea_hoy"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/titulo_hoy"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/linea_hoy"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="133dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right">
+
+            <Button
+                android:id="@+id/btnSeleccionarTop"
+                android:layout_width="113dp"
+                android:layout_height="190dp"
+                android:background="@drawable/prenda_floreada"
+                android:fontFamily="@font/lexend_deca_regular"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/btnSeleccionarBottom"
+                android:layout_width="113dp"
+                android:layout_height="340dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_button_negro"
+                android:text="@string/seleccionar_bottom"
+                android:fontFamily="@font/lexend_deca_regular"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAllCaps="false"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="133dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btnSeleccionarBodysuit"
+                android:layout_width="113dp"
+                android:layout_height="340dp"
+                android:background="@drawable/round_button_negro"
+                android:text="@string/seleccionar_bodysuit"
+                android:fontFamily="@font/lexend_deca_regular"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/btnSeleccionarZapatos"
+                android:layout_width="113dp"
+                android:layout_height="190dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_button_negro"
+                android:text="@string/seleccionar_zapatos"
+                android:fontFamily="@font/lexend_deca_regular"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="133dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="left">
+
+            <Button
+                android:id="@+id/btnSeleccionarAccesorios1"
+                android:layout_width="113dp"
+                android:layout_height="175dp"
+                android:background="@drawable/round_button_negro"
+                android:fontFamily="@font/lexend_deca_regular"
+                android:text="@string/seleccionar_zapatos"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnSeleccionarAccesorios2"
+                android:layout_width="113dp"
+                android:layout_height="171dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_button_negro"
+                android:text="@string/seleccionar_zapatos"
+                android:fontFamily="@font/lexend_deca_regular"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/btnSeleccionarAccesorios3"
+                android:layout_width="113dp"
+                android:layout_height="175dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_button_negro"
+                android:text="@string/seleccionar_zapatos"
+                android:fontFamily="@font/lexend_deca_regular"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center|center_vertical">
+
+        <Button
+            android:id="@+id/btnConfirmar"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="@string/confirmar"
+            android:background="@drawable/round_button_negro"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center|bottom|right">
+
+        <Button
+            android:id="@+id/btnRegisrarPrenda"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_agregar_prenda"
+            android:gravity="center"
+            android:text="@string/agregar_prenda"
+            android:textColor="@color/cream"
+            android:textSize="45sp" />
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/navigation_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</LinearLayout>

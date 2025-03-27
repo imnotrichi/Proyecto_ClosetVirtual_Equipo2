@@ -40,15 +40,21 @@ class PrendaEspecificaActivity : AppCompatActivity() {
         gridView.adapter = adapter
 
         gridView.setOnItemClickListener { _, _, position, _ ->
-            Toast.makeText(this, "HOLA DESDE EL GRID VIEW LISTENER", Toast.LENGTH_SHORT).show()
-            val selectedItem = prendas[position]
-            val resultIntent = Intent().apply {
-                putExtra("categoria", categoria)
-                putExtra("articulo", selectedItem.imagen)
-            }
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish()
+            val intent = Intent(this, RegistroDiario2Activity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
+
+//        gridView.setOnItemClickListener { _, _, position, _ ->
+//            Toast.makeText(this, "HOLA DESDE EL GRID VIEW LISTENER", Toast.LENGTH_SHORT).show()
+//            val selectedItem = prendas[position]
+//            val resultIntent = Intent().apply {
+//                putExtra("categoria", categoria)
+//                putExtra("articulo", selectedItem.imagen)
+//            }
+//            setResult(Activity.RESULT_OK, resultIntent)
+//            finish()
+//        }
     }
 
     private fun cargarZapatos() {
