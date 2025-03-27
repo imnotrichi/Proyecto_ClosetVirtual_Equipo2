@@ -193,9 +193,9 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_marginEnd="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
             android:orientation="horizontal">
 
             <ToggleButton
@@ -337,4 +337,16 @@
         android:textAllCaps="false"
         android:textColor="@color/cream"
         android:textSize="24sp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:text="@string/boton_cancelar_text"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/lexend_deca_medium"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:background="@android:color/transparent"
+        />
 </LinearLayout>

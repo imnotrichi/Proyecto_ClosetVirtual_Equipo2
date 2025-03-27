@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.colorpicker)  // Asegúrate de que esta dependencia esté definida correctamente
+    implementation(libs.colorpicker)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

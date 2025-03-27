@@ -249,7 +249,7 @@ class PrincipalActivity : MenuNavegable() {
             }
         }
 
-        lvArticulos.setOnItemClickListener { parent, view, position, id ->
+        lvArticulos.setOnItemClickListener { _, _, position, _ ->
             val articuloSeleccionado = articulos[position]
             val intent = Intent(this, DetallePrendaActivity::class.java).apply {
                 putExtra("nombre", articuloSeleccionado.nombre)

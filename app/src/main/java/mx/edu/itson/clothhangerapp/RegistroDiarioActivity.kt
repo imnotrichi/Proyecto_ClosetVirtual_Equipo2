@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -13,54 +14,79 @@ import androidx.core.view.WindowInsetsCompat
 
 class RegistroDiarioActivity : MenuNavegable() {
 
-    private val selectedClothingItems = mutableMapOf<String, Int>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_registro_diario)
 
-        val categoriesMap = mapOf(
-            R.id.btnSeleccionarZapatos to "shoes",
-            R.id.btnSeleccionarTop to "top",
-            R.id.btnSeleccionarBottom to "pants"
-        )
+        val btnTop:Button = findViewById(R.id.btnSeleccionarTop)
+        val btnBottom:Button = findViewById(R.id.btnSeleccionarBottom)
+        val btnBodysuit:Button = findViewById(R.id.btnSeleccionarBodysuit)
+        val btnZapatos:Button = findViewById(R.id.btnSeleccionarZapatos)
+        val btnAccesorio1:Button = findViewById(R.id.btnSeleccionarAccesorios1)
+        val btnAccesorio2:Button = findViewById(R.id.btnSeleccionarAccesorios2)
+        val btnAccesorio3:Button = findViewById(R.id.btnSeleccionarAccesorios3)
 
-        val clothingSelectionLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
+        val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val data = result.data
-                val category = data?.getStringExtra("CATEGORY")
-                val selectedItemResource = data?.getIntExtra("SELECTED_ITEM", -1)
+                val categoria = data?.getStringExtra("categoria")
+                val articulo = data?.getIntExtra("articulo", 0)
 
-                if (category != null && selectedItemResource != null && selectedItemResource != -1) {
-                    // Guardar el recurso de imagen seleccionado
-                    selectedClothingItems[category] = selectedItemResource
-
-                    // Actualizar el background del botón correspondiente
-                    val buttonId = when(category) {
-                        "shoes" -> R.id.btnSeleccionarZapatos
-                        "top" -> R.id.btnSeleccionarTop
-                        "pants" -> R.id.btnSeleccionarBottom
-                        else -> return@registerForActivityResult
-                    }
-
-                    val button = findViewById<Button>(buttonId)
-                    button.setCompoundDrawablesWithIntrinsicBounds(null, null, null,
-                        ContextCompat.getDrawable(this, selectedItemResource))
+                when (categoria) {
+                    "Tops" ->
+                        btnTop.setBackgroundResource(articulo!!)
                 }
             }
         }
 
-        // Configurar OnClickListener para cada botón de categoría
-        categoriesMap.forEach { (buttonId, category) ->
-            findViewById<Button>(buttonId).setOnClickListener {
-                val intent = Intent(this, CatalogoPrendaEspecifica::class.java).apply {
-                    putExtra("CATEGORY", category)
-                }
-                clothingSelectionLauncher.launch(intent)
-            }
+        btnTop.setOnClickListener{
+            val intent = Intent(this, PrendaEspecificaActivity::class.java)
+            intent.putExtra("categoria", "Tops")
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            launcher.launch(intent)
+        }
+
+        btnBottom.setOnClickListener{
+            val intent = Intent(this, PrendaEspecificaActivity::class.java)
+            intent.putExtra("categoria", "Bottoms")
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+
+        btnBodysuit.setOnClickListener{
+            val intent = Intent(this, PrendaEspecificaActivity::class.java)
+            intent.putExtra("categoria", "Bodysuits")
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+
+        btnZapatos.setOnClickListener{
+            val intent = Intent(this, PrendaEspecificaActivity::class.java)
+            intent.putExtra("categoria", "Zapatos")
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+
+        btnAccesorio1.setOnClickListener{
+            val intent = Intent(this, PrendaEspecificaActivity::class.java)
+            intent.putExtra("categoria", "Accesorios")
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+
+        btnAccesorio2.setOnClickListener{
+            val intent = Intent(this, PrendaEspecificaActivity::class.java)
+            intent.putExtra("categoria", "Accesorios")
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+
+        btnAccesorio3.setOnClickListener{
+            val intent = Intent(this, PrendaEspecificaActivity::class.java)
+            intent.putExtra("categoria", "Accesorios")
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
 
         val btnConfirmar: Button = findViewById(R.id.btnConfirmar)
@@ -76,5 +102,9 @@ class RegistroDiarioActivity : MenuNavegable() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    fun cargarPrendas() {
+
     }
 }

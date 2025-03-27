@@ -48,6 +48,7 @@ class CatalogoPrendaEspecifica : MenuNavegable() {
         cuadricula.adapter = adapter
 
         setupBottomNavigation()
+        setSelectedItem(R.id.nav_home)
 
     }
 

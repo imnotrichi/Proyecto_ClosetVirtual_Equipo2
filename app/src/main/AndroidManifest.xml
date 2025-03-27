@@ -29,12 +29,7 @@
             android:exported="false"></activity>
         <activity
             android:name=".CatalogoPrendaEspecifica"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
         <activity
             android:name=".ConfiguracionActivity"
@@ -53,7 +48,13 @@
             android:exported="false" />
         <activity
             android:name=".IdentificacionActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".OutfitsActivity"
             android:exported="false" />

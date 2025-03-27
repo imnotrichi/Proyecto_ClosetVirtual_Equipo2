@@ -59,7 +59,7 @@
         android:layout_weight="1">
 
         <GridView
-            android:id="@+id/prendasPreviewGridView"
+            android:id="@+id/gvPrviewPrendas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:columnWidth="150dp"

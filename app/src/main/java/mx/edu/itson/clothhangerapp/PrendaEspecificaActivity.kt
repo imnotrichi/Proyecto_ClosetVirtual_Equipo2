@@ -3,50 +3,51 @@ package mx.edu.itson.clothhangerapp
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.GridView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class PrendaEspecificaActivity : AppCompatActivity() {
 
-    lateinit var gridView: GridView
     lateinit var adapter: PrendaPreviewAdapter
-    val prendas = ArrayList<PrendaPreviewItem>()
+    var prendas = ArrayList<PrendaPreviewItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_prenda_especifica)
 
-        val category = intent.getStringExtra("CATEGORY") ?: return
-        gridView = findViewById(R.id.prendasPreviewGridView)
+        Toast.makeText(this, "HOLA DESDE EL GRID VIEW LISTENER", Toast.LENGTH_SHORT).show()
+        val gridView:GridView = findViewById(R.id.gvPrviewPrendas)
+        val categoria = intent.getStringExtra("categoria")
 
-        when (category) {
-            "shoes" -> cargarZapatos()
-            "top" -> cargarTops()
-            "pants" -> cargarBottoms()
+        when (categoria) {
+            "Zapatos" -> {
+                cargarZapatos()
+                Toast.makeText(this, "HOLA DESDE EL WHEN CATEGORIA", Toast.LENGTH_SHORT).show()
+            }
+            "Tops" -> cargarTops()
+            "Bottoms" -> cargarBottoms()
+            "Bodysuits" -> cargarTops()
+            "Accesorios" -> cargarTops()
         }
 
         adapter = PrendaPreviewAdapter(this, prendas)
         gridView.adapter = adapter
 
         gridView.setOnItemClickListener { _, _, position, _ ->
+            Toast.makeText(this, "HOLA DESDE EL GRID VIEW LISTENER", Toast.LENGTH_SHORT).show()
             val selectedItem = prendas[position]
-
             val resultIntent = Intent().apply {
-                putExtra("CATEGORY", category)
-                putExtra("SELECTED_ITEM", selectedItem.imagen)
+                putExtra("categoria", categoria)
+                putExtra("articulo", selectedItem.imagen)
             }
             setResult(Activity.RESULT_OK, resultIntent)
             finish()
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
         }
     }
 
@@ -67,4 +68,5 @@ class PrendaEspecificaActivity : AppCompatActivity() {
         prendas.add(PrendaPreviewItem(R.drawable.pantalon_mezclilla, "Pantalón Mezclilla"))
         prendas.add(PrendaPreviewItem(R.drawable.pantalones_cafes, "Pantalón Negro"))
     }
+
 }
