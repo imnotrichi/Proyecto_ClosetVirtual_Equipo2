@@ -18,4 +18,22 @@
     <string name="zapatos_tag">Zapatos</string>
     <string name="bodysuits_tag">Bodysuits</string>
     <string name="accesorios_tag">Accesorios</string>
+
+    <string name="bienvenida">Crea tu propio estilo, ahora.</string>
+
+    <string name="editar">Editar</string>
+    <string name="borrar">Borrar</string>
+    <string name="categoria">Categoría:</string>
+    <string name="color">Color:</string>
+    <string name="estampado">Estampado:</string>
+    <string name="tags">Tags:</string>
+    <string name="total_usos">Total de usos:</string>
+    <string name="usos_mes">Usos este mes:</string>
+
+    <string name="titulo_hoy">¿Qué usarás hoy?</string>
+    <string name="seleccionar_top">Seleccionar Top</string>
+    <string name="seleccionar_bottom">Seleccionar Bottom</string>
+    <string name="seleccionar_bodysuit">Seleccionar Bodysuit</string>
+    <string name="seleccionar_zapatos">Seleccionar Zapatos</string>
+    <string name="seleccionar_accesorios">Seleccionar Accesorios</string>
 </resources>
