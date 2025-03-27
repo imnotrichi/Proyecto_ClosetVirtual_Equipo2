@@ -43,4 +43,23 @@
     <string name="ya_tengo_cuenta">Ya tengo una cuenta,</string>
     <string name="button_iniciar_sesion">iniciar sesión</string>
     <string name="registrar">Registrar</string>
+
+    // Pantalla Configuración
+    <string name="guardar_cambios">Guardar cambios</string>
+
+    // Pantalla Registrar Prenda
+    <string name="titulo">Registrar Prenda</string>
+    <string name="hint_nombre_prenda">Nombre de la prenda</string>
+    <string name="hint_nombre_color">Nombre del color (opcional)</string>
+    <string name="elegir_color">Elige un color</string>
+    <string name="estampado_si">Sí</string>
+    <string name="estampado_no">No</string>
+    <string name="verano">Verano</string>
+    <string name="invierno">Invierno</string>
+    <string name="mas">+</string>
+    <string name="cute">Cute</string>
+    <string name="confirmar">Confirmar</string>
+
+    // Card de guardar cambios
+    <string name="guardar">¿Guardar cambios?</string>
 </resources>

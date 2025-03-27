@@ -6,4 +6,5 @@
     <color name="cream">#F6E9C4</color>
     <color name="gray">#404040</color>
     <color name="transparent_cream">#AAF6E9C4</color>
+    <color name="transparent_dark">#B2000000</color>
 </resources>

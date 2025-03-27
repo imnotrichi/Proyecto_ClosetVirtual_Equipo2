@@ -3,6 +3,12 @@ plugins {
     alias(libs.plugins.kotlin.android)
 }
 
+repositories {
+    mavenCentral()
+    google()
+    maven("https://jitpack.io")  // Sintaxis para Kotlin DSL
+}
+
 android {
     namespace = "mx.edu.itson.clothhangerapp"
     compileSdk = 35
@@ -36,7 +42,7 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.colorpicker)  // Asegúrate de que esta dependencia esté definida correctamente
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
