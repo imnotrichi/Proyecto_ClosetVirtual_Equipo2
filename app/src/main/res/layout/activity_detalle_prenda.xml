@@ -83,7 +83,6 @@
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"/>
 
-
     </LinearLayout>
 
 </LinearLayout>
