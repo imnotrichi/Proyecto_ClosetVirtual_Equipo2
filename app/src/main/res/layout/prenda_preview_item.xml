@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Imagen con borde negro -->
+    <ImageView
+        android:id="@+id/prenda_image_preview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:layout_margin="4dp"
+        android:background="@android:color/black"
+        android:padding="2dp"
+        android:src="@drawable/prenda_floreada"/>
+
+    <!-- Título con fondo negro -->
+    <TextView
+        android:id="@+id/prenda_titulo_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Título"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:background="@android:color/black" />
+
+</LinearLayout>
