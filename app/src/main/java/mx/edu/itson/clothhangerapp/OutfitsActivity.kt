@@ -6,6 +6,7 @@ import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -31,6 +32,7 @@ class OutfitsActivity : MenuNavegable() {
         val inflater = LayoutInflater.from(this)
         for (outfit in outfits) {
             val outfitView = inflater.inflate(R.layout.outfit_view, llOutfits, false)
+            val btnRegistrarOutfit: Button = findViewById(R.id.btnRegisrarOutfit)
 
             setFecha(outfitView.findViewById(R.id.tvFechaOutfit), outfit.fecha)
             setImagen(outfitView.findViewById(R.id.ivTop), outfit.top)
@@ -45,6 +47,11 @@ class OutfitsActivity : MenuNavegable() {
                 abrirDetalleOutfit(outfit, "Top")
             }
 
+            btnRegistrarOutfit.setOnClickListener {
+                val intent = Intent(this, RegistroDiarioActivity::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
 
             // Agregar evento de clic para abrir la pantalla de detalles
             outfitView.setOnClickListener {
