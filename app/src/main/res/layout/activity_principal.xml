@@ -21,17 +21,31 @@
             android:layout_height="131dp"
             app:srcCompat="@drawable/banner" />
 
-        <EditText
-            android:layout_width="200dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="7dp"
-            android:background="@drawable/buscar_edit_text"
-            android:fontFamily="@font/lexend_deca_light"
-            android:hint="@string/hint_buscar"
-            android:paddingLeft="10dp"
-            android:textColor="@color/cream"
-            android:textColorHint="@color/cream" />
+            android:orientation="horizontal"
+            android:layout_gravity="right">
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/buscar_edit_text"
+                android:fontFamily="@font/lexend_deca_light"
+                android:hint="@string/hint_buscar"
+                android:paddingLeft="10dp"
+                android:textColor="@color/cream"
+                android:textColorHint="@color/cream"
+                android:layout_marginRight="8dp"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/search_icon" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <HorizontalScrollView
@@ -110,8 +124,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -135,10 +149,28 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/lvArticulos"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center" />
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lvArticulos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <Button
+            android:id="@+id/btnFixed"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:background="@drawable/button_agregar_prenda"
+            android:gravity="center"
+            android:text="@string/agregar_prenda"
+            android:textColor="@color/cream"
+            android:textSize="45sp" />
+
+    </FrameLayout>
 
 </LinearLayout>

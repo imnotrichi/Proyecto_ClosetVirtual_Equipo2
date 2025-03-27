@@ -62,4 +62,5 @@
 
     // Card de guardar cambios
     <string name="guardar">¿Guardar cambios?</string>
+    <string name="agregar_prenda">+</string>
 </resources>
