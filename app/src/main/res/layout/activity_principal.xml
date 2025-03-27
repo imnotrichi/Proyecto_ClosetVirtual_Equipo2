@@ -33,7 +33,6 @@
             android:textColor="@color/cream"
             android:hint="@string/hint_buscar"
             android:paddingLeft="10dp"/>
-
     </LinearLayout>
 
     <LinearLayout

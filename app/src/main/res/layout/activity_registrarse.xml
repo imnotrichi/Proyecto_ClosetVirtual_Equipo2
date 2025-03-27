@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/fondo_inicio_sesion"
+    tools:context=".RegistrarseActivity">
+
+    <TextView
+        android:id="@+id/tvDejanosConocerte"
+        android:layout_width="321dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/lexend_deca_semi_bold"
+        android:text="@string/dejanos_conocerte"
+        android:textColor="@color/cream"
+        android:textSize="40sp" />
+
+    <EditText
+        android:id="@+id/etNombre"
+        android:layout_width="305dp"
+        android:layout_height="55dp"
+        android:background="@drawable/round_edit_text"
+        android:hint="@string/hint_nombre"
+        android:fontFamily="@font/lexend_deca_medium"
+        android:textColor="@color/black"
+        android:inputType="textPersonName"
+        android:layout_gravity="center"
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="305dp"
+        android:layout_height="55dp"
+        android:background="@drawable/round_edit_text"
+        android:hint="@string/hint_email"
+        android:fontFamily="@font/lexend_deca_medium"
+        android:textColor="@color/black"
+        android:inputType="textEmailAddress"
+        android:layout_gravity="center"
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/etContrasenia"
+        android:layout_width="305dp"
+        android:layout_height="55dp"
+        android:background="@drawable/round_edit_text"
+        android:hint="@string/hint_contrasenia"
+        android:fontFamily="@font/lexend_deca_medium"
+        android:textColor="@color/black"
+        android:inputType="textPassword"
+        android:layout_gravity="center"
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/etConfirmarContrasenia"
+        android:layout_width="305dp"
+        android:layout_height="55dp"
+        android:background="@drawable/round_edit_text"
+        android:hint="@string/hint_confirmar_contrasenia"
+        android:fontFamily="@font/lexend_deca_medium"
+        android:textColor="@color/black"
+        android:inputType="textPassword"
+        android:layout_gravity="center"
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/ya_tengo_cuenta"
+            android:fontFamily="@font/lexend_deca_light"
+            android:textSize="16sp"
+            android:textColor="@color/cream"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/btnIniciarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_iniciar_sesion"
+            android:textSize="16sp"
+            android:fontFamily="@font/lexend_deca_light"
+            android:textColor="@color/cream"
+            android:paddingHorizontal="5dp"
+            android:backgroundTint="@android:color/transparent"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:fontFamily="@font/lexend_deca_light"
+        android:layout_marginHorizontal="20dp"
+        android:textSize="16sp"
+        android:textColor="@color/red"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/btnRegisrar"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/lexend_deca_medium"
+        android:text="@string/registrar"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="100dp" />
+</LinearLayout>

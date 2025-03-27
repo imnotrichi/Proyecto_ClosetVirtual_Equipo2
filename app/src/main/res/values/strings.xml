@@ -36,4 +36,12 @@
     <string name="seleccionar_bodysuit">Seleccionar Bodysuit</string>
     <string name="seleccionar_zapatos">Seleccionar Zapatos</string>
     <string name="seleccionar_accesorios">Seleccionar Accesorios</string>
+    
+    // Pantalla Registrarse
+    <string name="dejanos_conocerte">Déjanos conocerte</string>
+    <string name="hint_nombre">Nombre</string>
+    <string name="hint_confirmar_contrasenia">Confirmar contraseña</string>
+    <string name="ya_tengo_cuenta">Ya tengo una cuenta,</string>
+    <string name="button_iniciar_sesion">iniciar sesión</string>
+    <string name="registrar">Registrar</string>
 </resources>
