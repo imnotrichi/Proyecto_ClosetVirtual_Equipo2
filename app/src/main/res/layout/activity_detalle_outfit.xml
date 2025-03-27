@@ -60,10 +60,29 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/lvPrendasDelDia"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        >
+
+        <ListView
+            android:id="@+id/lvPrendasDelDia"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <Button
+            android:id="@+id/btnFixed"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:background="@drawable/button_agregar_prenda"
+            android:gravity="center"
+            android:text="@string/agregar_prenda"
+            android:textColor="@color/cream"
+            android:textSize="45sp" />
+
+    </FrameLayout>
 
 </LinearLayout>
