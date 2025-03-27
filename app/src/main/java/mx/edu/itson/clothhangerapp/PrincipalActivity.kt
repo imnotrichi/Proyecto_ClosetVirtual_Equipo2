@@ -1,6 +1,7 @@
 package mx.edu.itson.clothhangerapp
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -233,6 +234,16 @@ class PrincipalActivity : AppCompatActivity() {
                 tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
                 tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.black))
             }
+        }
+
+        lvArticulos.setOnItemClickListener { parent, view, position, id ->
+            val articuloSeleccionado = articulos[position]
+            val intent = Intent(this, DetallePrendaActivity::class.java).apply {
+                putExtra("nombre", articuloSeleccionado.nombre)
+                putExtra("imagen", articuloSeleccionado.imagen)
+                putExtra("categoria", articuloSeleccionado.categoria)
+            }
+            startActivity(intent)
         }
     }
 
