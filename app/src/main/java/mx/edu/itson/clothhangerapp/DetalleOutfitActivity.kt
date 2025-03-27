@@ -35,10 +35,10 @@ class DetalleOutfitActivity : MenuNavegable() {
     }
 
     fun cargarOutfit() {
-        outfit.add(Articulo("Lentes de sol", R.drawable.lentes_sol, "Accesorio", "Rosa", "Sí", "Cute", "20", "5"))
-        outfit.add(Articulo("Blusa floreada", R.drawable.top_rosa_flores, "Top", "Rosa", "Sí", "Cute", "20", "5"))
-        outfit.add(Articulo("Pantalón de mezclilla", R.drawable.pantalon_mezclilla, "Bottom", "Rosa", "Sí", "Cute", "20", "5"))
-        outfit.add(Articulo("Zapatillas rojas", R.drawable.zapatilla_roja, "Zapatos", "Rosa", "Sí", "Cute", "20", "5"))
+        outfit.add(Articulo("Lentes de sol", R.drawable.lentes_sol, "Accesorio"))
+        outfit.add(Articulo("Blusa floreada", R.drawable.top_rosa_flores, "Top"))
+        outfit.add(Articulo("Pantalón de mezclilla", R.drawable.pantalon_mezclilla, "Bottom"))
+        outfit.add(Articulo("Zapatillas rojas", R.drawable.zapatilla_roja, "Zapatos"))
     }
 
 }

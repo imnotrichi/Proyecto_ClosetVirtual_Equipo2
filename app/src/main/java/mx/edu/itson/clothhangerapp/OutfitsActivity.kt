@@ -91,23 +91,11 @@ class OutfitsActivity : MenuNavegable() {
         outfits.add(
             Outfit(
                 Calendar.getInstance(),
-                Articulo("Top rosa", R.drawable.top_rosa_flores, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
+                Articulo("Top rosa", R.drawable.top_rosa_flores, "Verano"),
                 null,
-                Articulo("Falda de mezclilla", R.drawable.falda_mezclilla, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                Articulo("Zapatitos rojo", R.drawable.zapatitos_rojos, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
+                Articulo("Falda de mezclilla", R.drawable.falda_mezclilla, "Verano"),
+                Articulo("Zapatitos rojo", R.drawable.zapatitos_rojos, "Verano"),
                 null,
-                null,
-                null
-            )
-        )
-        outfits.add(
-            Outfit(
-                Calendar.getInstance(),
-                Articulo("Perro El Shirota", R.drawable.perro, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                null,
-                Articulo("Pantalones negros", R.drawable.pantalones_negros, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                Articulo("Crocs Rayo McQueen", R.drawable.crocs, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                Articulo("Lentes de broma", R.drawable.broma, "Cute", "Rosa", "Sí", "Cute", "20", "5"),
                 null,
                 null
             )
@@ -115,11 +103,23 @@ class OutfitsActivity : MenuNavegable() {
         outfits.add(
             Outfit(
                 Calendar.getInstance(),
-                Articulo("Top rosita", R.drawable.top_rosita, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
+                Articulo("Perro El Shirota", R.drawable.perro, "Verano"),
                 null,
-                Articulo("Pantalones cafes", R.drawable.pantalones_cafes, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                Articulo("Tenis verdes", R.drawable.zapatos_verdes, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                Articulo("Aretes de gato", R.drawable.aretes_gato, "Cute", "Rosa", "Sí", "Cute", "20", "5"),
+                Articulo("Pantalones negros", R.drawable.pantalones_negros, "Verano"),
+                Articulo("Crocs Rayo McQueen", R.drawable.crocs, "Verano"),
+                Articulo("Lentes de broma", R.drawable.broma, "Cute"),
+                null,
+                null
+            )
+        )
+        outfits.add(
+            Outfit(
+                Calendar.getInstance(),
+                Articulo("Top rosita", R.drawable.top_rosita, "Verano"),
+                null,
+                Articulo("Pantalones cafes", R.drawable.pantalones_cafes, "Verano"),
+                Articulo("Tenis verdes", R.drawable.zapatos_verdes, "Verano"),
+                Articulo("Aretes de gato", R.drawable.aretes_gato, "Cute"),
                 null,
                 null
             )
@@ -128,8 +128,8 @@ class OutfitsActivity : MenuNavegable() {
             Outfit(
                 Calendar.getInstance(),
                 null,
-                Articulo("Bodysuit negro", R.drawable.bodysuit_negro, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                Articulo("Botas negras", R.drawable.botas, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
+                Articulo("Bodysuit negro", R.drawable.bodysuit_negro, "Verano"),
+                Articulo("Botas negras", R.drawable.botas, "Verano"),
                 null,
                 null,
                 null,

@@ -17,29 +17,14 @@ class DetallePrendaActivity : AppCompatActivity() {
         val nombre = intent.getStringExtra("nombre")
         val imagen = intent.getIntExtra("imagen",0)
         val categoria = intent.getStringExtra("categoria")
-        val color = intent.getStringExtra("color")
-        val estampado = intent.getStringExtra("estampado")
-        val tags = intent.getStringExtra("tags")
-        val totalUsos = intent.getStringExtra("totalUsos")
-        val usosMes = intent.getStringExtra("usosMes")
 
         val ivImagen: ImageView = findViewById(R.id.ivImagen)
         val tvNombre: TextView = findViewById(R.id.tvNombre)
         val tvCategoria: TextView = findViewById(R.id.tvCategoria)
-        val tvColor: TextView = findViewById(R.id.tvColor)
-        val tvEstampado: TextView = findViewById(R.id.tvEstampado)
-        val tvTags: TextView = findViewById(R.id.tvTags)
-        val tvTotalUsos: TextView = findViewById(R.id.tvTotalUsos)
-        val tvUsosMes: TextView = findViewById(R.id.tvUsosMes)
 
         ivImagen.setImageResource(imagen)
         tvNombre.text = nombre
         tvCategoria.text = categoria
-        tvColor.text = color
-        tvEstampado.text = estampado
-        tvTags.text = tags
-        tvTotalUsos.text = totalUsos
-        tvUsosMes.text = usosMes
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
