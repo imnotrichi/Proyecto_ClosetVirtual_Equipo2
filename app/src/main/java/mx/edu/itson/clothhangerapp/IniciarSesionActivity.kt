@@ -34,7 +34,7 @@ class IniciarSesionActivity : AppCompatActivity() {
                 tvError.text = "Asegúrese de llenar todos los campos."
                 tvError.visibility = View.VISIBLE
             } else {
-                val intent = Intent(this, PrincipalActivity::class.java)
+                val intent = Intent(this, RegistrarseActivity::class.java)
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }

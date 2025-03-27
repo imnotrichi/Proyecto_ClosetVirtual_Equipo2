@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/cream"
     android:orientation="vertical"
-    tools:context=".ConfiguracionActivity">
+    tools:context=".RegistrarPrendaActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/dark_round_button"
         android:src="@drawable/agregar" />
 
@@ -66,7 +66,7 @@
         android:fontFamily="@font/lexend_deca_medium"
         android:hint="@string/hint_nombre_prenda"
         android:inputType="text"
-        android:paddingHorizontal="10dp"
+        android:paddingHorizontal="20dp"
         android:shadowColor="#000000"
         android:shadowDx="1"
         android:shadowDy="1"
@@ -88,7 +88,7 @@
                 android:id="@+id/tbTops"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/tag_view_off"
                 android:fontFamily="@font/lexend_deca_light"
                 android:paddingVertical="5dp"
@@ -100,7 +100,7 @@
                 android:id="@+id/tbBottoms"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/tag_view_off"
                 android:fontFamily="@font/lexend_deca_light"
                 android:paddingVertical="5dp"
@@ -112,7 +112,7 @@
                 android:id="@+id/tbZapatos"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/tag_view_off"
                 android:fontFamily="@font/lexend_deca_light"
                 android:paddingVertical="5dp"
@@ -124,7 +124,7 @@
                 android:id="@+id/tbBodysuits"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/tag_view_off"
                 android:fontFamily="@font/lexend_deca_light"
                 android:paddingVertical="5dp"
@@ -136,7 +136,7 @@
                 android:id="@+id/tbAccesorios"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/tag_view_off"
                 android:fontFamily="@font/lexend_deca_light"
                 android:paddingVertical="5dp"
@@ -169,7 +169,7 @@
         android:fontFamily="@font/lexend_deca_medium"
         android:hint="@string/hint_nombre_color"
         android:inputType="text"
-        android:paddingHorizontal="10dp"
+        android:paddingHorizontal="20dp"
         android:shadowColor="#000000"
         android:shadowDx="1"
         android:shadowDy="1"
@@ -202,7 +202,7 @@
                 android:id="@+id/tbSi"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/tag_view_off"
                 android:fontFamily="@font/lexend_deca_light"
                 android:paddingVertical="5dp"
@@ -214,20 +214,26 @@
                 android:id="@+id/tbNo"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/tag_view_off"
                 android:fontFamily="@font/lexend_deca_light"
                 android:paddingVertical="5dp"
                 android:textAllCaps="false"
                 android:textOff="@string/estampado_no"
                 android:textOn="@string/estampado_no" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/linea_larga" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -240,17 +246,11 @@
             android:id="@+id/tvCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="20dp"
             android:fontFamily="@font/lexend_deca_medium"
             android:text="@string/tags"
             android:textColor="@color/black"
             android:textSize="20sp" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/linea_larga" />
 
     </LinearLayout>
 
@@ -267,7 +267,7 @@
                 android:id="@+id/tbVerano"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/tag_view_off"
                 android:fontFamily="@font/lexend_deca_light"
                 android:paddingVertical="5dp"
@@ -279,7 +279,7 @@
                 android:id="@+id/tbInvierno"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/tag_view_off"
                 android:fontFamily="@font/lexend_deca_light"
                 android:paddingVertical="5dp"
@@ -291,7 +291,7 @@
                 android:id="@+id/tbCute"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/tag_view_off"
                 android:fontFamily="@font/lexend_deca_light"
                 android:paddingVertical="5dp"
@@ -303,7 +303,7 @@
                 android:id="@+id/tbMas"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/tag_view_off"
                 android:fontFamily="@font/lexend_deca_light"
                 android:paddingVertical="5dp"
@@ -318,7 +318,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/lexend_deca_light"
         android:textAlignment="center"
         android:textColor="@color/red"
@@ -330,7 +330,7 @@
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/dark_round_button"
         android:fontFamily="@font/lexend_deca_medium"
         android:text="@string/confirmar"

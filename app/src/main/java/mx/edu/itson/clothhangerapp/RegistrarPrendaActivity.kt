@@ -1,8 +1,11 @@
 package mx.edu.itson.clothhangerapp
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,6 +25,7 @@ class RegistrarPrendaActivity : AppCompatActivity() {
         }
 
         val btnColor: Button = findViewById(R.id.btnColor)
+        val btnAgregarImagen: ImageButton = findViewById(R.id.ibAgregar)
 
         val defaultColor = Color.BLACK
 
@@ -41,6 +45,15 @@ class RegistrarPrendaActivity : AppCompatActivity() {
                     }
                 })
                 .show()
+        }
+
+        btnAgregarImagen.setOnClickListener {
+            try {
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                startActivity(intent)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }

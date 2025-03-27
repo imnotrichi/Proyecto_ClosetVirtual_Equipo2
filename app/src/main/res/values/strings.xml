@@ -66,4 +66,8 @@
     // Card de guardar cambios
     <string name="guardar">¿Guardar cambios?</string>
     <string name="agregar_prenda">+</string>
+
+    // Pantalla de outfits
+    <string name="outfits">Outfits</string>
+    <string name="fecha">26/03/2025</string>
 </resources>

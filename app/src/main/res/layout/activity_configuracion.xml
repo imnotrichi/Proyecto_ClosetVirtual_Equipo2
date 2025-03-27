@@ -74,7 +74,7 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="8"
-        android:textColor="@color/black"
+        android:textColor="@color/cream"
         android:textColorHint="@color/cream" />
 
     <EditText
@@ -92,7 +92,7 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="8"
-        android:textColor="@color/black"
+        android:textColor="@color/cream"
         android:textColorHint="@color/cream" />
 
     <EditText
@@ -110,7 +110,7 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="8"
-        android:textColor="@color/black"
+        android:textColor="@color/cream"
         android:textColorHint="@color/cream" />
 
     <TextView
