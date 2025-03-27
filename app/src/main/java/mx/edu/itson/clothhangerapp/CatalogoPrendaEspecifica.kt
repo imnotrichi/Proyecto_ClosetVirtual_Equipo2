@@ -1,6 +1,7 @@
 package mx.edu.itson.clothhangerapp
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.security.Principal
 
 class CatalogoPrendaEspecifica : AppCompatActivity() {
 
@@ -123,6 +125,11 @@ class PrendaPreviewAdapter : BaseAdapter {
 
         imagen.setImageResource(articulo.imagen)
         nombre.setText(articulo.nombre)
+
+        imagen.setOnClickListener() {
+            val intento = Intent(context, PrincipalActivity::class.java)
+            context!!.startActivity(intento)
+        }
 
         return vista
     }
