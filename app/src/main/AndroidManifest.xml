@@ -29,10 +29,19 @@
             android:exported="false" />
         <activity
             android:name=".InicioActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".DetallePrendaActivity"
+            android:exported="false"/>
         <activity
             android:name=".CatalogoPrendaEspecifica"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".ConfiguracionActivity"
             android:exported="false" />
@@ -50,13 +59,7 @@
             android:exported="false" />
         <activity
             android:name=".IdentificacionActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".OutfitsActivity"
             android:exported="false" />
