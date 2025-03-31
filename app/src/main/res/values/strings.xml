@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ClothHangerApp</string>
-    <string name="saludo">Es un gusto tenerte aquí de nuevo</string>
+    <string name="saludo">¡Es un gusto tenerte aquí de nuevo!</string>
     <string name="no_tengo_cuenta">No tengo una cuenta,</string>
     <string name="button_registrarme">registrarme.</string>
     <string name="hint_email">Email</string>
@@ -30,8 +30,9 @@
     <string name="seleccionar_zapatos">Seleccionar Zapatos</string>
     <string name="seleccionar_accesorios">Seleccionar Accesorios</string>
 
-    <string name="titulo_identificacion">Identifícate</string>
+    <string name="titulo_identificacion">¡Identifícate!</string>
     <string name="pregunta_cuenta">¿Ya tienes una cuenta?</string>
+    <string name="pregunta_nuevo">¿Eres nuevo?</string>
     <string name="iniciar_sesion">Iniciar sesión</string>
     <string name="registrarse">Registrarse</string>
     <string name="tops_tag">Tops</string>
@@ -41,7 +42,7 @@
     <string name="accesorios_tag">Accesorios</string>
 
     // Pantalla Registrarse
-    <string name="dejanos_conocerte">Déjanos conocerte</string>
+    <string name="dejanos_conocerte">¡Déjanos conocerte!</string>
     <string name="hint_nombre">Nombre</string>
     <string name="hint_confirmar_contrasenia">Confirmar contraseña</string>
     <string name="ya_tengo_cuenta">Ya tengo una cuenta,</string>

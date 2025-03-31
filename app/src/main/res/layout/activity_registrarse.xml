@@ -11,10 +11,11 @@
 
     <TextView
         android:id="@+id/tvDejanosConocerte"
-        android:layout_width="321dp"
+        android:layout_width="305dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
+        android:textAlignment="center"
         android:fontFamily="@font/lexend_deca_semi_bold"
         android:text="@string/dejanos_conocerte"
         android:textColor="@color/cream"
@@ -28,10 +29,11 @@
         android:hint="@string/hint_nombre"
         android:fontFamily="@font/lexend_deca_medium"
         android:textColor="@color/black"
+        android:textSize="22sp"
         android:inputType="textPersonName"
         android:layout_gravity="center"
         android:paddingHorizontal="10dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="190dp"/>
 
     <EditText
         android:id="@+id/etEmail"
@@ -42,6 +44,7 @@
         android:fontFamily="@font/lexend_deca_medium"
         android:textColor="@color/black"
         android:inputType="textEmailAddress"
+        android:textSize="22sp"
         android:layout_gravity="center"
         android:paddingHorizontal="10dp"
         android:layout_marginTop="20dp"/>
@@ -56,6 +59,7 @@
         android:textColor="@color/black"
         android:inputType="textPassword"
         android:layout_gravity="center"
+        android:textSize="22sp"
         android:paddingHorizontal="10dp"
         android:layout_marginTop="20dp"/>
 
@@ -69,6 +73,7 @@
         android:textColor="@color/black"
         android:inputType="textPassword"
         android:layout_gravity="center"
+        android:textSize="22sp"
         android:paddingHorizontal="10dp"
         android:layout_marginTop="20dp"/>
 
@@ -90,7 +95,7 @@
         <Button
             android:id="@+id/btnIniciarSesion"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="@string/button_iniciar_sesion"
             android:textSize="16sp"
             android:textAllCaps="false"

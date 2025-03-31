@@ -10,15 +10,15 @@
     tools:context=".IdentificacionActivity">
 
     <TextView
-        android:layout_height="wrap_content"
         android:layout_width="321dp"
-        android:fontFamily="@font/lexend_deca_semi_bold"
-        android:textSize="40sp"
-        android:text="@string/titulo_identificacion"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:fontFamily="@font/lexend_deca_semi_bold"
         android:gravity="center"
+        android:text="@string/titulo_identificacion"
         android:textColor="@color/cream"
-        android:layout_marginTop="120dp" />
+        android:textSize="40sp" />
 
     <TextView
         android:layout_height="wrap_content"
@@ -28,30 +28,42 @@
         android:textSize="20sp"
         android:textColor="@color/cream"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"/>
+        android:layout_marginTop="400dp"/>
 
     <Button
         android:id="@+id/btnIrIniciarSesion"
-        android:layout_width="310dp"
+        android:layout_width="280dp"
         android:layout_height="55dp"
         android:layout_gravity="center"
         android:background="@drawable/round_button"
         android:fontFamily="@font/lexend_deca_medium"
         android:text="@string/iniciar_sesion"
+        android:textAllCaps="false"
         android:textSize="24sp"
         android:textColor="@color/black"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/pregunta_nuevo"
+        android:fontFamily="@font/lexend_deca_light"
+        android:textSize="20sp"
+        android:textColor="@color/cream"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
 
     <Button
         android:id="@+id/btnIrRegistrarse"
-        android:layout_width="310dp"
+        android:layout_width="280dp"
         android:layout_height="55dp"
         android:layout_gravity="center"
         android:background="@drawable/round_button"
         android:fontFamily="@font/lexend_deca_medium"
         android:text="@string/registrarse"
+        android:textAllCaps="false"
         android:textSize="24sp"
         android:textColor="@color/black"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>

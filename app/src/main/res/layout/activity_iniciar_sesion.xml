@@ -11,13 +11,14 @@
 
     <TextView
         android:layout_height="wrap_content"
-        android:layout_width="321dp"
+        android:layout_width="305dp"
         android:fontFamily="@font/lexend_deca_semi_bold"
         android:textSize="40sp"
         android:text="@string/saludo"
         android:layout_gravity="center"
+        android:textAlignment="center"
         android:textColor="@color/cream"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="130dp" />
 
     <EditText
         android:id="@+id/etEmail"
@@ -28,9 +29,10 @@
         android:fontFamily="@font/lexend_deca_medium"
         android:textColor="@color/black"
         android:inputType="textEmailAddress"
+        android:textSize="22sp"
         android:layout_gravity="center"
         android:paddingHorizontal="10dp"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="260dp"/>
 
     <EditText
         android:id="@+id/etContrasenia"
@@ -40,6 +42,7 @@
         android:hint="@string/hint_contrasenia"
         android:fontFamily="@font/lexend_deca_medium"
         android:textColor="@color/black"
+        android:textSize="22sp"
         android:inputType="textPassword"
         android:layout_gravity="center"
         android:paddingHorizontal="10dp"
@@ -63,7 +66,7 @@
         <Button
             android:id="@+id/btnRegistrarme"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="@string/button_registrarme"
             android:textSize="16sp"
             android:fontFamily="@font/lexend_deca_light"
@@ -97,6 +100,6 @@
         android:textAllCaps="false"
         android:textSize="24sp"
         android:textColor="@color/black"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>

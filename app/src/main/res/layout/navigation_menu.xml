@@ -12,4 +12,4 @@
     app:elevation="8dp"
     app:itemTextColor="@color/cream"
     app:itemIconTint="@color/cream"
-    app:itemIconSize="40dp"/>
+    app:itemIconSize="25dp"/>
