@@ -41,6 +41,23 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="15dp"
+        android:fontFamily="@font/lexend_deca_semi_bold"
+        android:text="@string/mi_perfil"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="40sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        android:layout_marginHorizontal="15dp"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,21 +65,12 @@
         android:layout_gravity="center"
         android:layout_weight="1">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/titulo_perfil"
-            android:textColor="@color/black"
-            android:textSize="60sp"
-            android:fontFamily="@font/lexend_deca_semi_bold"
-            android:layout_gravity="center"/>
-
         <EditText
             android:id="@+id/etNombre"
             android:layout_width="305dp"
             android:layout_height="55dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="110dp"
             android:background="@drawable/dark_round_edit_text"
             android:fontFamily="@font/lexend_deca_medium"
             android:hint="@string/hint_nombre"
@@ -80,7 +88,7 @@
             android:layout_width="305dp"
             android:layout_height="55dp"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/dark_round_edit_text"
             android:fontFamily="@font/lexend_deca_medium"
             android:hint="@string/hint_email"
@@ -98,7 +106,7 @@
             android:layout_width="305dp"
             android:layout_height="55dp"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/dark_round_edit_text"
             android:fontFamily="@font/lexend_deca_medium"
             android:hint="@string/hint_contrasenia"
@@ -116,7 +124,7 @@
             android:layout_width="305dp"
             android:layout_height="55dp"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/dark_round_edit_text"
             android:fontFamily="@font/lexend_deca_medium"
             android:hint="@string/hint_confirmar_contrasenia"
@@ -146,7 +154,7 @@
             android:layout_width="280dp"
             android:layout_height="55dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="100dp"
             android:background="@drawable/dark_round_button"
             android:fontFamily="@font/lexend_deca_medium"
             android:text="@string/guardar_cambios"
@@ -198,7 +206,6 @@
     <include
         layout="@layout/navigation_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
