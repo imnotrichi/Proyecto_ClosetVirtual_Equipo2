@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="174dp"
+        android:layout_height="wrap_content"
         android:background="@color/black"
         android:orientation="vertical">
 
@@ -40,138 +40,168 @@
                 app:srcCompat="@drawable/closet_virtual" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:orientation="horizontal">
-
-            <EditText
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginRight="8dp"
-                android:background="@drawable/buscar_edit_text"
-                android:fontFamily="@font/lexend_deca_light"
-                android:hint="@string/hint_buscar"
-                android:paddingLeft="10dp"
-                android:textColor="@color/cream"
-                android:textColorHint="@color/cream" />
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/search_icon" />
-
-        </LinearLayout>
-
     </LinearLayout>
 
-    <HorizontalScrollView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="15dp"
+        android:fontFamily="@font/lexend_deca_semi_bold"
+        android:text="@string/mis_prendas"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="40sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ToggleButton
-                android:id="@+id/tbTops"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/tag_view_off"
-                android:fontFamily="@font/lexend_deca_light"
-                android:paddingVertical="5dp"
-                android:textAllCaps="false"
-                android:textOff="@string/tops_tag"
-                android:textOn="@string/tops_tag" />
-
-            <ToggleButton
-                android:id="@+id/tbBottoms"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/tag_view_off"
-                android:fontFamily="@font/lexend_deca_light"
-                android:paddingVertical="5dp"
-                android:textAllCaps="false"
-                android:textOff="@string/bottoms_tag"
-                android:textOn="@string/bottoms_tag" />
-
-            <ToggleButton
-                android:id="@+id/tbZapatos"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/tag_view_off"
-                android:fontFamily="@font/lexend_deca_light"
-                android:paddingVertical="5dp"
-                android:textAllCaps="false"
-                android:textOff="@string/zapatos_tag"
-                android:textOn="@string/zapatos_tag" />
-
-            <ToggleButton
-                android:id="@+id/tbBodysuits"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/tag_view_off"
-                android:fontFamily="@font/lexend_deca_light"
-                android:paddingVertical="5dp"
-                android:textAllCaps="false"
-                android:textOff="@string/bodysuits_tag"
-                android:textOn="@string/bodysuits_tag" />
-
-            <ToggleButton
-                android:id="@+id/tbAccesorios"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/tag_view_off"
-                android:fontFamily="@font/lexend_deca_light"
-                android:paddingVertical="5dp"
-                android:textAllCaps="false"
-                android:textOff="@string/accesorios_tag"
-                android:textOn="@string/accesorios_tag" />
-
-        </LinearLayout>
-
-    </HorizontalScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        android:layout_marginHorizontal="15dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="5dp"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:layout_width="330dp"
+            android:layout_height="35dp"
+            android:background="@drawable/buscar_edit_text"
+            android:fontFamily="@font/lexend_deca_light"
+            android:hint="@string/hint_buscar"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"/>
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/icono_buscar" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        android:gravity="center"
+        android:layout_marginVertical="5dp">
+
+        <ImageButton
+            android:id="@+id/tbTops"
+            android:layout_width="60dp"
             android:layout_height="35dp"
-            android:src="@drawable/linea_corta" />
+            app:srcCompat="@drawable/icono_tops_negro"
+            android:background="@drawable/tag_view_off"
+            android:scaleType="centerInside"
+            android:paddingVertical="4dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        
+        <ImageButton
+            android:id="@+id/tbBottoms"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            app:srcCompat="@drawable/icono_bottoms_negro"
+            android:background="@drawable/tag_view_off"
+            android:scaleType="centerInside"
+            android:paddingVertical="4dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/tbZapatos"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            app:srcCompat="@drawable/icono_zapatos_negro"
+            android:background="@drawable/tag_view_off"
+            android:scaleType="centerInside"
+            android:paddingVertical="4dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/tbBodysuits"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            app:srcCompat="@drawable/icono_bodysuits_negro"
+            android:background="@drawable/tag_view_off"
+            android:scaleType="centerInside"
+            android:paddingVertical="2dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/tbAccesorios"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            app:srcCompat="@drawable/icono_accesorios_negro"
+            android:background="@drawable/tag_view_off"
+            android:scaleType="centerInside"
+            android:paddingVertical="6dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        android:visibility="invisible"
+        android:layout_marginVertical="5dp">
+
+        <View
+            android:layout_width="150dp"
+            android:layout_height="2dp"
+            android:background="@color/black"/>
 
         <TextView
             android:id="@+id/tvCategoria"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:fontFamily="@font/lexend_deca_medium"
-            android:text="Categoría"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginVertical="15dp"
+            android:fontFamily="@font/lexend_deca_semi_bold"
+            android:text="Categoria"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="22sp"
+            android:layout_marginHorizontal="10dp"/>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:src="@drawable/linea_larga" />
+        <View
+            android:layout_width="150dp"
+            android:layout_height="2dp"
+            android:background="@color/black"/>
 
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:paddingHorizontal="10dp">
 
         <ListView
             android:id="@+id/lvArticulos"
@@ -196,7 +226,6 @@
     <include
         layout="@layout/navigation_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -28,6 +28,9 @@ class RegistroDiarioActivity : MenuNavegable() {
         val btnAccesorio2:Button = findViewById(R.id.btnSeleccionarAccesorios2)
         val btnAccesorio3:Button = findViewById(R.id.btnSeleccionarAccesorios3)
 
+        setupBottomNavigation()
+        setSelectedItem(R.id.nav_hoy)
+
         val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val data = result.data
@@ -111,7 +114,4 @@ class RegistroDiarioActivity : MenuNavegable() {
         }
     }
 
-    fun cargarPrendas() {
-
-    }
 }

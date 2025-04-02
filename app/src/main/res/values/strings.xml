@@ -30,11 +30,13 @@
     <string name="seleccionar_zapatos">Seleccionar Zapatos</string>
     <string name="seleccionar_accesorios">Seleccionar Accesorios</string>
 
+    //Pantallas Iniciales
     <string name="titulo_identificacion">¡Identifícate!</string>
     <string name="pregunta_cuenta">¿Ya tienes una cuenta?</string>
     <string name="pregunta_nuevo">¿Eres nuevo?</string>
-    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="iniciar_sesion">Iniciar Sesión</string>
     <string name="registrarse">Registrarse</string>
+
     <string name="tops_tag">Tops</string>
     <string name="bottoms_tag">Bottoms</string>
     <string name="zapatos_tag">Zapatos</string>
@@ -74,4 +76,5 @@
     <string name="fecha">26/03/2025</string>
     <string name="titulo_perfil">Perfil</string>
     <string name="boton_cancelar_text">Cancelar</string>
+    <string name="mis_prendas">Mis Prendas</string>
 </resources>

@@ -10,6 +10,6 @@
     app:labelVisibilityMode="labeled"
     app:menu="@menu/menu_bar"
     app:elevation="8dp"
-    app:itemTextColor="@color/cream"
-    app:itemIconTint="@color/cream"
-    app:itemIconSize="25dp"/>
+    app:itemTextColor="@color/item_menu_color"
+    app:itemIconTint="@color/item_menu_color"
+    app:itemIconSize="40dp"/>

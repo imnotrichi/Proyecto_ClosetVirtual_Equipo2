@@ -8,40 +8,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.ToggleButton
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Visibility
 
 class PrincipalActivity : MenuNavegable() {
 
-    var articulos:ArrayList<Articulo> = ArrayList<Articulo>()
-    var tbTops: ToggleButton? = null
-    var tbBottoms: ToggleButton? = null
-    var tbZapatos: ToggleButton? = null
-    var tbBodysuits: ToggleButton? = null
-    var tbAccesorios: ToggleButton? = null
+    private var articulos:ArrayList<Articulo> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
 
+        var tbTops = findViewById<ImageButton>(R.id.tbTops)
+        var tbBottoms = findViewById<ImageButton>(R.id.tbBottoms)
+        var tbZapatos = findViewById<ImageButton>(R.id.tbZapatos)
+        var tbBodysuits = findViewById<ImageButton>(R.id.tbBodysuits)
+        var tbAccesorios = findViewById<ImageButton>(R.id.tbAccesorios)
 
-        tbTops = findViewById(R.id.tbTops)
-        tbBottoms = findViewById(R.id.tbBottoms)
-        tbZapatos = findViewById(R.id.tbZapatos)
-        tbBodysuits = findViewById(R.id.tbBodysuits)
-        tbAccesorios = findViewById(R.id.tbAccesorios)
-
-        var tvCategoria:TextView = findViewById(R.id.tvCategoria)
         var lvArticulos:ListView = findViewById(R.id.lvArticulos)
+        var llCategoria = findViewById<LinearLayout>(R.id.llCategoria)
+        var tvCategoria = findViewById<TextView>(R.id.tvCategoria)
 
         setupBottomNavigation()
         setSelectedItem(R.id.nav_home)
@@ -54,198 +46,229 @@ class PrincipalActivity : MenuNavegable() {
             startActivity(intent)
         }
 
-        tbTops!!.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                tbBottoms!!.isChecked = false
-                tbBottoms!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbBottoms!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+        var isTopsChecked = false
+        var isBottomsChecked = false
+        var isZapatosChecked = false
+        var isBodysuitsChecked = false
+        var isAccesoriosChecked = false
 
-                tbZapatos!!.isChecked = false
-                tbZapatos!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbZapatos!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbBodysuits!!.isChecked = false
-                tbBodysuits!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbBodysuits!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbAccesorios!!.isChecked = false
-                tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
+        tbTops.setOnClickListener {
+            isTopsChecked = !isTopsChecked
+            if (isTopsChecked) {
+                llCategoria.visibility = View.VISIBLE
                 tvCategoria.text = "Tops"
+
+                tbBottoms.setImageResource(R.drawable.icono_bottoms_negro)
+                tbBottoms.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbZapatos.setImageResource(R.drawable.icono_zapatos_negro)
+                tbZapatos.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbBodysuits.setImageResource(R.drawable.icono_bodysuits_negro)
+                tbBodysuits.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbAccesorios.setImageResource(R.drawable.icono_accesorios_negro)
+                tbAccesorios.setBackgroundResource(R.drawable.tag_view_off)
+
+                isAccesoriosChecked = false
+                isBottomsChecked = false
+                isZapatosChecked = false
+                isBodysuitsChecked = false
+
                 articulos.clear()
                 agregarTops()
 
-                var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
+                var adapatador = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                tbTops!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_on)
-                tbTops!!.setTextColor(ContextCompat.getColor(this, R.color.white))
+                tbTops.setImageResource(R.drawable.icono_tops_blanco)
+                tbTops.setBackgroundResource(R.drawable.tag_view_on)
             } else {
-                tvCategoria.text = "Categoría"
+                llCategoria.visibility = View.INVISIBLE
+
                 articulos.clear()
 
-                var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
+                var adapatador = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                tbTops!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbTops!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbTops.setImageResource(R.drawable.icono_tops_negro)
+                tbTops.setBackgroundResource(R.drawable.tag_view_off)
             }
         }
 
-        tbBottoms!!.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                tbTops!!.isChecked = false
-                tbTops!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbTops!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbZapatos!!.isChecked = false
-                tbZapatos!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbZapatos!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbBodysuits!!.isChecked = false
-                tbBodysuits!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbBodysuits!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbAccesorios!!.isChecked = false
-                tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
+        tbBottoms.setOnClickListener {
+            isBottomsChecked = !isBottomsChecked
+            if (isBottomsChecked) {
+                llCategoria.visibility = View.VISIBLE
                 tvCategoria.text = "Bottoms"
+
+                tbTops.setImageResource(R.drawable.icono_tops_negro)
+                tbTops.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbZapatos.setImageResource(R.drawable.icono_zapatos_negro)
+                tbZapatos.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbBodysuits.setImageResource(R.drawable.icono_bodysuits_negro)
+                tbBodysuits.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbAccesorios.setImageResource(R.drawable.icono_accesorios_negro)
+                tbAccesorios.setBackgroundResource(R.drawable.tag_view_off)
+
+                isTopsChecked = false
+                isAccesoriosChecked = false
+                isZapatosChecked = false
+                isBodysuitsChecked = false
+
                 articulos.clear()
                 agregarBottoms()
 
-                var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
+                var adapatador = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                tbBottoms!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_on)
-                tbBottoms!!.setTextColor(ContextCompat.getColor(this, R.color.white))
+                tbBottoms.setImageResource(R.drawable.icono_bottoms_blanco)
+                tbBottoms.setBackgroundResource(R.drawable.tag_view_on)
             } else {
-                tvCategoria.text = "Categoría"
+                llCategoria.visibility = View.INVISIBLE
+
                 articulos.clear()
 
-                var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
+                var adapatador = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                tbBottoms!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbBottoms!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbBottoms.setImageResource(R.drawable.icono_bottoms_negro)
+                tbBottoms.setBackgroundResource(R.drawable.tag_view_off)
             }
         }
 
-        tbZapatos!!.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                tbTops!!.isChecked = false
-                tbTops!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbTops!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbBottoms!!.isChecked = false
-                tbBottoms!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbBottoms!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbBodysuits!!.isChecked = false
-                tbBodysuits!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbBodysuits!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbAccesorios!!.isChecked = false
-                tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
+        tbZapatos.setOnClickListener {
+            isZapatosChecked = !isZapatosChecked
+            if (isZapatosChecked) {
+                llCategoria.visibility = View.VISIBLE
                 tvCategoria.text = "Zapatos"
+
+                tbBottoms.setImageResource(R.drawable.icono_bottoms_negro)
+                tbBottoms.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbTops.setImageResource(R.drawable.icono_tops_negro)
+                tbTops.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbBodysuits.setImageResource(R.drawable.icono_bodysuits_negro)
+                tbBodysuits.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbAccesorios.setImageResource(R.drawable.icono_accesorios_negro)
+                tbAccesorios.setBackgroundResource(R.drawable.tag_view_off)
+
+                isTopsChecked = false
+                isBottomsChecked = false
+                isAccesoriosChecked = false
+                isBodysuitsChecked = false
+
                 articulos.clear()
                 agregarZapatos()
 
-                var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
+                var adapatador = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                tbZapatos!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_on)
-                tbZapatos!!.setTextColor(ContextCompat.getColor(this, R.color.white))
+                tbZapatos.setImageResource(R.drawable.icono_zapatos_blanco)
+                tbZapatos.setBackgroundResource(R.drawable.tag_view_on)
             } else {
-                tvCategoria.text = "Categoría"
+                llCategoria.visibility = View.INVISIBLE
+
                 articulos.clear()
 
-                var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
+                var adapatador = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                tbZapatos!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbZapatos!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbZapatos.setImageResource(R.drawable.icono_zapatos_negro)
+                tbZapatos.setBackgroundResource(R.drawable.tag_view_off)
             }
         }
 
-        tbBodysuits!!.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                tbTops!!.isChecked = false
-                tbTops!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbTops!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbBottoms!!.isChecked = false
-                tbBottoms!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbBottoms!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbZapatos!!.isChecked = false
-                tbZapatos!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbZapatos!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbAccesorios!!.isChecked = false
-                tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
+        tbBodysuits.setOnClickListener {
+            isBodysuitsChecked = !isBodysuitsChecked
+            if (isBodysuitsChecked) {
+                llCategoria.visibility = View.VISIBLE
                 tvCategoria.text = "Bodysuits"
+
+                tbBottoms.setImageResource(R.drawable.icono_bottoms_negro)
+                tbBottoms.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbZapatos.setImageResource(R.drawable.icono_zapatos_negro)
+                tbZapatos.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbTops.setImageResource(R.drawable.icono_tops_negro)
+                tbTops.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbAccesorios.setImageResource(R.drawable.icono_accesorios_negro)
+                tbAccesorios.setBackgroundResource(R.drawable.tag_view_off)
+
+                isTopsChecked = false
+                isBottomsChecked = false
+                isZapatosChecked = false
+                isAccesoriosChecked = false
+
                 articulos.clear()
                 agregarBodysuits()
 
-                var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
+                var adapatador = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                tbBodysuits!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_on)
-                tbBodysuits!!.setTextColor(ContextCompat.getColor(this, R.color.white))
+                tbBodysuits.setImageResource(R.drawable.icono_bodysuit_blanco)
+                tbBodysuits.setBackgroundResource(R.drawable.tag_view_on)
             } else {
-                tvCategoria.text = "Categoría"
+                llCategoria.visibility = View.INVISIBLE
+
                 articulos.clear()
 
-                var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
+                var adapatador = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                tbBodysuits!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbBodysuits!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbBodysuits.setImageResource(R.drawable.icono_bodysuits_negro)
+                tbBodysuits.setBackgroundResource(R.drawable.tag_view_off)
             }
         }
 
-        tbAccesorios!!.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                tbTops!!.isChecked = false
-                tbTops!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbTops!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbBottoms!!.isChecked = false
-                tbBottoms!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbBottoms!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbZapatos!!.isChecked = false
-                tbZapatos!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbZapatos!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                tbBodysuits!!.isChecked = false
-                tbBodysuits!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbBodysuits!!.setTextColor(ContextCompat.getColor(this, R.color.black))
-
+        tbAccesorios.setOnClickListener {
+            isAccesoriosChecked = !isAccesoriosChecked
+            if (isAccesoriosChecked) {
+                llCategoria.visibility = View.VISIBLE
                 tvCategoria.text = "Accesorios"
+
+                tbBottoms.setImageResource(R.drawable.icono_bottoms_negro)
+                tbBottoms.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbZapatos.setImageResource(R.drawable.icono_zapatos_negro)
+                tbZapatos.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbBodysuits.setImageResource(R.drawable.icono_bodysuits_negro)
+                tbBodysuits.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbTops.setImageResource(R.drawable.icono_tops_negro)
+                tbTops.setBackgroundResource(R.drawable.tag_view_off)
+
+                isTopsChecked = false
+                isBottomsChecked = false
+                isZapatosChecked = false
+                isBodysuitsChecked = false
+
                 articulos.clear()
                 agregarAccesorios()
 
-                var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
+                var adapatador = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_on)
-                tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.white))
+                tbAccesorios.setImageResource(R.drawable.icono_accesorios_blanco)
+                tbAccesorios.setBackgroundResource(R.drawable.tag_view_on)
             } else {
-                tvCategoria.text = "Categoría"
+                llCategoria.visibility = View.INVISIBLE
+
                 articulos.clear()
 
-                var adapatador:AdaptadorArticulos = AdaptadorArticulos(this, articulos)
+                var adapatador = AdaptadorArticulos(this, articulos)
                 lvArticulos.adapter = adapatador
 
-                tbAccesorios!!.background = ContextCompat.getDrawable(this, R.drawable.tag_view_off)
-                tbAccesorios!!.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbAccesorios.setImageResource(R.drawable.icono_accesorios_negro)
+                tbAccesorios.setBackgroundResource(R.drawable.tag_view_off)
             }
         }
 
