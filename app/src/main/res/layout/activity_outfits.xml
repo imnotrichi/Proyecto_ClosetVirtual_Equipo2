@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         android:background="@color/black"
         android:orientation="vertical">
 
@@ -39,34 +39,25 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/closet_virtual" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_gravity="center"
+        android:layout_marginVertical="15dp"
+        android:fontFamily="@font/lexend_deca_semi_bold"
+        android:text="@string/outfits"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="40sp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:src="@drawable/linea_corta" />
-
-        <TextView
-            android:id="@+id/tvCategoria"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:fontFamily="@font/lexend_deca_medium"
-            android:text="@string/outfits"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:src="@drawable/linea_larga" />
-    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        android:layout_marginHorizontal="15dp"/>
 
     <HorizontalScrollView
         android:id="@+id/hsvOutfits"
@@ -84,21 +75,23 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-        android:gravity="center|bottom|right">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnRegisrarOutfit"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/button_agregar_prenda"
-            android:gravity="center"
-            android:text="@string/agregar_prenda"
+            android:id="@+id/btnCrearOutfit"
+            android:layout_width="280dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:background="@drawable/dark_round_button"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:text="@string/crear_outfit"
+            android:textAllCaps="false"
             android:textColor="@color/cream"
-            android:textSize="45sp" />
+            android:textSize="24sp" />
 
     </LinearLayout>
 

@@ -5,80 +5,94 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/cream"
+    android:orientation="vertical"
     tools:context=".RegistroDiarioActivity">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:srcCompat="@drawable/banner2" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:gravity="center_vertical">
+        android:background="@color/black"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/linea_hoy"
-            android:layout_gravity="center"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/titulo_hoy"
-            android:fontFamily="@font/lexend_deca_medium"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-            android:layout_gravity="center"/>
+            <ImageView
+                android:id="@+id/ivBanner"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/banner" />
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/linea_hoy"
-            android:layout_gravity="center"/>
+            <ImageView
+                android:id="@+id/ivLogo"
+                android:layout_width="match_parent"
+                android:layout_height="131dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/closet_virtual" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="15dp"
+        android:fontFamily="@font/lexend_deca_semi_bold"
+        android:text="@string/titulo_hoy"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="40sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="15dp"
+        android:background="@color/black" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="133dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="right">
+            android:gravity="right"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnSeleccionarTop"
-                android:layout_width="113dp"
-                android:layout_height="190dp"
+                android:layout_width="110dp"
+                android:layout_height="135dp"
                 android:background="@drawable/round_button_negro"
-                android:text="@string/seleccionar_top"
                 android:fontFamily="@font/lexend_deca_regular"
+                android:text="@string/seleccionar_top"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textAllCaps="false"/>
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnSeleccionarBottom"
-                android:layout_width="113dp"
-                android:layout_height="340dp"
+                android:layout_width="110dp"
+                android:layout_height="280dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/round_button_negro"
-                android:text="@string/seleccionar_bottom"
                 android:fontFamily="@font/lexend_deca_regular"
+                android:text="@string/seleccionar_bottom"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textAllCaps="false"/>
+                android:textSize="16sp" />
 
 
         </LinearLayout>
@@ -86,44 +100,44 @@
         <LinearLayout
             android:layout_width="133dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnSeleccionarBodysuit"
-                android:layout_width="113dp"
-                android:layout_height="340dp"
+                android:layout_width="110dp"
+                android:layout_height="280dp"
                 android:background="@drawable/round_button_negro"
-                android:text="@string/seleccionar_bodysuit"
                 android:fontFamily="@font/lexend_deca_regular"
+                android:text="@string/seleccionar_bodysuit"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textAllCaps="false"/>
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnSeleccionarZapatos"
-                android:layout_width="113dp"
-                android:layout_height="190dp"
+                android:layout_width="110dp"
+                android:layout_height="135dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/round_button_negro"
-                android:text="@string/seleccionar_zapatos"
                 android:fontFamily="@font/lexend_deca_regular"
+                android:text="@string/seleccionar_zapatos"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textAllCaps="false"/>
+                android:textSize="16sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="133dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="left">
+            android:gravity="left"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnSeleccionarAccesorios1"
-                android:layout_width="113dp"
-                android:layout_height="175dp"
+                android:layout_width="110dp"
+                android:layout_height="135dp"
                 android:background="@drawable/round_button_negro"
                 android:fontFamily="@font/lexend_deca_regular"
                 android:text="@string/seleccionar_zapatos"
@@ -133,27 +147,27 @@
 
             <Button
                 android:id="@+id/btnSeleccionarAccesorios2"
-                android:layout_width="113dp"
-                android:layout_height="171dp"
+                android:layout_width="110dp"
+                android:layout_height="135dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/round_button_negro"
-                android:text="@string/seleccionar_zapatos"
                 android:fontFamily="@font/lexend_deca_regular"
+                android:text="@string/seleccionar_zapatos"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textAllCaps="false"/>
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnSeleccionarAccesorios3"
-                android:layout_width="113dp"
-                android:layout_height="175dp"
+                android:layout_width="110dp"
+                android:layout_height="135dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/round_button_negro"
-                android:text="@string/seleccionar_zapatos"
                 android:fontFamily="@font/lexend_deca_regular"
+                android:text="@string/seleccionar_zapatos"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textAllCaps="false"/>
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -162,43 +176,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_weight="1"
         android:layout_marginTop="8dp"
-        android:gravity="center|center_vertical">
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnConfirmar"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
+            android:layout_width="280dp"
+            android:layout_height="55dp"
             android:layout_gravity="center"
-            android:text="@string/confirmar"
-            android:background="@drawable/round_button_negro"
+            android:background="@drawable/dark_round_button"
             android:fontFamily="@font/lexend_deca_medium"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:textAllCaps="false"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="1"
-        android:gravity="center|bottom|right">
-
-        <Button
-            android:id="@+id/btnRegisrarPrenda"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/button_agregar_prenda"
-            android:gravity="center"
-            android:text="@string/agregar_prenda"
+            android:text="@string/confirmar"
+            android:textAllCaps="false"
             android:textColor="@color/cream"
-            android:textSize="45sp" />
+            android:textSize="24sp" />
 
     </LinearLayout>
 
@@ -206,6 +199,6 @@
         layout="@layout/navigation_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 
 </LinearLayout>

@@ -10,10 +10,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 class IniciarSesionActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        auth = Firebase.auth
+
         setContentView(R.layout.activity_iniciar_sesion)
 
         val btnRegistrarme:Button = findViewById(R.id.btnRegistrarme)
@@ -34,9 +43,17 @@ class IniciarSesionActivity : AppCompatActivity() {
                 tvError.text = "Asegúrese de llenar todos los campos."
                 tvError.visibility = View.VISIBLE
             } else {
-                val intent = Intent(this, PrincipalActivity::class.java)
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                auth.signInWithEmailAndPassword(etEmail.text.toString(), etContrasenia.text.toString()).addOnCompleteListener(this) {
+                        task ->
+                    if  (task.isSuccessful) {
+                        val intent = Intent(this, PrincipalActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    } else {
+                        tvError.text = "Alguno o ambos datos ingresados son erróneos."
+                        tvError.visibility = View.VISIBLE
+                    }
+                }
             }
         }
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "483132124293",
+    "project_id": "clothhangerdb",
+    "storage_bucket": "clothhangerdb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483132124293:android:6ad9b6944ecf83eec7cdec",
+        "android_client_info": {
+          "package_name": "mx.edu.itson.clothhangerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-pqsGaMvQrWz36TOUsaURTl_eGLpFm5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
