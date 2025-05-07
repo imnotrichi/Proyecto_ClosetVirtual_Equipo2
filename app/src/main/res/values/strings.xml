@@ -53,6 +53,8 @@
 
     // Pantalla Configuración
     <string name="guardar_cambios">Guardar Cambios</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="editar_informacion">Editar Información</string>
 
     // Pantalla Registrar Prenda
     <string name="titulo">Registrar Prenda</string>

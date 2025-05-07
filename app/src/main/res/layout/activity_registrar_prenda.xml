@@ -346,7 +346,7 @@
             </HorizontalScrollView>
 
             <TextView
-                android:id="@+id/tvError"
+                android:id="@+id/tvErrorRegistrarPrenda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -359,7 +359,7 @@
 
 
             <Button
-                android:id="@+id/btnConfirmar"
+                android:id="@+id/btnRegistrarPrenda"
                 android:layout_width="280dp"
                 android:layout_height="55dp"
                 android:layout_marginTop="10dp"

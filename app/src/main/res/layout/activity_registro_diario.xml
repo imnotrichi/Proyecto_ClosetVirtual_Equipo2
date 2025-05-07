@@ -62,138 +62,145 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_weight="1">
 
         <LinearLayout
-            android:layout_width="133dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="vertical">
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnSeleccionarTop"
-                android:layout_width="110dp"
-                android:layout_height="135dp"
-                android:background="@drawable/round_button_negro"
-                android:fontFamily="@font/lexend_deca_regular"
-                android:text="@string/seleccionar_top"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="133dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnSeleccionarBottom"
-                android:layout_width="110dp"
-                android:layout_height="280dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/round_button_negro"
-                android:fontFamily="@font/lexend_deca_regular"
-                android:text="@string/seleccionar_bottom"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                <Button
+                    android:id="@+id/btnSeleccionarTop"
+                    android:layout_width="110dp"
+                    android:layout_height="135dp"
+                    android:background="@drawable/round_button_negro"
+                    android:fontFamily="@font/lexend_deca_regular"
+                    android:text="@string/seleccionar_top"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
+                <Button
+                    android:id="@+id/btnSeleccionarBottom"
+                    android:layout_width="110dp"
+                    android:layout_height="280dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_button_negro"
+                    android:fontFamily="@font/lexend_deca_regular"
+                    android:text="@string/seleccionar_bottom"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="133dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnSeleccionarBodysuit"
+                    android:layout_width="110dp"
+                    android:layout_height="280dp"
+                    android:background="@drawable/round_button_negro"
+                    android:fontFamily="@font/lexend_deca_regular"
+                    android:text="@string/seleccionar_bodysuit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnSeleccionarZapatos"
+                    android:layout_width="110dp"
+                    android:layout_height="135dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_button_negro"
+                    android:fontFamily="@font/lexend_deca_regular"
+                    android:text="@string/seleccionar_zapatos"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="133dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnSeleccionarAccesorios1"
+                    android:layout_width="110dp"
+                    android:layout_height="135dp"
+                    android:background="@drawable/round_button_negro"
+                    android:fontFamily="@font/lexend_deca_regular"
+                    android:text="@string/seleccionar_zapatos"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnSeleccionarAccesorios2"
+                    android:layout_width="110dp"
+                    android:layout_height="135dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_button_negro"
+                    android:fontFamily="@font/lexend_deca_regular"
+                    android:text="@string/seleccionar_zapatos"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnSeleccionarAccesorios3"
+                    android:layout_width="110dp"
+                    android:layout_height="135dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_button_negro"
+                    android:fontFamily="@font/lexend_deca_regular"
+                    android:text="@string/seleccionar_zapatos"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="133dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:layout_marginTop="40dp"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSeleccionarBodysuit"
-                android:layout_width="110dp"
-                android:layout_height="280dp"
-                android:background="@drawable/round_button_negro"
-                android:fontFamily="@font/lexend_deca_regular"
-                android:text="@string/seleccionar_bodysuit"
+                android:id="@+id/btnConfirmar"
+                android:layout_width="280dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:background="@drawable/dark_round_button"
+                android:fontFamily="@font/lexend_deca_medium"
+                android:text="@string/confirmar"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btnSeleccionarZapatos"
-                android:layout_width="110dp"
-                android:layout_height="135dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/round_button_negro"
-                android:fontFamily="@font/lexend_deca_regular"
-                android:text="@string/seleccionar_zapatos"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="133dp"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSeleccionarAccesorios1"
-                android:layout_width="110dp"
-                android:layout_height="135dp"
-                android:background="@drawable/round_button_negro"
-                android:fontFamily="@font/lexend_deca_regular"
-                android:text="@string/seleccionar_zapatos"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btnSeleccionarAccesorios2"
-                android:layout_width="110dp"
-                android:layout_height="135dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/round_button_negro"
-                android:fontFamily="@font/lexend_deca_regular"
-                android:text="@string/seleccionar_zapatos"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btnSeleccionarAccesorios3"
-                android:layout_width="110dp"
-                android:layout_height="135dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/round_button_negro"
-                android:fontFamily="@font/lexend_deca_regular"
-                android:text="@string/seleccionar_zapatos"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textColor="@color/cream"
+                android:textSize="24sp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginTop="8dp"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnConfirmar"
-            android:layout_width="280dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center"
-            android:background="@drawable/dark_round_button"
-            android:fontFamily="@font/lexend_deca_medium"
-            android:text="@string/confirmar"
-            android:textAllCaps="false"
-            android:textColor="@color/cream"
-            android:textSize="24sp" />
-
-    </LinearLayout>
 
     <include
         layout="@layout/navigation_menu"

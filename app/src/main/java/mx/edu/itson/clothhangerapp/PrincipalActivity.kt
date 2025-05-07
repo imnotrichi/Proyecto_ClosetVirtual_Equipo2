@@ -13,9 +13,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
-import android.widget.ToggleButton
-import androidx.core.content.ContextCompat
-import androidx.transition.Visibility
+import mx.edu.itson.clothhangerapp.dataclases.Articulo
 
 class PrincipalActivity : MenuNavegable() {
 
