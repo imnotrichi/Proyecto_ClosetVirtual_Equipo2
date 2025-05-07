@@ -1,475 +1,234 @@
 package mx.edu.itson.clothhangerapp
 
-import android.content.Intent
-import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
-import android.widget.ToggleButton
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.mrudultora.colorpicker.ColorPickerPopUp
-import com.mrudultora.colorpicker.ColorPickerPopUp.OnPickColorListener
-import mx.edu.itson.clothhangerapp.adapters.PrendaAdapter
-import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
 import mx.edu.itson.clothhangerapp.databinding.ActivityRegistrarPrendaBinding
 import mx.edu.itson.clothhangerapp.dataclases.Prenda
+import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
 
 class RegistrarPrendaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrarPrendaBinding
-    private lateinit var prendaAdapter: PrendaAdapter
     private lateinit var viewModel: PrendasViewModel
-    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
+    private lateinit var seleccionarImagenLauncher: ActivityResultLauncher<String>
+    private var imagenUriParaSubir: Uri? = null
 
-    var prendaEdit = Prenda()
+    private var colorSeleccionadoHex: String = "#FFFFFFFF"
+    private var categoriaSeleccionada: String = ""
+    private var tieneEstampado: Boolean = false
+    private var etiquetasSeleccionadas = mutableListOf<String>()
+
+    private lateinit var mapIconosCategoriaOriginal: Map<ImageButton, Int>
+    private lateinit var mapIconosCategoriaSeleccionado: Map<ImageButton, Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registrar_prenda)
+        enableEdgeToEdge()
+        binding = ActivityRegistrarPrendaBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val btnAgregarImagen: ImageButton = findViewById(R.id.ibAgregarImagen)
-
-        val etNombrePrenda: EditText = findViewById(R.id.etNombrePrenda)
-
-        val ibTop: ImageButton = findViewById(R.id.ibTop)
-        val ibBottom: ImageButton = findViewById(R.id.ibBottom)
-        val ibZapatos: ImageButton = findViewById(R.id.ibZapatos)
-        val ibBodysuit: ImageButton = findViewById(R.id.ibBodysuit)
-        val ibAccesorio: ImageButton = findViewById(R.id.ibAccesorio)
-
-        val tbSi: ToggleButton = findViewById(R.id.tbSi)
-        val tbNo: ToggleButton = findViewById(R.id.tbNo)
-
-        val tbCasual: ToggleButton = findViewById(R.id.tbCasual)
-        val tbFormal: ToggleButton = findViewById(R.id.tbFormal)
-        val tbDeportivo: ToggleButton = findViewById(R.id.tbDeportivo)
-        val tbBasico: ToggleButton = findViewById(R.id.tbBasico)
-        val tbFiesta: ToggleButton = findViewById(R.id.tbFiesta)
-
-        val btnColor: Button = findViewById(R.id.btnColor)
-
-        val btnRegistrarPrenda: Button = findViewById(R.id.btnRegistrarPrenda)
-
-        val defaultColor = Color.WHITE
-
-        var colorSeleccionado = ""
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         viewModel = ViewModelProvider(this)[PrendasViewModel::class.java]
 
-        btnColor.setOnClickListener {
-            val colorPickerPopUp = ColorPickerPopUp(it.context) // Usamos el contexto de la vista.
-            colorPickerPopUp.setShowAlpha(true) // Por defecto muestra el alpha (transparencia).
-                .setDefaultColor(defaultColor) // Color rojo por defecto.
-                .setDialogTitle("Pick a Color")
-                .setOnPickColorListener(object : OnPickColorListener {
-                    override fun onColorPicked(color: Int) {
-                        // Cambiar el color del botón al color seleccionado
-                        btnColor.setBackgroundColor(color)
-                        colorSeleccionado = String.format("#%08X", color)
-                    }
+        inicializarMapasDeIconos()
+        configurarLauncherSeleccionImagen()
+        configurarListenersUI()
+        configurarEstadoInicialUI()
+        observarViewModel()
+    }
 
+    private fun inicializarMapasDeIconos() {
+        mapIconosCategoriaOriginal = mapOf(
+            binding.ibTop to R.drawable.icono_tops_negro,
+            binding.ibBottom to R.drawable.icono_bottoms_negro,
+            binding.ibZapatos to R.drawable.icono_zapatos_negro,
+            binding.ibBodysuit to R.drawable.icono_bodysuits_negro,
+            binding.ibAccesorio to R.drawable.icono_accesorios_negro
+        )
+        mapIconosCategoriaSeleccionado = mapOf(
+            binding.ibTop to R.drawable.icono_tops_blanco,
+            binding.ibBottom to R.drawable.icono_bottoms_blanco,
+            binding.ibZapatos to R.drawable.icono_zapatos_blanco,
+            binding.ibBodysuit to R.drawable.icono_bodysuit_blanco,
+            binding.ibAccesorio to R.drawable.icono_accesorios_blanco
+        )
+    }
+
+    private fun configurarLauncherSeleccionImagen() {
+        seleccionarImagenLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                imagenUriParaSubir = it
+                binding.ibAgregarImagen.setImageURI(it)
+            }
+        }
+    }
+
+    private fun configurarListenersUI() {
+        binding.ibAgregarImagen.setOnClickListener {
+            seleccionarImagenLauncher.launch("image/*")
+        }
+
+        binding.btnColor.setOnClickListener {
+            val colorPickerPopUp = ColorPickerPopUp(this)
+            colorPickerPopUp.setShowAlpha(true)
+                .setDefaultColor(ContextCompat.getColor(this, android.R.color.white))
+                .setDialogTitle("Selecciona un Color")
+                .setOnPickColorListener(object : ColorPickerPopUp.OnPickColorListener {
+                    override fun onColorPicked(color: Int) {
+                        binding.btnColor.setBackgroundColor(color)
+                        colorSeleccionadoHex = String.format("#%08X", color)
+                    }
                     override fun onCancel() {
-                        colorPickerPopUp.dismissDialog() // Cerrar el cuadro de diálogo.
+                        colorPickerPopUp.dismissDialog()
                     }
                 })
                 .show()
         }
 
-        btnAgregarImagen.setOnClickListener {
-            try {
-                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivity(intent)
-            } catch (e: Exception) {
-                e.printStackTrace()
+        val imageButtonsCategorias = listOf(binding.ibTop, binding.ibBottom, binding.ibZapatos, binding.ibBodysuit, binding.ibAccesorio)
+        val nombresCategorias = listOf("Top", "Bottom", "Zapatos", "Bodysuit", "Accesorio")
+
+        imageButtonsCategorias.forEachIndexed { index, imageButton ->
+            imageButton.setOnClickListener {
+                categoriaSeleccionada = nombresCategorias[index]
+                actualizarAparienciaCategorias(imageButton, imageButtonsCategorias)
             }
         }
 
-        var isTopsChecked = false
-        var isBottomsChecked = false
-        var isZapatosChecked = false
-        var isBodysuitsChecked = false
-        var isAccesoriosChecked = false
-
-        var isCasualChecked = false
-        var isFormalChecked = false
-        var isDeportivoChecked = false
-        var isBasicoChecked = false
-        var isFiestaChecked = false
-
-        var isSiChecked = false
-        var isNoChecked = false
-
-        tbSi.setOnClickListener {
-            isSiChecked = !isSiChecked
-            if (isSiChecked) {
-                tbNo.setBackgroundResource(R.drawable.tag_view_off)
-                tbNo.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                isNoChecked = false
-
-                tbSi.setBackgroundResource(R.drawable.tag_view_on)
-                tbSi.setTextColor(ContextCompat.getColor(this, R.color.white))
-            } else {
-                tbSi.setBackgroundResource(R.drawable.tag_view_off)
-                tbSi.setTextColor(ContextCompat.getColor(this, R.color.black))
-            }
+        binding.tbSi.setOnClickListener {
+            tieneEstampado = true
+            actualizarAparienciaEstampado(esSiSeleccionado = true)
+        }
+        binding.tbNo.setOnClickListener {
+            tieneEstampado = false
+            actualizarAparienciaEstampado(esSiSeleccionado = false)
         }
 
-        tbNo.setOnClickListener {
-            isNoChecked = !isNoChecked
-            if (isNoChecked) {
-                tbSi.setBackgroundResource(R.drawable.tag_view_off)
-                tbSi.setTextColor(ContextCompat.getColor(this, R.color.black))
-
-                isSiChecked = false
-
-                tbNo.setBackgroundResource(R.drawable.tag_view_on)
-                tbNo.setTextColor(ContextCompat.getColor(this, R.color.white))
-            } else {
-                tbNo.setBackgroundResource(R.drawable.tag_view_off)
-                tbNo.setTextColor(ContextCompat.getColor(this, R.color.black))
-            }
-        }
-
-        ibTop.setOnClickListener {
-            isTopsChecked = !isTopsChecked
-            if (isTopsChecked) {
-                ibBottom.setImageResource(R.drawable.icono_bottoms_negro)
-                ibBottom.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibZapatos.setImageResource(R.drawable.icono_zapatos_negro)
-                ibZapatos.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibBodysuit.setImageResource(R.drawable.icono_bodysuits_negro)
-                ibBodysuit.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibAccesorio.setImageResource(R.drawable.icono_accesorios_negro)
-                ibAccesorio.setBackgroundResource(R.drawable.tag_view_off)
-
-                isAccesoriosChecked = false
-                isBottomsChecked = false
-                isZapatosChecked = false
-                isBodysuitsChecked = false
-
-                ibTop.setImageResource(R.drawable.icono_tops_blanco)
-                ibTop.setBackgroundResource(R.drawable.tag_view_on)
-            } else {
-                ibTop.setImageResource(R.drawable.icono_tops_negro)
-                ibTop.setBackgroundResource(R.drawable.tag_view_off)
-            }
-        }
-
-        ibBottom.setOnClickListener {
-            isBottomsChecked = !isBottomsChecked
-            if (isBottomsChecked) {
-                ibTop.setImageResource(R.drawable.icono_tops_negro)
-                ibTop.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibZapatos.setImageResource(R.drawable.icono_zapatos_negro)
-                ibZapatos.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibBodysuit.setImageResource(R.drawable.icono_bodysuits_negro)
-                ibBodysuit.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibAccesorio.setImageResource(R.drawable.icono_accesorios_negro)
-                ibAccesorio.setBackgroundResource(R.drawable.tag_view_off)
-
-                isTopsChecked = false
-                isAccesoriosChecked = false
-                isZapatosChecked = false
-                isBodysuitsChecked = false
-
-                ibBottom.setImageResource(R.drawable.icono_bottoms_blanco)
-                ibBottom.setBackgroundResource(R.drawable.tag_view_on)
-            } else {
-                ibBottom.setImageResource(R.drawable.icono_bottoms_negro)
-                ibBottom.setBackgroundResource(R.drawable.tag_view_off)
-            }
-        }
-
-        ibZapatos.setOnClickListener {
-            isZapatosChecked = !isZapatosChecked
-            if (isZapatosChecked) {
-                ibBottom.setImageResource(R.drawable.icono_bottoms_negro)
-                ibBottom.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibTop.setImageResource(R.drawable.icono_tops_negro)
-                ibTop.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibBodysuit.setImageResource(R.drawable.icono_bodysuits_negro)
-                ibBodysuit.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibAccesorio.setImageResource(R.drawable.icono_accesorios_negro)
-                ibAccesorio.setBackgroundResource(R.drawable.tag_view_off)
-
-                isTopsChecked = false
-                isBottomsChecked = false
-                isAccesoriosChecked = false
-                isBodysuitsChecked = false
-
-                ibZapatos.setImageResource(R.drawable.icono_zapatos_blanco)
-                ibZapatos.setBackgroundResource(R.drawable.tag_view_on)
-            } else {
-                ibZapatos.setImageResource(R.drawable.icono_zapatos_negro)
-                ibZapatos.setBackgroundResource(R.drawable.tag_view_off)
-            }
-        }
-
-        ibBodysuit.setOnClickListener {
-            isBodysuitsChecked = !isBodysuitsChecked
-            if (isBodysuitsChecked) {
-                ibBottom.setImageResource(R.drawable.icono_bottoms_negro)
-                ibBottom.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibZapatos.setImageResource(R.drawable.icono_zapatos_negro)
-                ibZapatos.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibTop.setImageResource(R.drawable.icono_tops_negro)
-                ibTop.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibAccesorio.setImageResource(R.drawable.icono_accesorios_negro)
-                ibAccesorio.setBackgroundResource(R.drawable.tag_view_off)
-
-                isTopsChecked = false
-                isBottomsChecked = false
-                isZapatosChecked = false
-                isAccesoriosChecked = false
-
-                ibBodysuit.setImageResource(R.drawable.icono_bodysuit_blanco)
-                ibBodysuit.setBackgroundResource(R.drawable.tag_view_on)
-            } else {
-                ibBodysuit.setImageResource(R.drawable.icono_bodysuits_negro)
-                ibBodysuit.setBackgroundResource(R.drawable.tag_view_off)
-            }
-        }
-
-        ibAccesorio.setOnClickListener {
-            isAccesoriosChecked = !isAccesoriosChecked
-            if (isAccesoriosChecked) {
-                ibBottom.setImageResource(R.drawable.icono_bottoms_negro)
-                ibBottom.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibZapatos.setImageResource(R.drawable.icono_zapatos_negro)
-                ibZapatos.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibBodysuit.setImageResource(R.drawable.icono_bodysuits_negro)
-                ibBodysuit.setBackgroundResource(R.drawable.tag_view_off)
-
-                ibTop.setImageResource(R.drawable.icono_tops_negro)
-                ibTop.setBackgroundResource(R.drawable.tag_view_off)
-
-                isTopsChecked = false
-                isBottomsChecked = false
-                isZapatosChecked = false
-                isBodysuitsChecked = false
-
-                ibAccesorio.setImageResource(R.drawable.icono_accesorios_blanco)
-                ibAccesorio.setBackgroundResource(R.drawable.tag_view_on)
-            } else {
-                ibAccesorio.setImageResource(R.drawable.icono_accesorios_negro)
-                ibAccesorio.setBackgroundResource(R.drawable.tag_view_off)
-            }
-        }
-
-        tbCasual.setOnClickListener {
-            isCasualChecked = !isCasualChecked
-            if (isCasualChecked) {
-                tbFormal.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbFormal.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbDeportivo.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbDeportivo.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbBasico.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbBasico.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbFiesta.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbFiesta.setBackgroundResource(R.drawable.tag_view_off)
-
-                isFormalChecked = false
-                isDeportivoChecked = false
-                isBasicoChecked = false
-                isFiestaChecked = false
-
-                tbCasual.setTextColor(ContextCompat.getColor(this, R.color.white))
-                tbCasual.setBackgroundResource(R.drawable.tag_view_on)
-            } else {
-                tbCasual.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbCasual.setBackgroundResource(R.drawable.tag_view_off)
-            }
-        }
-
-        tbFormal.setOnClickListener {
-            isFormalChecked = !isFormalChecked
-            if (isFormalChecked) {
-                tbCasual.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbCasual.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbDeportivo.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbDeportivo.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbBasico.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbBasico.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbFiesta.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbFiesta.setBackgroundResource(R.drawable.tag_view_off)
-
-                isCasualChecked = false
-                isDeportivoChecked = false
-                isBasicoChecked = false
-                isFiestaChecked = false
-
-                tbFormal.setTextColor(ContextCompat.getColor(this, R.color.white))
-                tbFormal.setBackgroundResource(R.drawable.tag_view_on)
-            } else {
-                tbFormal.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbFormal.setBackgroundResource(R.drawable.tag_view_off)
-            }
-        }
-
-        tbDeportivo.setOnClickListener {
-            isDeportivoChecked = !isDeportivoChecked
-            if (isDeportivoChecked) {
-                tbFormal.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbFormal.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbCasual.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbCasual.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbBasico.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbBasico.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbFiesta.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbFiesta.setBackgroundResource(R.drawable.tag_view_off)
-
-                isFormalChecked = false
-                isCasualChecked = false
-                isBasicoChecked = false
-                isFiestaChecked = false
-
-                tbDeportivo.setTextColor(ContextCompat.getColor(this, R.color.white))
-                tbDeportivo.setBackgroundResource(R.drawable.tag_view_on)
-            } else {
-                tbDeportivo.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbDeportivo.setBackgroundResource(R.drawable.tag_view_off)
-            }
-        }
-
-        tbBasico.setOnClickListener {
-            isBasicoChecked = !isBasicoChecked
-            if (isBasicoChecked) {
-                tbFormal.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbFormal.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbDeportivo.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbDeportivo.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbCasual.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbCasual.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbFiesta.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbFiesta.setBackgroundResource(R.drawable.tag_view_off)
-
-                isFormalChecked = false
-                isDeportivoChecked = false
-                isCasualChecked = false
-                isFiestaChecked = false
-
-                tbBasico.setTextColor(ContextCompat.getColor(this, R.color.white))
-                tbBasico.setBackgroundResource(R.drawable.tag_view_on)
-            } else {
-                tbBasico.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbBasico.setBackgroundResource(R.drawable.tag_view_off)
-            }
-        }
-
-        tbFiesta.setOnClickListener {
-            isFiestaChecked = !isFiestaChecked
-            if (isFiestaChecked) {
-                tbFormal.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbFormal.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbDeportivo.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbDeportivo.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbBasico.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbBasico.setBackgroundResource(R.drawable.tag_view_off)
-
-                tbCasual.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbCasual.setBackgroundResource(R.drawable.tag_view_off)
-
-                isFormalChecked = false
-                isDeportivoChecked = false
-                isBasicoChecked = false
-                isCasualChecked = false
-
-                tbFiesta.setTextColor(ContextCompat.getColor(this, R.color.white))
-                tbFiesta.setBackgroundResource(R.drawable.tag_view_on)
-            } else {
-                tbFiesta.setTextColor(ContextCompat.getColor(this, R.color.black))
-                tbFiesta.setBackgroundResource(R.drawable.tag_view_off)
-            }
-        }
-
-        btnRegistrarPrenda.setOnClickListener {
-            if ((!isTopsChecked || !isBottomsChecked || !isZapatosChecked || !isBodysuitsChecked
-                        || !isAccesoriosChecked) && (!isSiChecked || !isNoChecked) && etNombrePrenda.text.isEmpty()
-            ) {
-                Toast.makeText(this, "Asegúrese de ingresar toda la información solicitada.", Toast.LENGTH_SHORT).show()
-            } else {
-                val prendaNueva = Prenda()
-
-                prendaNueva.nombre = etNombrePrenda.text.toString()
-
-                if (isTopsChecked) {
-                    prendaNueva.categoria = "Top"
-                } else if (isBottomsChecked) {
-                    prendaNueva.categoria = "Bottom"
-                } else if (isZapatosChecked) {
-                    prendaNueva.categoria = "Zapatos"
-                } else if (isBodysuitsChecked) {
-                    prendaNueva.categoria = "Bodysuit"
-                } else if (isAccesoriosChecked) {
-                    prendaNueva.categoria = "Accesorio"
+        val toggleButtonsEtiquetas = mapOf(
+            binding.tbCasual to "Casual", binding.tbFormal to "Formal",
+            binding.tbDeportivo to "Deportivo", binding.tbBasico to "Básico",
+            binding.tbFiesta to "Fiesta"
+        )
+        toggleButtonsEtiquetas.forEach { (toggleButton, etiquetaNombre) ->
+            toggleButton.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    if (!etiquetasSeleccionadas.contains(etiquetaNombre)) etiquetasSeleccionadas.add(etiquetaNombre)
+                    toggleButton.setBackgroundResource(R.drawable.tag_view_on)
+                    toggleButton.setTextColor(ContextCompat.getColor(this, R.color.white))
+                } else {
+                    etiquetasSeleccionadas.remove(etiquetaNombre)
+                    toggleButton.setBackgroundResource(R.drawable.tag_view_off)
+                    toggleButton.setTextColor(ContextCompat.getColor(this, R.color.black))
                 }
+            }
+        }
 
-                if (isSiChecked) {
-                    prendaNueva.estampado = true
-                } else if (isNoChecked) {
-                    prendaNueva.estampado = false
-                }
+        binding.btnRegistrarPrenda.setOnClickListener {
+            val nombrePrenda = binding.etNombrePrenda.text.toString().trim()
 
-                if (isCasualChecked) {
-                    prendaNueva.etiquetas.add("Casual")
-                } else if (isFormalChecked) {
-                    prendaNueva.etiquetas.add("Formal")
-                } else if (isDeportivoChecked) {
-                    prendaNueva.etiquetas.add("Deportivo")
-                } else if (isBasicoChecked) {
-                    prendaNueva.etiquetas.add("Básico")
-                } else if (isFiestaChecked) {
-                    prendaNueva.etiquetas.add("Fiesta")
-                }
+            if (nombrePrenda.isEmpty()) {
+                Toast.makeText(this, "El nombre de la prenda es obligatorio.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (categoriaSeleccionada.isEmpty()) {
+                Toast.makeText(this, "Debes seleccionar una categoría.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (imagenUriParaSubir == null) {
+                Toast.makeText(this, "Debes seleccionar una imagen para la prenda.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-                prendaNueva.colorHex = colorSeleccionado
-                prendaNueva.usosMensuales = 0
-                prendaNueva.usosTotales = 0
+            val prendaParaGuardar = Prenda(
+                nombre = nombrePrenda,
+                categoria = categoriaSeleccionada,
+                estampado = tieneEstampado,
+                colorHex = colorSeleccionadoHex,
+                etiquetas = ArrayList(etiquetasSeleccionadas)
+            )
+            viewModel.registrarNuevaPrenda(prendaParaGuardar, imagenUriParaSubir)
+        }
+    }
 
-                viewModel.agregarPrenda(prendaNueva)
+    private fun configurarEstadoInicialUI() {
+        val imageButtonsCategorias = listOf(binding.ibTop, binding.ibBottom, binding.ibZapatos, binding.ibBodysuit, binding.ibAccesorio)
+        actualizarAparienciaCategorias(null, imageButtonsCategorias)
 
-                Toast.makeText(this, "Prenda registrada con éxito.", Toast.LENGTH_SHORT).show()
+        tieneEstampado = false
+        actualizarAparienciaEstampado(esSiSeleccionado = false)
+
+        listOf(binding.tbCasual, binding.tbFormal, binding.tbDeportivo, binding.tbBasico, binding.tbFiesta).forEach {
+            it.isChecked = false
+            it.setBackgroundResource(R.drawable.tag_view_off)
+            it.setTextColor(ContextCompat.getColor(this, R.color.black))
+        }
+        etiquetasSeleccionadas.clear()
+    }
+
+    private fun actualizarAparienciaCategorias(seleccionado: ImageButton?, todosLosBotones: List<ImageButton>) {
+        todosLosBotones.forEach { boton ->
+            if (boton == seleccionado) {
+                boton.setBackgroundResource(R.drawable.tag_view_on)
+                mapIconosCategoriaSeleccionado[boton]?.let { boton.setImageResource(it) }
+            } else {
+                boton.setBackgroundResource(R.drawable.tag_view_off)
+                mapIconosCategoriaOriginal[boton]?.let { boton.setImageResource(it) }
+            }
+        }
+    }
+
+    private fun actualizarAparienciaEstampado(esSiSeleccionado: Boolean) {
+        if (esSiSeleccionado) {
+            binding.tbSi.isChecked = true
+            binding.tbNo.isChecked = false
+            binding.tbSi.setBackgroundResource(R.drawable.tag_view_on)
+            binding.tbSi.setTextColor(ContextCompat.getColor(this, R.color.white))
+            binding.tbNo.setBackgroundResource(R.drawable.tag_view_off)
+            binding.tbNo.setTextColor(ContextCompat.getColor(this, R.color.black))
+        } else {
+            binding.tbNo.isChecked = true
+            binding.tbSi.isChecked = false
+            binding.tbNo.setBackgroundResource(R.drawable.tag_view_on)
+            binding.tbNo.setTextColor(ContextCompat.getColor(this, R.color.white))
+            binding.tbSi.setBackgroundResource(R.drawable.tag_view_off)
+            binding.tbSi.setTextColor(ContextCompat.getColor(this, R.color.black))
+        }
+    }
+
+    private fun observarViewModel() {
+        viewModel.isLoading.observe(this) { isLoading ->
+            binding.btnRegistrarPrenda.isEnabled = !isLoading // Deshabilitar botón mientras carga
+        }
+
+        viewModel.errorMensaje.observe(this) { error ->
+            error?.let {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+                viewModel.limpiarMensajeError()
+            }
+        }
+
+        viewModel.registroExitoso.observe(this) { exito ->
+            if (exito) {
+                Toast.makeText(this, "¡Prenda registrada con éxito!", Toast.LENGTH_SHORT).show()
+                viewModel.limpiarEstadoRegistro()
                 finish()
             }
         }
-
     }
 }

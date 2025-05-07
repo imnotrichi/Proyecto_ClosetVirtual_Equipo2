@@ -61,6 +61,9 @@ dependencies {
     //Firebase Firestore
     implementation("com.google.firebase:firebase-firestore-ktx:25.1.3")
     implementation("com.google.firebase:firebase-core:21.1.1")
+    implementation("com.google.firebase:firebase-storage-ktx")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
     //ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")

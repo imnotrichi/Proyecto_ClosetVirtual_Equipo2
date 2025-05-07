@@ -1,8 +1,12 @@
 package mx.edu.itson.clothhangerapp.dataclases
 
+import com.google.firebase.firestore.DocumentId
+
 data class Prenda(
-    var id: String = "1",
-    var imagen: String = "",
+    @DocumentId
+    var id: String? = null,
+    var imagenUrl: String = "",
+    var userId: String? = null,
     var nombre: String = "",
     var categoria: String = "",
     var estampado: Boolean = false,
@@ -11,17 +15,16 @@ data class Prenda(
     var usosMensuales: Int = 0,
     var usosTotales: Int = 0
 ) {
-    fun toMap(): Map<String, Any?> {
-        return mapOf(
-            "id" to id,
-            "imagen" to imagen,
-            "nombre" to nombre,
-            "categoria" to categoria,
-            "estampado" to estampado,
-            "colorHex" to colorHex,
-            "etiquetas" to etiquetas,
-            "usosMensuales" to usosMensuales,
-            "usosTotales" to usosTotales
-        )
-    }
+    constructor() : this(
+        id = null,
+        imagenUrl = "",
+        userId = null,
+        nombre = "",
+        categoria = "",
+        estampado = false,
+        colorHex = "",
+        etiquetas = mutableListOf(),
+        usosMensuales = 0,
+        usosTotales = 0
+    )
 }
