@@ -36,7 +36,7 @@ class PrendasViewModel: ViewModel() {
         }
     }
 
-    fun agregarTarea(prenda: Prenda) {
+    fun agregarPrenda(prenda: Prenda) {
         prenda.id = UUID.randomUUID().toString()
         viewModelScope.launch(Dispatchers.IO) {
             try {

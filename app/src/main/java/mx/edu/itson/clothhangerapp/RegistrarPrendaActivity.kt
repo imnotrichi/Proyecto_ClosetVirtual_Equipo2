@@ -1,35 +1,35 @@
 package mx.edu.itson.clothhangerapp
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
+import android.text.InputType
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mrudultora.colorpicker.ColorPickerPopUp
 import com.mrudultora.colorpicker.ColorPickerPopUp.OnPickColorListener
 import mx.edu.itson.clothhangerapp.adapters.PrendaAdapter
 import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
 import mx.edu.itson.clothhangerapp.databinding.ActivityRegistrarPrendaBinding
-import mx.edu.itson.clothhangerapp.dataclases.Categoria
 import mx.edu.itson.clothhangerapp.dataclases.Prenda
 
 class RegistrarPrendaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrarPrendaBinding
-    private lateinit var adapter: PrendaAdapter
+    private lateinit var prendaAdapter: PrendaAdapter
     private lateinit var viewModel: PrendasViewModel
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
 
@@ -45,7 +45,7 @@ class RegistrarPrendaActivity : AppCompatActivity() {
             insets
         }
 
-        val btnAgregarImagen: ImageButton = findViewById(R.id.ibAgregar)
+        val btnAgregarImagen: ImageButton = findViewById(R.id.ibAgregarImagen)
 
         val etNombrePrenda: EditText = findViewById(R.id.etNombrePrenda)
 
@@ -58,22 +58,19 @@ class RegistrarPrendaActivity : AppCompatActivity() {
         val tbSi: ToggleButton = findViewById(R.id.tbSi)
         val tbNo: ToggleButton = findViewById(R.id.tbNo)
 
+        val tbCasual: ToggleButton = findViewById(R.id.tbCasual)
+        val tbFormal: ToggleButton = findViewById(R.id.tbFormal)
+        val tbDeportivo: ToggleButton = findViewById(R.id.tbDeportivo)
+        val tbBasico: ToggleButton = findViewById(R.id.tbBasico)
+        val tbFiesta: ToggleButton = findViewById(R.id.tbFiesta)
+
         val btnColor: Button = findViewById(R.id.btnColor)
-
-        val tvError: TextView = findViewById(R.id.tvErrorRegistrarPrenda)
-
-        tvError.visibility = View.INVISIBLE
 
         val btnRegistrarPrenda: Button = findViewById(R.id.btnRegistrarPrenda)
 
-        val defaultColor = Color.BLACK
+        val defaultColor = Color.WHITE
 
-        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let {
-                imageView.setImageURI(it)
-                // Aquí puedes guardar el URI o procesar la imagen
-            }
-        }
+        var colorSeleccionado = ""
 
         btnColor.setOnClickListener {
             val colorPickerPopUp = ColorPickerPopUp(it.context) // Usamos el contexto de la vista.
@@ -84,6 +81,7 @@ class RegistrarPrendaActivity : AppCompatActivity() {
                     override fun onColorPicked(color: Int) {
                         // Cambiar el color del botón al color seleccionado
                         btnColor.setBackgroundColor(color)
+                        colorSeleccionado = String.format("#%08X", color)
                     }
 
                     override fun onCancel() {
@@ -107,6 +105,13 @@ class RegistrarPrendaActivity : AppCompatActivity() {
         var isZapatosChecked = false
         var isBodysuitsChecked = false
         var isAccesoriosChecked = false
+
+        var isCasualChecked = false
+        var isFormalChecked = false
+        var isDeportivoChecked = false
+        var isBasicoChecked = false
+        var isFiestaChecked = false
+
         var isSiChecked = false
         var isNoChecked = false
 
@@ -282,34 +287,191 @@ class RegistrarPrendaActivity : AppCompatActivity() {
             }
         }
 
+        tbCasual.setOnClickListener {
+            isCasualChecked = !isCasualChecked
+            if (isCasualChecked) {
+                tbFormal.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbFormal.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbDeportivo.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbDeportivo.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbBasico.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbBasico.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbFiesta.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbFiesta.setBackgroundResource(R.drawable.tag_view_off)
+
+                isFormalChecked = false
+                isDeportivoChecked = false
+                isBasicoChecked = false
+                isFiestaChecked = false
+
+                tbCasual.setTextColor(ContextCompat.getColor(this, R.color.white))
+                tbCasual.setBackgroundResource(R.drawable.tag_view_on)
+            } else {
+                tbCasual.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbCasual.setBackgroundResource(R.drawable.tag_view_off)
+            }
+        }
+
+        tbFormal.setOnClickListener {
+            isFormalChecked = !isFormalChecked
+            if (isFormalChecked) {
+                tbCasual.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbCasual.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbDeportivo.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbDeportivo.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbBasico.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbBasico.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbFiesta.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbFiesta.setBackgroundResource(R.drawable.tag_view_off)
+
+                isCasualChecked = false
+                isDeportivoChecked = false
+                isBasicoChecked = false
+                isFiestaChecked = false
+
+                tbFormal.setTextColor(ContextCompat.getColor(this, R.color.white))
+                tbFormal.setBackgroundResource(R.drawable.tag_view_on)
+            } else {
+                tbFormal.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbFormal.setBackgroundResource(R.drawable.tag_view_off)
+            }
+        }
+
+        tbDeportivo.setOnClickListener {
+            isDeportivoChecked = !isDeportivoChecked
+            if (isDeportivoChecked) {
+                tbFormal.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbFormal.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbCasual.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbCasual.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbBasico.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbBasico.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbFiesta.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbFiesta.setBackgroundResource(R.drawable.tag_view_off)
+
+                isFormalChecked = false
+                isCasualChecked = false
+                isBasicoChecked = false
+                isFiestaChecked = false
+
+                tbDeportivo.setTextColor(ContextCompat.getColor(this, R.color.white))
+                tbDeportivo.setBackgroundResource(R.drawable.tag_view_on)
+            } else {
+                tbDeportivo.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbDeportivo.setBackgroundResource(R.drawable.tag_view_off)
+            }
+        }
+
+        tbBasico.setOnClickListener {
+            isBasicoChecked = !isBasicoChecked
+            if (isBasicoChecked) {
+                tbFormal.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbFormal.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbDeportivo.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbDeportivo.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbCasual.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbCasual.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbFiesta.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbFiesta.setBackgroundResource(R.drawable.tag_view_off)
+
+                isFormalChecked = false
+                isDeportivoChecked = false
+                isCasualChecked = false
+                isFiestaChecked = false
+
+                tbBasico.setTextColor(ContextCompat.getColor(this, R.color.white))
+                tbBasico.setBackgroundResource(R.drawable.tag_view_on)
+            } else {
+                tbBasico.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbBasico.setBackgroundResource(R.drawable.tag_view_off)
+            }
+        }
+
+        tbFiesta.setOnClickListener {
+            isFiestaChecked = !isFiestaChecked
+            if (isFiestaChecked) {
+                tbFormal.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbFormal.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbDeportivo.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbDeportivo.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbBasico.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbBasico.setBackgroundResource(R.drawable.tag_view_off)
+
+                tbCasual.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbCasual.setBackgroundResource(R.drawable.tag_view_off)
+
+                isFormalChecked = false
+                isDeportivoChecked = false
+                isBasicoChecked = false
+                isCasualChecked = false
+
+                tbFiesta.setTextColor(ContextCompat.getColor(this, R.color.white))
+                tbFiesta.setBackgroundResource(R.drawable.tag_view_on)
+            } else {
+                tbFiesta.setTextColor(ContextCompat.getColor(this, R.color.black))
+                tbFiesta.setBackgroundResource(R.drawable.tag_view_off)
+            }
+        }
+
         btnRegistrarPrenda.setOnClickListener {
             if ((!isTopsChecked || !isBottomsChecked || !isZapatosChecked || !isBodysuitsChecked
                         || !isAccesoriosChecked) && (!isSiChecked || !isNoChecked) && etNombrePrenda.text.isEmpty()
             ) {
-                tvError.text = "Asegúrese de ingresar todos los datos."
-                tvError.visibility = View.VISIBLE
+                Toast.makeText(this, "Asegúrese de ingresar toda la información solicitada.", Toast.LENGTH_SHORT).show()
             } else {
-                prendaEdit.nombre = etNombrePrenda.text.toString()
+                val prendaNueva = Prenda()
+
+                prendaNueva.nombre = etNombrePrenda.text.toString()
 
                 if (isTopsChecked) {
-                    prendaEdit.categoria = Categoria("Top")
+                    prendaNueva.categoria = "Top"
                 } else if (isBottomsChecked) {
-                    prendaEdit.categoria = Categoria("Bottom")
+                    prendaNueva.categoria = "Bottom"
                 } else if (isZapatosChecked) {
-                    prendaEdit.categoria = Categoria("Zapatos")
+                    prendaNueva.categoria = "Zapatos"
                 } else if (isBodysuitsChecked) {
-                    prendaEdit.categoria = Categoria("Bodysuit")
+                    prendaNueva.categoria = "Bodysuit"
                 } else if (isAccesoriosChecked) {
-                    prendaEdit.categoria = Categoria("Accesorio")
+                    prendaNueva.categoria = "Accesorio"
                 }
 
                 if (isSiChecked) {
-                    prendaEdit.estampado = true
+                    prendaNueva.estampado = true
                 } else if (isNoChecked) {
-                    prendaEdit.estampado = false
+                    prendaNueva.estampado = false
                 }
 
+                if (isCasualChecked) {
+                    prendaNueva.etiquetas.add("Casual")
+                } else if (isFormalChecked) {
+                    prendaNueva.etiquetas.add("Formal")
+                } else if (isDeportivoChecked) {
+                    prendaNueva.etiquetas.add("Deportivo")
+                } else if (isBasicoChecked) {
+                    prendaNueva.etiquetas.add("Básico")
+                } else if (isFiestaChecked) {
+                    prendaNueva.etiquetas.add("Fiesta")
+                }
 
+                prendaNueva.colorHex = colorSeleccionado
+                prendaNueva.usosMensuales = 0
+                prendaNueva.usosTotales = 0
+
+                viewModel.agregarPrenda(prendaEdit)
             }
         }
 

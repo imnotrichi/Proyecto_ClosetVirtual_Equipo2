@@ -67,7 +67,7 @@
         android:layout_weight="1">
 
         <ImageButton
-            android:id="@+id/ibAgregar"
+            android:id="@+id/ibAgregarImagen"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_gravity="center"
@@ -295,68 +295,68 @@
                     android:paddingHorizontal="14dp">
 
                     <ToggleButton
-                        android:id="@+id/tbVerano"
+                        android:id="@+id/tbCasual"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:background="@drawable/tag_view_off"
                         android:fontFamily="@font/lexend_deca_light"
                         android:paddingVertical="5dp"
                         android:textAllCaps="false"
-                        android:textOff="@string/verano"
-                        android:textOn="@string/verano"
+                        android:textOff="@string/casual"
+                        android:textOn="@string/casual"
                         android:layout_marginRight="15dp"/>
 
                     <ToggleButton
-                        android:id="@+id/tbInvierno"
+                        android:id="@+id/tbFormal"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:background="@drawable/tag_view_off"
                         android:fontFamily="@font/lexend_deca_light"
                         android:paddingVertical="5dp"
                         android:textAllCaps="false"
-                        android:textOff="@string/invierno"
-                        android:textOn="@string/invierno"
+                        android:textOff="@string/formal"
+                        android:textOn="@string/formal"
                         android:layout_marginRight="15dp"/>
 
                     <ToggleButton
-                        android:id="@+id/tbCute"
+                        android:id="@+id/tbDeportivo"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:background="@drawable/tag_view_off"
                         android:fontFamily="@font/lexend_deca_light"
                         android:paddingVertical="5dp"
                         android:textAllCaps="false"
-                        android:textOff="@string/cute"
-                        android:textOn="@string/cute"
+                        android:textOff="@string/deportivo"
+                        android:textOn="@string/deportivo"
                         android:layout_marginRight="15dp"/>
 
                     <ToggleButton
-                        android:id="@+id/tbMas"
-                        android:layout_width="50dp"
+                        android:id="@+id/tbBasico"
+                        android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:background="@drawable/tag_view_off"
                         android:fontFamily="@font/lexend_deca_light"
                         android:paddingVertical="5dp"
                         android:textAllCaps="false"
-                        android:textOff="@string/mas"
-                        android:textOn="@string/mas" />
+                        android:textOff="@string/b_sico"
+                        android:textOn="@string/b_sico"
+                        android:layout_marginRight="15dp"/>
+
+                    <ToggleButton
+                        android:id="@+id/tbFiesta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:background="@drawable/tag_view_off"
+                        android:fontFamily="@font/lexend_deca_light"
+                        android:paddingVertical="5dp"
+                        android:textAllCaps="false"
+                        android:textOff="@string/fiesta"
+                        android:textOn="@string/fiesta"
+                        android:layout_marginRight="15dp"/>
 
                 </LinearLayout>
 
             </HorizontalScrollView>
-
-            <TextView
-                android:id="@+id/tvErrorRegistrarPrenda"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/lexend_deca_light"
-                android:textAlignment="center"
-                android:textColor="@color/red"
-                android:textSize="16sp"
-                android:visibility="invisible" />
-
 
             <Button
                 android:id="@+id/btnRegistrarPrenda"

@@ -82,4 +82,9 @@
     <string name="boton_cancelar_text">Cancelar</string>
     <string name="mis_prendas">Mis Prendas</string>
     <string name="mi_perfil">Mi Perfil</string>
+    <string name="casual">Casual</string>
+    <string name="formal">Formal</string>
+    <string name="deportivo">Deportivo</string>
+    <string name="b_sico">Básico</string>
+    <string name="fiesta">Fiesta</string>
 </resources>

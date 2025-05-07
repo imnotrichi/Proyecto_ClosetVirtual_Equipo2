@@ -66,6 +66,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
 
     implementation("androidx.activity:activity-ktx:1.8.0")
+    implementation("com.google.android.material:material:1.11.0")
 
     implementation("com.google.firebase:firebase-auth")
     implementation(libs.firebase.firestore.ktx)

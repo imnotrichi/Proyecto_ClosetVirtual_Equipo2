@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -33,15 +34,11 @@ class IniciarSesionActivity : AppCompatActivity() {
 
         val etEmail:EditText = findViewById(R.id.etEmail)
         val etContrasenia:EditText = findViewById(R.id.etContrasenia)
-        val tvError: TextView = findViewById(R.id.tvError)
         val btnEntrar:Button = findViewById(R.id.btnEntrar)
-
-        tvError.visibility = View.INVISIBLE
 
         btnEntrar.setOnClickListener {
             if (etEmail.text.isBlank() || etContrasenia.text.isBlank()) {
-                tvError.text = "Asegúrese de llenar todos los campos."
-                tvError.visibility = View.VISIBLE
+                Toast.makeText(this, "Asegúrese de llenar todos los campos.", Toast.LENGTH_SHORT).show()
             } else {
                 auth.signInWithEmailAndPassword(etEmail.text.toString(), etContrasenia.text.toString()).addOnCompleteListener(this) {
                         task ->
@@ -50,8 +47,7 @@ class IniciarSesionActivity : AppCompatActivity() {
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
                     } else {
-                        tvError.text = "Alguno o ambos datos ingresados son erróneos."
-                        tvError.visibility = View.VISIBLE
+                        Toast.makeText(this, "Alguno o ambos datos ingresados son erróneos.", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
