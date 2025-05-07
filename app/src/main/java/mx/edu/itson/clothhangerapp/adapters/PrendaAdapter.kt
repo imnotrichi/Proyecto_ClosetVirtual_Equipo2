@@ -53,6 +53,27 @@ class PrendaAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val prenda = listaPrendas[position]
 
+        // Enlazar la prenda con las vistas
         holder.etNombrePrenda.setText(prenda.nombre)
+
+        // Aquí puedes enlazar los ToggleButtons y otros botones con los valores de la prenda
+        if (prenda.estampado) {
+            holder.tbSi.isChecked = true  // Ejemplo de atributo booleano
+        } else {
+            holder.tbNo.isChecked = true  // Inversa del valor anterior
+        }
+
+        holder.ibTop.isSelected = prenda.categoria == "Top"
+        holder.ibBottom.isSelected = prenda.categoria == "Bottom"
+        holder.ibZapatos.isSelected = prenda.categoria == "Zapatos"
+        holder.ibBodysuit.isSelected = prenda.categoria == "Bodysuit"
+        holder.ibAccesorio.isSelected = prenda.categoria == "Accesorio"
+
+        // Suponiendo que tienes categorías como "casual", "formal", etc.:
+        holder.tbCasual.isChecked = prenda.etiquetas.contains("Casual")
+        holder.tbFormal.isChecked = prenda.etiquetas.contains("Formal")
+        holder.tbDeportivo.isChecked = prenda.etiquetas.contains("Deportivo")
+        holder.tbBasico.isChecked = prenda.etiquetas.contains("Básico")
+        holder.tbFiesta.isChecked = prenda.etiquetas.contains("Fiesta")
     }
 }

@@ -1,11 +1,9 @@
 package mx.edu.itson.clothhangerapp
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.InputType
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -17,8 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.ViewModelProvider
 import com.mrudultora.colorpicker.ColorPickerPopUp
 import com.mrudultora.colorpicker.ColorPickerPopUp.OnPickColorListener
 import mx.edu.itson.clothhangerapp.adapters.PrendaAdapter
@@ -37,13 +34,7 @@ class RegistrarPrendaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_registrar_prenda)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         val btnAgregarImagen: ImageButton = findViewById(R.id.ibAgregarImagen)
 
@@ -71,6 +62,8 @@ class RegistrarPrendaActivity : AppCompatActivity() {
         val defaultColor = Color.WHITE
 
         var colorSeleccionado = ""
+
+        viewModel = ViewModelProvider(this)[PrendasViewModel::class.java]
 
         btnColor.setOnClickListener {
             val colorPickerPopUp = ColorPickerPopUp(it.context) // Usamos el contexto de la vista.
@@ -471,7 +464,10 @@ class RegistrarPrendaActivity : AppCompatActivity() {
                 prendaNueva.usosMensuales = 0
                 prendaNueva.usosTotales = 0
 
-                viewModel.agregarPrenda(prendaEdit)
+                viewModel.agregarPrenda(prendaNueva)
+
+                Toast.makeText(this, "Prenda registrada con éxito.", Toast.LENGTH_SHORT).show()
+                finish()
             }
         }
 

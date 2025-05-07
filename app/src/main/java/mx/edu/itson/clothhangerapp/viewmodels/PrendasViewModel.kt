@@ -1,5 +1,6 @@
 package mx.edu.itson.clothhangerapp.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -40,8 +41,13 @@ class PrendasViewModel: ViewModel() {
         prenda.id = UUID.randomUUID().toString()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                db.collection("tareas").document(prenda.id).set(prenda).await()
-                _listaPrendas.postValue(_listaPrendas.value?.plus(prenda))
+                db.collection("prendas").document(prenda.id).set(prenda).await()
+                Log.d("Firebase", "Prenda registrada correctamente: ${prenda.id}")
+
+                // Asegúrate de actualizar la lista correctamente
+                val nuevaLista = _listaPrendas.value?.toMutableList() ?: mutableListOf()
+                nuevaLista.add(prenda)
+                _listaPrendas.postValue(nuevaLista)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
