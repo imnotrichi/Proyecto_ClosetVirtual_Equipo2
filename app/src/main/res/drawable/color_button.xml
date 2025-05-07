@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <!-- Fondo de imagen -->
+            <item>
+                <bitmap
+                    android:src="@drawable/rainbow_bar"
+                    android:gravity="center" />
+            </item>
+
+            <!-- Capa de esquinas redondeadas (puede ser transparente si solo quieres las esquinas) -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@android:color/transparent"/>
+                    <corners android:radius="10dp"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

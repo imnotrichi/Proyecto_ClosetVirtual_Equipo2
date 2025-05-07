@@ -5,7 +5,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ToggleButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -24,8 +26,20 @@ class RegistrarPrendaActivity : AppCompatActivity() {
             insets
         }
 
-        val btnColor: Button = findViewById(R.id.btnColor)
         val btnAgregarImagen: ImageButton = findViewById(R.id.ibAgregar)
+
+        val etNombrePrenda:EditText = findViewById(R.id.etNombrePrenda)
+
+        val ibTop:ImageButton = findViewById(R.id.ibTop)
+        val ibBottom:ImageButton = findViewById(R.id.ibBottom)
+        val ibZapatos:ImageButton = findViewById(R.id.ibZapatos)
+        val ibBodysuit:ImageButton = findViewById(R.id.ibBodysuit)
+        val ibAccesorio:ImageButton = findViewById(R.id.ibAccesorio)
+
+        val tbSi:ToggleButton = findViewById(R.id.tbSi)
+        val tbNo:ToggleButton = findViewById(R.id.tbNo)
+
+        val btnColor: Button = findViewById(R.id.btnColor)
 
         val defaultColor = Color.BLACK
 

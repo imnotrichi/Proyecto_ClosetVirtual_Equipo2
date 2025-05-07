@@ -32,7 +32,7 @@ class OutfitsActivity : MenuNavegable() {
         val inflater = LayoutInflater.from(this)
         for (outfit in outfits) {
             val outfitView = inflater.inflate(R.layout.outfit_view, llOutfits, false)
-            val btnRegistrarOutfit: Button = findViewById(R.id.btnRegisrarOutfit)
+            val btnRegistrarOutfit: Button = findViewById(R.id.btnCrearOutfit)
 
             setFecha(outfitView.findViewById(R.id.tvFechaOutfit), outfit.fecha)
             setImagen(outfitView.findViewById(R.id.ivTop), outfit.top)
