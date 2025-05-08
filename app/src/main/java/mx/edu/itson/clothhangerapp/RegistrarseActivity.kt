@@ -17,6 +17,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+import mx.edu.itson.clothhangerapp.dataclases.Usuario
 
 class RegistrarseActivity : AppCompatActivity() {
 
@@ -51,17 +54,37 @@ class RegistrarseActivity : AppCompatActivity() {
         btnRegistrar.setOnClickListener {
             if (etNombre.text.isBlank() || etEmail.text.isBlank() || etContrasenia.text.isBlank() || etConfirmarContrasenia.text.isBlank()) {
                 Toast.makeText(this, "Asegúrese de llenar todos los campos.", Toast.LENGTH_SHORT).show()
-            } else if (etContrasenia.text.length < 8){
+            } else if (etContrasenia.text.length < 8) {
                 Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres.", Toast.LENGTH_SHORT).show()
             } else if (etContrasenia.text.toString() != etConfirmarContrasenia.text.toString()) {
                 Toast.makeText(this, "Asegúrese de que ambas contraseñas coincidan.", Toast.LENGTH_SHORT).show()
             } else {
-                auth.createUserWithEmailAndPassword(etEmail.text.toString(), etContrasenia.text.toString()).addOnCompleteListener(this) { task ->
+                val nombre = etNombre.text.toString()
+                val email = etEmail.text.toString()
+                val contrasenia = etContrasenia.text.toString()
+
+                auth.createUserWithEmailAndPassword(email, contrasenia).addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+                        // Registro exitoso, obtener el usuario actual
                         val user = auth.currentUser
-                        val intent = Intent(this, PrincipalActivity::class.java)
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
+                        user?.let {
+                            val uid = user.uid
+                            // Crear el objeto Usuario
+                            val usuario = Usuario(id = uid, nombre = nombre, email = email)
+
+                            // Usar Firestore en lugar de Realtime Database
+                            val db = FirebaseFirestore.getInstance()
+                            db.collection("usuarios").document(uid).set(usuario)
+                                .addOnSuccessListener {
+                                    // Si el guardado es exitoso, ir a la actividad principal
+                                    val intent = Intent(this, PrincipalActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                    startActivity(intent)
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres.", Toast.LENGTH_SHORT).show()
+                                }
+                        }
                     } else {
                         Toast.makeText(this, "Hubo un error al realizar el registro. Vuelva a intentarlo.", Toast.LENGTH_SHORT).show()
                     }

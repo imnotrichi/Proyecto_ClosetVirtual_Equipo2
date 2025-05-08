@@ -72,7 +72,7 @@ private class AdaptadorOutfit: BaseAdapter {
         var nombre = vista.findViewById(R.id.tvNombrePrenda) as TextView
         var categoria = vista.findViewById(R.id.tvCategoriaPrenda) as TextView
 
-        imagen.setImageResource(prnd.imagen.toInt())
+       // imagen.setImageResource(prnd.imagen.toInt())
         nombre.setText(prnd.nombre)
         categoria.setText(prnd.categoria)
 
