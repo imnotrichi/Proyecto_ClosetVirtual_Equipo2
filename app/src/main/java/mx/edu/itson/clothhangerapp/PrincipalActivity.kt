@@ -56,6 +56,8 @@ class PrincipalActivity : MenuNavegable() {
         adaptador = AdaptadorPrendas(this, ArrayList())
         lvArticulos.adapter = adaptador
 
+        viewModel.obtenerPrendasDelUsuario()
+
         viewModel.listaPrendasUsuario.observe(this) {
             aplicarFiltros()
         }

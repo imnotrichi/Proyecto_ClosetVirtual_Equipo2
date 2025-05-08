@@ -2,7 +2,6 @@ package mx.edu.itson.clothhangerapp.viewmodels
 
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -77,11 +76,16 @@ class PrendasViewModel : ViewModel() {
     }
 
     fun cargarTodas() {
+        val userId = auth.currentUser?.uid
         _isLoading.value = true
         viewModelScope.launch {
             try {
                 val resultado = withContext(Dispatchers.IO) {
-                    firestoreDb.collection("prendas").get().await()
+                    firestoreDb.collection("usuarios")
+                        .document(userId!!)
+                        .collection("prendas") // orden alfabético por nombre
+                        .get()
+                        .await()
                 }
 
                 val prendas = resultado.documents.mapNotNull { it.toObject(Prenda::class.java) }
@@ -97,20 +101,23 @@ class PrendasViewModel : ViewModel() {
     }
 
     fun cargarPorCategoria(categoria: String?) {
+        val userId = auth.currentUser?.uid
         _isLoading.value = true
         viewModelScope.launch {
             try {
                 val resultado = withContext(Dispatchers.IO) {
-                    firestoreDb.collection("prendas").get().await()
+                    firestoreDb.collection("usuarios")
+                        .document(userId!!)
+                        .collection("prendas")
+                        .get()
+                        .await()
                 }
 
                 val prendas = resultado.documents.mapNotNull { it.toObject(Prenda::class.java) }
 
-                val filtradas = if (categoria != null) {
+                val filtradas = categoria?.let {
                     prendas.filter { it.categoria.equals(categoria, ignoreCase = true) }
-                } else {
-                    prendas
-                }
+                } ?: prendas
 
                 _listaPrendasUsuario.postValue(filtradas)
 
@@ -156,11 +163,18 @@ class PrendasViewModel : ViewModel() {
                     prenda.imagenUrl = ""
                 }
 
-                // Guardar prenda en Firestore
+                // Guardar prenda en subcolección del usuario
                 withContext(Dispatchers.IO) {
                     firestoreDb.collection("usuarios")
                         .document(currentUser.uid)
                         .collection("prendas")
+                        .add(prenda)
+                        .await()
+                }
+
+                // Guardar prenda en colección raíz "prendas"
+                withContext(Dispatchers.IO) {
+                    firestoreDb.collection("prendas")
                         .add(prenda)
                         .await()
                 }
