@@ -35,6 +35,12 @@ class PrendasViewModel : ViewModel() {
     private val _registroExitoso = MutableLiveData<Boolean>()
     val registroExitoso: LiveData<Boolean> = _registroExitoso
 
+    private val _prendaSeleccionadaDetalle = MutableLiveData<Prenda?>()
+    val prendaSeleccionadaDetalle: LiveData<Prenda?> = _prendaSeleccionadaDetalle
+
+    private val _errorDetalle = MutableLiveData<String?>()
+    val errorDetalle: LiveData<String?> = _errorDetalle
+
     /**
      * Carga las prendas del usuario autenticado desde su colección en Firestore.
      */
@@ -194,9 +200,60 @@ class PrendasViewModel : ViewModel() {
 
     fun limpiarMensajeError() {
         _errorMensaje.value = null
+        _errorDetalle.value = null
     }
 
     fun limpiarEstadoRegistro() {
         _registroExitoso.value = false
+    }
+
+    /**
+     * Obtiene los detalles completos de una prenda específica por su ID.
+     * El resultado se publica en el LiveData prendaSeleccionadaDetalle.
+     *
+     * @param prendaId El ID del documento de la prenda a buscar en Firestore.
+     */
+    fun obtenerDetallePrenda(prendaId: String) {
+        val userId = auth.currentUser?.uid
+        if (userId == null) {
+            _errorDetalle.postValue("Usuario no autenticado para obtener detalle.")
+            _prendaSeleccionadaDetalle.postValue(null)
+            return
+        }
+        if (prendaId.isBlank()) {
+            _errorDetalle.postValue("ID de prenda inválido.")
+            _prendaSeleccionadaDetalle.postValue(null)
+            return
+        }
+
+        _prendaSeleccionadaDetalle.postValue(null)
+        _errorDetalle.postValue(null)
+
+        viewModelScope.launch {
+            try {
+                Log.d("PrendasViewModel", "Buscando prenda con ID: $prendaId para usuario $userId")
+                val documentSnapshot = withContext(Dispatchers.IO) {
+                    firestoreDb.collection("usuarios")
+                        .document(userId)
+                        .collection("prendas")
+                        .document(prendaId)
+                        .get()
+                        .await()
+                }
+
+                if (documentSnapshot.exists()) {
+                    val prenda = documentSnapshot.toObject(Prenda::class.java)
+                    Log.d("PrendasViewModel", "Prenda encontrada: ${prenda?.nombre}, ID: ${prenda?.id}")
+                    _prendaSeleccionadaDetalle.postValue(prenda) // Publicar prenda encontrada
+                } else {
+                    Log.w("PrendasViewModel", "No se encontró prenda con ID: $prendaId")
+                    _errorDetalle.postValue("No se encontró la prenda seleccionada.")
+                }
+            } catch (e: Exception) {
+                Log.e("PrendasViewModel", "Error al obtener detalle de prenda $prendaId: ${e.message}", e)
+                _errorDetalle.postValue("Error al cargar detalles: ${e.message}")
+            } finally {
+            }
+        }
     }
 }

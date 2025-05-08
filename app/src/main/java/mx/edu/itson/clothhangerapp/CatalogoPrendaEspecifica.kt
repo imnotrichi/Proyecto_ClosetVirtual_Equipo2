@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import mx.edu.itson.clothhangerapp.dataclases.PrendaPreviewItem
 import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
 import java.security.Principal
 
@@ -79,7 +80,7 @@ class PrendaPreviewAdapter : BaseAdapter {
 
         // Cargar imagen desde URL con Glide
         Glide.with(context!!)
-            .load(prenda.imagen)
+            .load(prenda.imagenUrl)
             .into(imagen)
 
         nombre.text = prenda.nombre

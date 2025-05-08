@@ -1,5 +1,8 @@
-package mx.edu.itson.clothhangerapp
+package mx.edu.itson.clothhangerapp.dataclases
 
-data class PrendaPreviewItem(var imagen: String, var nombre: String) {
-
+data class PrendaPreviewItem(
+    var id: String?,
+    var imagenUrl: String,
+    var nombre: String
+) {
 }

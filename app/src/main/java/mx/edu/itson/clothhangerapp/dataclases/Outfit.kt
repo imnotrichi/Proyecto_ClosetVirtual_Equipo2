@@ -1,28 +1,31 @@
 package mx.edu.itson.clothhangerapp.dataclases
 
+import com.google.firebase.firestore.DocumentId
+import com.google.firebase.firestore.ServerTimestamp
+import java.util.Date
 import com.google.firebase.Timestamp
 
 data class Outfit(
+    @DocumentId
+    var id: String? = null,
     var userId: String? = null,
-    var fecha: Timestamp,
-    var top: Prenda?,
-    var bodysuit: Prenda?,
-    var bottom: Prenda?,
-    var zapatos: Prenda?,
-    var accesorio1: Prenda?,
-    var accesorio2: Prenda?,
-    var accesorio3: Prenda?
+    var fecha: Timestamp = Timestamp.now(),
+    var top: Prenda? = null,
+    var bottom: Prenda? = null,
+    var bodysuit: Prenda? = null,
+    var zapatos: Prenda? = null,
+    var accesorio1: Prenda? = null,
+    var accesorio2: Prenda? = null,
+    var accesorio3: Prenda? = null,
+
+    @ServerTimestamp
+    var fechaCreacion: Date? = null
 ) {
     constructor() : this(
-        userId = null,
-        fecha = Timestamp.now(),
-        top = null,
-        bodysuit = null,
-        bottom = null,
-        zapatos = null,
-        accesorio1 = null,
-        accesorio2 = null,
-        accesorio3 = null
+        id = null, userId = null, fecha = Timestamp.now(),
+        top = null, bottom = null, bodysuit = null, zapatos = null,
+        accesorio1 = null, accesorio2 = null, accesorio3 = null,
+        fechaCreacion = null
     )
 }
 

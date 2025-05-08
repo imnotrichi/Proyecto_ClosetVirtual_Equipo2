@@ -74,40 +74,36 @@ class OutfitsViewModel : ViewModel() {
     }
 
     fun registrarNuevoOutfit(outfit: Outfit) {
-        val currentUser = auth.currentUser
+        val currentUser = auth.currentUser // Obtiene el usuario DENTRO del ViewModel
         if (currentUser == null) {
             _errorMensaje.value = "Debes iniciar sesión para registrar un outfit."
             _registroExitoso.value = false
             return
         }
 
-        outfit.userId = currentUser.uid
+        outfit.userId = currentUser.uid // <-- ASIGNA EL userId AQUÍ
+
         _isLoading.value = true
         _registroExitoso.value = false
 
         viewModelScope.launch {
             try {
-                // Guardar outfit en subcolección del usuario
+                // Guardar outfit en la colección raíz "outfits" (o donde decidas)
                 withContext(Dispatchers.IO) {
-                    firestoreDb.collection("usuarios")
-                        .document(currentUser.uid)
-                        .collection("outfits")
-                        .add(outfit)
-                        .await()
-                }
-
-                // Guardar outfit en colección raíz "outfits"
-                withContext(Dispatchers.IO) {
-                    firestoreDb.collection("outfits")
-                        .add(outfit)
+                    firestoreDb.collection("outfits") // Guardando en la colección raíz como pide el usuario
+                        .add(outfit) // Guarda el outfit que AHORA SÍ tiene el userId
                         .await()
                 }
 
                 Log.d("OutfitsViewModel", "Outfit registrado con éxito.")
                 _registroExitoso.postValue(true)
 
+                // --- AQUÍ IMPLEMENTAREMOS LUEGO EL INCREMENTO DE CONTADORES ---
+                // Necesitarás los IDs de las prendas que están DENTRO del objeto 'outfit'
+//                incrementarContadoresPrendas(outfit) // Llamar a función auxiliar
+
             } catch (e: Exception) {
-                Log.e("OutfitssViewModel", "Error al registrar outfit: ${e.message}", e)
+                Log.e("OutfitsViewModel", "Error al registrar outfit: ${e.message}", e) // Corregido Tag
                 _errorMensaje.postValue("Error al registrar outfit: ${e.message}")
                 _registroExitoso.postValue(false)
             } finally {
