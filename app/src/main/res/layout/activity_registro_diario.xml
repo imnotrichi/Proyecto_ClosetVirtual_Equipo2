@@ -77,28 +77,20 @@
                 android:gravity="right"
                 android:orientation="vertical">
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnSeleccionarTop"
                     android:layout_width="110dp"
                     android:layout_height="135dp"
                     android:background="@drawable/round_button_negro"
-                    android:fontFamily="@font/lexend_deca_regular"
-                    android:text="@string/seleccionar_top"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:src="@drawable/icono_tops_blanco"/>
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnSeleccionarBottom"
                     android:layout_width="110dp"
                     android:layout_height="280dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/round_button_negro"
-                    android:fontFamily="@font/lexend_deca_regular"
-                    android:text="@string/seleccionar_bottom"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:src="@drawable/icono_bottoms_blanco"/>
 
 
             </LinearLayout>
@@ -109,28 +101,20 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnSeleccionarBodysuit"
                     android:layout_width="110dp"
                     android:layout_height="280dp"
                     android:background="@drawable/round_button_negro"
-                    android:fontFamily="@font/lexend_deca_regular"
-                    android:text="@string/seleccionar_bodysuit"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:src="@drawable/icono_bodysuit_blanco"/>
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnSeleccionarZapatos"
                     android:layout_width="110dp"
                     android:layout_height="135dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/round_button_negro"
-                    android:fontFamily="@font/lexend_deca_regular"
-                    android:text="@string/seleccionar_zapatos"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:src="@drawable/icono_zapatos_blanco"/>
 
             </LinearLayout>
 
@@ -140,40 +124,29 @@
                 android:gravity="left"
                 android:orientation="vertical">
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnSeleccionarAccesorios1"
                     android:layout_width="110dp"
                     android:layout_height="135dp"
                     android:background="@drawable/round_button_negro"
-                    android:fontFamily="@font/lexend_deca_regular"
-                    android:text="@string/seleccionar_zapatos"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:src="@drawable/icono_accesorios_blanco" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnSeleccionarAccesorios2"
                     android:layout_width="110dp"
                     android:layout_height="135dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/round_button_negro"
-                    android:fontFamily="@font/lexend_deca_regular"
-                    android:text="@string/seleccionar_zapatos"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:src="@drawable/icono_accesorios_blanco"/>
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnSeleccionarAccesorios3"
                     android:layout_width="110dp"
                     android:layout_height="135dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/round_button_negro"
-                    android:fontFamily="@font/lexend_deca_regular"
                     android:text="@string/seleccionar_zapatos"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:src="@drawable/icono_accesorios_blanco"/>
 
             </LinearLayout>
 
