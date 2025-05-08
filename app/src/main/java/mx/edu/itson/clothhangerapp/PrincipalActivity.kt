@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import mx.edu.itson.clothhangerapp.dataclases.Prenda
 import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
 
@@ -179,7 +180,9 @@ class PrincipalActivity : MenuNavegable() {
             val nombre = vista.findViewById<TextView>(R.id.tvNombrePrenda)
             val categoria = vista.findViewById<TextView>(R.id.tvCategoriaPrenda)
 
-            imagen.setImageResource(R.drawable.top_rosa_flores) // temporal
+            Glide.with(contexto)
+                .load(prenda.imagenUrl) // URL de la imagen
+                .into(imagen)
             nombre.text = prenda.nombre
             categoria.text = prenda.categoria
 
