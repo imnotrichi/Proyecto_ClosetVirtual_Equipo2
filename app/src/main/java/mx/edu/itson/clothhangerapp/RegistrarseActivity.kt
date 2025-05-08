@@ -82,8 +82,7 @@ class RegistrarseActivity : AppCompatActivity() {
                                     startActivity(intent)
                                 }
                                 .addOnFailureListener {
-                                    tvError.text = "Error al guardar los datos"
-                                    tvError.visibility = View.VISIBLE
+                                    Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres.", Toast.LENGTH_SHORT).show()
                                 }
                         }
                     } else {
