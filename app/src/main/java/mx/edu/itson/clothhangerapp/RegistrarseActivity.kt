@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -50,21 +49,15 @@ class RegistrarseActivity : AppCompatActivity() {
         val etEmail: EditText = findViewById(R.id.etEmail)
         val etContrasenia: EditText = findViewById(R.id.etContrasenia)
         val etConfirmarContrasenia: EditText = findViewById(R.id.etConfirmarContrasenia)
-        val tvError: TextView = findViewById(R.id.tvError)
         val btnRegistrar: Button = findViewById(R.id.btnRegisrar)
-
-        tvError.visibility = View.INVISIBLE
 
         btnRegistrar.setOnClickListener {
             if (etNombre.text.isBlank() || etEmail.text.isBlank() || etContrasenia.text.isBlank() || etConfirmarContrasenia.text.isBlank()) {
-                tvError.text = "Asegúrese de llenar todos los campos."
-                tvError.visibility = View.VISIBLE
+                Toast.makeText(this, "Asegúrese de llenar todos los campos.", Toast.LENGTH_SHORT).show()
             } else if (etContrasenia.text.length < 8) {
-                tvError.text = "La contraseña debe tener al menos 8 caracteres."
-                tvError.visibility = View.VISIBLE
+                Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres.", Toast.LENGTH_SHORT).show()
             } else if (etContrasenia.text.toString() != etConfirmarContrasenia.text.toString()) {
-                tvError.text = "Asegúrese de que las contraseñas coincidan."
-                tvError.visibility = View.VISIBLE
+                Toast.makeText(this, "Asegúrese de que ambas contraseñas coincidan.", Toast.LENGTH_SHORT).show()
             } else {
                 val nombre = etNombre.text.toString()
                 val email = etEmail.text.toString()
@@ -94,8 +87,7 @@ class RegistrarseActivity : AppCompatActivity() {
                                 }
                         }
                     } else {
-                        tvError.text = "Hubo un error al realizar el registro. Vuelva a intentarlo."
-                        tvError.visibility = View.VISIBLE
+                        Toast.makeText(this, "Hubo un error al realizar el registro. Vuelva a intentarlo.", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
