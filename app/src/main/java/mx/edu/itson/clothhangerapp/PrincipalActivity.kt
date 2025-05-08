@@ -49,6 +49,9 @@ class PrincipalActivity : MenuNavegable() {
         etBuscar = findViewById(R.id.etBuscar)
         btnRegistrarPrenda = findViewById(R.id.btnRegistrarPrenda)
 
+        setupBottomNavigation()
+        setSelectedItem(R.id.nav_home)
+
         // Inicializar adaptador vacío una sola vez
         adaptador = AdaptadorPrendas(this, ArrayList())
         lvArticulos.adapter = adaptador
