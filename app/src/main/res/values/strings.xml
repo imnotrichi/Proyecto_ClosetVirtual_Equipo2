@@ -20,7 +20,7 @@
     <string name="tags">Tags:</string>
     <string name="total_usos">Total de usos:</string>
     <string name="usos_mes">Usos este mes:</string>
-    <string name="top_flores">Top flores</string>
+    <string name="top_flores">Top Flores</string>
 
     //Pantalla Registro Diario
     <string name="titulo_hoy">Mi Outfit de Hoy</string>

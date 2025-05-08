@@ -5,239 +5,268 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/cream"
+    android:orientation="vertical"
     tools:context=".DetallePrendaActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:srcCompat="@drawable/banner2" />
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp">
+
+            <ImageView
+                android:id="@+id/ivBanner"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/banner" />
+
+            <ImageView
+                android:id="@+id/ivLogo"
+                android:layout_width="match_parent"
+                android:layout_height="131dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/closet_virtual" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="15dp"
+        android:fontFamily="@font/lexend_deca_semi_bold"
         android:text="@string/top_flores"
         android:textAlignment="center"
-        android:fontFamily="@font/lexend_deca_medium"
         android:textColor="@color/black"
-        android:textSize="32sp"
-        android:layout_marginBottom="5dp"/>
+        android:textSize="40sp" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="250dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        app:cardBackgroundColor="@color/black"
-        app:cardCornerRadius="6dp">
-
-        <LinearLayout
-            android:layout_width="240dp"
-            android:layout_height="290dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <ImageView
-                android:id="@+id/ivImagen"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/prenda_floreada" />
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/btnEditar"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:background="@drawable/round_button_negro"
-            android:text="@string/editar"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:layout_marginRight="35dp"
-            android:fontFamily="@font/lexend_deca_semi_bold"
-            android:textSize="16sp"
-            />
-
-        <Button
-            android:id="@+id/btnBorrar"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:background="@drawable/round_button_negro"
-            android:text="@string/borrar"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:layout_marginLeft="35dp"
-            android:fontFamily="@font/lexend_deca_semi_bold"
-            android:textSize="16sp"
-            android:layout_gravity="center"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:gravity="center|center_horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/categoria"
-            android:fontFamily="@font/lexend_deca_medium"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@+id/tvCategoria"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lexend_deca_light"
-            android:textSize="16sp"
-            android:text="TextView" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/total_usos"
-            android:layout_marginLeft="20dp"
-            android:fontFamily="@font/lexend_deca_medium"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@+id/tvTotalUsos"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lexend_deca_light"
-            android:textSize="16sp"
-            android:text="TextView" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:gravity="center|center_horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/color"
-            android:fontFamily="@font/lexend_deca_medium"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@+id/tvColor"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lexend_deca_light"
-            android:textSize="16sp"
-            android:text="TextView" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/usos_mes"
-            android:layout_marginLeft="45dp"
-            android:fontFamily="@font/lexend_deca_medium"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@+id/tvUsosMes"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lexend_deca_light"
-            android:textSize="16sp"
-            android:text="TextView" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/estampado"
-            android:fontFamily="@font/lexend_deca_medium"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@+id/tvEstampado"
-            android:layout_width="wrap_content"
-            android:layout_marginRight="190dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lexend_deca_light"
-            android:textSize="16sp"
-            android:text="TextView" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tags"
-            android:fontFamily="@font/lexend_deca_medium"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@+id/tvTags"
-            android:layout_width="wrap_content"
-            android:layout_marginRight="120dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lexend_deca_light"
-            android:textSize="16sp"
-            android:text="TextView" />
-
-    </LinearLayout>
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="15dp"
+        android:background="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_weight="1"/>
+        android:padding="10dp">
 
-        <include
-            layout="@layout/navigation_menu"
+        <androidx.cardview.widget.CardView
+            android:layout_width="250dp"
+            android:layout_height="260dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="6dp">
+
+            <LinearLayout
+                android:layout_width="240dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ivImagen"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/prenda_floreada" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnEditar"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="35dp"
+                android:background="@drawable/round_button_negro"
+                android:fontFamily="@font/lexend_deca_semi_bold"
+                android:text="@string/editar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnBorrar"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="35dp"
+                android:background="@drawable/round_button_negro"
+                android:fontFamily="@font/lexend_deca_semi_bold"
+                android:text="@string/borrar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"/>
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lexend_deca_medium"
+                android:text="@string/categoria"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvCategoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/lexend_deca_light"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/lexend_deca_medium"
+                android:text="@string/total_usos"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvTotalUsos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/lexend_deca_light"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lexend_deca_medium"
+                android:text="@string/color"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/lexend_deca_light"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:fontFamily="@font/lexend_deca_medium"
+                android:text="@string/usos_mes"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvUsosMes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="@font/lexend_deca_light"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lexend_deca_medium"
+                android:text="@string/estampado"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvEstampado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lexend_deca_light"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lexend_deca_medium"
+                android:text="@string/tags"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvTags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="120dp"
+                android:fontFamily="@font/lexend_deca_light"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/navigation_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 
 </LinearLayout>

@@ -12,9 +12,7 @@ import mx.edu.itson.clothhangerapp.R
 import mx.edu.itson.clothhangerapp.dataclases.Prenda
 
 class PrendaAdapter(
-    var listaPrendas: List<Prenda>,
-    var onBorrarClick: (String) -> Unit,
-    var onActualizarClick: (Prenda) -> Unit
+    var listaPrendas: List<Prenda>
 ) : RecyclerView.Adapter<PrendaAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

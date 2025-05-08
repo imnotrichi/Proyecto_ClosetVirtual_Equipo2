@@ -8,11 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class DetallePrendaActivity : AppCompatActivity() {
+class DetallePrendaActivity : MenuNavegable() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_detalle_prenda)
+
+        setupBottomNavigation()
 
         val nombre = intent.getStringExtra("nombre")
         val imagen = intent.getIntExtra("imagen",0)
@@ -40,11 +41,5 @@ class DetallePrendaActivity : AppCompatActivity() {
         tvTags.text = tags
         tvTotalUsos.text = totalUsos
         tvUsosMes.text = usosMes
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 }

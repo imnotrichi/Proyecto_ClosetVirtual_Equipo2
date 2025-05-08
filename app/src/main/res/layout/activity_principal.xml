@@ -69,6 +69,7 @@
         android:layout_marginTop="10dp">
 
         <EditText
+            android:id="@+id/etBuscar"
             android:layout_width="330dp"
             android:layout_height="35dp"
             android:background="@drawable/buscar_edit_text"
@@ -210,7 +211,7 @@
             android:layout_gravity="center" />
 
         <Button
-            android:id="@+id/btnRegisrarPrenda"
+            android:id="@+id/btnRegistrarPrenda"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="bottom|end"

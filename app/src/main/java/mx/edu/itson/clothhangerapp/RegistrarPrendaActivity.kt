@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import android.widget.ToggleButton
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -17,7 +18,7 @@ import mx.edu.itson.clothhangerapp.databinding.ActivityRegistrarPrendaBinding
 import mx.edu.itson.clothhangerapp.dataclases.Prenda
 import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
 
-class RegistrarPrendaActivity : AppCompatActivity() {
+class RegistrarPrendaActivity : MenuNavegable() {
 
     private lateinit var binding: ActivityRegistrarPrendaBinding
     private lateinit var viewModel: PrendasViewModel
@@ -34,15 +35,8 @@ class RegistrarPrendaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityRegistrarPrendaBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         viewModel = ViewModelProvider(this)[PrendasViewModel::class.java]
 
@@ -51,8 +45,11 @@ class RegistrarPrendaActivity : AppCompatActivity() {
         configurarListenersUI()
         configurarEstadoInicialUI()
         observarViewModel()
+        
+        setupBottomNavigation()
     }
 
+    
     private fun inicializarMapasDeIconos() {
         mapIconosCategoriaOriginal = mapOf(
             binding.ibTop to R.drawable.icono_tops_negro,

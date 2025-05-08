@@ -2,6 +2,7 @@ package mx.edu.itson.clothhangerapp.viewmodels
 
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +18,7 @@ import kotlinx.coroutines.withContext
 import mx.edu.itson.clothhangerapp.dataclases.Prenda
 import java.util.UUID
 
-class PrendasViewModel: ViewModel() {
+class PrendasViewModel : ViewModel() {
 
     private val firestoreDb = Firebase.firestore
     private val storageRef = Firebase.storage.reference
@@ -36,8 +37,7 @@ class PrendasViewModel: ViewModel() {
     val registroExitoso: LiveData<Boolean> = _registroExitoso
 
     /**
-     * Obtiene las prendas del usuario actualmente autenticado desde Firestore.
-     * Útil para mostrar el clóset en otra pantalla.
+     * Carga las prendas del usuario autenticado desde su colección en Firestore.
      */
     fun obtenerPrendasDelUsuario() {
         val userId = auth.currentUser?.uid
@@ -59,10 +59,9 @@ class PrendasViewModel: ViewModel() {
                         .await()
                 }
 
-                val prendas = resultado.documents.mapNotNull { documentSnapshot ->
-                    documentSnapshot.toObject(Prenda::class.java)
-                }
+                val prendas = resultado.documents.mapNotNull { it.toObject(Prenda::class.java) }
                 _listaPrendasUsuario.postValue(prendas)
+
             } catch (e: Exception) {
                 Log.e("PrendasViewModel", "Error al obtener prendas: ${e.message}", e)
                 _errorMensaje.postValue("Error al cargar prendas: ${e.message}")
@@ -73,14 +72,57 @@ class PrendasViewModel: ViewModel() {
         }
     }
 
-    /**
-     * Registra una nueva prenda: sube la imagen a Firebase Storage (si se proporciona)
-     * y guarda los datos de la prenda en Cloud Firestore.
-     * Este es el método que llamará RegistrarPrendaActivity.
-     *
-     * @param prenda Objeto Prenda con los datos recolectados de la UI.
-     * @param imagenUri Uri de la imagen seleccionada por el usuario (puede ser null).
-     */
+    fun vaciarLista() {
+        _listaPrendasUsuario.value = emptyList()
+    }
+
+    fun cargarTodas() {
+        _isLoading.value = true
+        viewModelScope.launch {
+            try {
+                val resultado = withContext(Dispatchers.IO) {
+                    firestoreDb.collection("prendas").get().await()
+                }
+
+                val prendas = resultado.documents.mapNotNull { it.toObject(Prenda::class.java) }
+                _listaPrendasUsuario.postValue(prendas)
+
+            } catch (e: Exception) {
+                Log.e("PrendasViewModel", "Error al cargar todas las prendas: ${e.message}", e)
+                _errorMensaje.postValue("Error al cargar prendas.")
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
+    fun cargarPorCategoria(categoria: String?) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            try {
+                val resultado = withContext(Dispatchers.IO) {
+                    firestoreDb.collection("prendas").get().await()
+                }
+
+                val prendas = resultado.documents.mapNotNull { it.toObject(Prenda::class.java) }
+
+                val filtradas = if (categoria != null) {
+                    prendas.filter { it.categoria.equals(categoria, ignoreCase = true) }
+                } else {
+                    prendas
+                }
+
+                _listaPrendasUsuario.postValue(filtradas)
+
+            } catch (e: Exception) {
+                Log.e("PrendasViewModel", "Error al filtrar por categoría: ${e.message}", e)
+                _errorMensaje.postValue("Error al cargar prendas.")
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
     fun registrarNuevaPrenda(prenda: Prenda, imagenUri: Uri?) {
         val currentUser = auth.currentUser
         if (currentUser == null) {
@@ -88,15 +130,17 @@ class PrendasViewModel: ViewModel() {
             _registroExitoso.value = false
             return
         }
-        prenda.userId = currentUser.uid
 
+        prenda.userId = currentUser.uid
         _isLoading.value = true
         _registroExitoso.value = false
 
         viewModelScope.launch {
             try {
+                // Subir imagen si existe
                 if (imagenUri != null) {
-                    val nombreArchivoImagen = "prendas_imagenes/${currentUser.uid}/${UUID.randomUUID()}.jpg"
+                    val nombreArchivoImagen =
+                        "prendas_imagenes/${currentUser.uid}/${UUID.randomUUID()}.jpg"
                     val imagenEnStorageRef = storageRef.child(nombreArchivoImagen)
 
                     withContext(Dispatchers.IO) {
@@ -106,12 +150,14 @@ class PrendasViewModel: ViewModel() {
                     val downloadUrl = withContext(Dispatchers.IO) {
                         imagenEnStorageRef.downloadUrl.await()
                     }
+
                     prenda.imagenUrl = downloadUrl.toString()
                 } else {
                     prenda.imagenUrl = ""
                 }
 
-                val nuevoDocumentoPrendaRef = withContext(Dispatchers.IO) {
+                // Guardar prenda en Firestore
+                withContext(Dispatchers.IO) {
                     firestoreDb.collection("usuarios")
                         .document(currentUser.uid)
                         .collection("prendas")
@@ -119,8 +165,7 @@ class PrendasViewModel: ViewModel() {
                         .await()
                 }
 
-                Log.d("PrendasViewModel", "Prenda registrada en Firestore con ID: ${nuevoDocumentoPrendaRef.id}")
-
+                Log.d("PrendasViewModel", "Prenda registrada con éxito.")
                 _registroExitoso.postValue(true)
 
             } catch (e: Exception) {
@@ -138,6 +183,6 @@ class PrendasViewModel: ViewModel() {
     }
 
     fun limpiarEstadoRegistro() {
-        _registroExitoso.value = false // O null si prefieres un estado de tres vías
+        _registroExitoso.value = false
     }
 }

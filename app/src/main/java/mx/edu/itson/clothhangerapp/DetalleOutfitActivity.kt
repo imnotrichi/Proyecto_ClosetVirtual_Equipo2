@@ -11,10 +11,11 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import mx.edu.itson.clothhangerapp.dataclases.Articulo
+import mx.edu.itson.clothhangerapp.dataclases.Prenda
 
 class DetalleOutfitActivity : MenuNavegable() {
 
-    var outfit: ArrayList<Articulo> = ArrayList<Articulo>()
+    var outfit: ArrayList<Prenda> = ArrayList<Prenda>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,29 +34,29 @@ class DetalleOutfitActivity : MenuNavegable() {
     }
 
     fun cargarOutfit() {
-        outfit.add(Articulo("Lentes de sol", R.drawable.lentes_sol, "Accesorio", "Rosa", "Sí", "Cute", "20", "5"))
-        outfit.add(Articulo("Blusa floreada", R.drawable.top_rosa_flores, "Top", "Rosa", "Sí", "Cute", "20", "5"))
-        outfit.add(Articulo("Pantalón de mezclilla", R.drawable.pantalon_mezclilla, "Bottom", "Rosa", "Sí", "Cute", "20", "5"))
-        outfit.add(Articulo("Zapatillas rojas", R.drawable.zapatilla_roja, "Zapatos", "Rosa", "Sí", "Cute", "20", "5"))
+        //outfit.add(Articulo("Lentes de sol", R.drawable.lentes_sol, "Accesorio", "Rosa", "Sí", "Cute", "20", "5"))
+        //outfit.add(Articulo("Blusa floreada", R.drawable.top_rosa_flores, "Top", "Rosa", "Sí", "Cute", "20", "5"))
+        //outfit.add(Articulo("Pantalón de mezclilla", R.drawable.pantalon_mezclilla, "Bottom", "Rosa", "Sí", "Cute", "20", "5"))
+        //outfit.add(Articulo("Zapatillas rojas", R.drawable.zapatilla_roja, "Zapatos", "Rosa", "Sí", "Cute", "20", "5"))
     }
 
 }
 
 private class AdaptadorOutfit: BaseAdapter {
-    var articulos= ArrayList<Articulo>()
+    var prendas= ArrayList<Prenda>()
     var contexto: Context ?= null
 
-    constructor(contexto: Context, articulos: ArrayList<Articulo>) {
-        this.articulos = articulos
+    constructor(contexto: Context, prendas: ArrayList<Prenda>) {
+        this.prendas = prendas
         this.contexto = contexto
     }
 
     override fun getCount(): Int {
-        return articulos.size
+        return prendas.size
     }
 
     override fun getItem(position: Int): Any {
-        return articulos[position]
+        return prendas[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -63,17 +64,17 @@ private class AdaptadorOutfit: BaseAdapter {
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var articulo = articulos[position]
+        var prnd = prendas[position]
         var inflador = LayoutInflater.from(contexto)
-        var vista = inflador.inflate(R.layout.articulo_view, null)
+        var vista = inflador.inflate(R.layout.prenda_view, null)
 
-        var imagen = vista.findViewById(R.id.ivArticulo) as ImageView
-        var nombre = vista.findViewById(R.id.tvNombreArticulo) as TextView
-        var categoria = vista.findViewById(R.id.tvCategoriaArticulo) as TextView
+        var imagen = vista.findViewById(R.id.ivImagenPrenda) as ImageView
+        var nombre = vista.findViewById(R.id.tvNombrePrenda) as TextView
+        var categoria = vista.findViewById(R.id.tvCategoriaPrenda) as TextView
 
-        imagen.setImageResource(articulo.imagen)
-        nombre.setText(articulo.nombre)
-        categoria.setText(articulo.categoria)
+        imagen.setImageResource(prnd.imagen.toInt())
+        nombre.setText(prnd.nombre)
+        categoria.setText(prnd.categoria)
 
         return vista
     }

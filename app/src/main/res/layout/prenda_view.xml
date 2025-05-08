@@ -20,7 +20,7 @@
             android:padding="4dp">
 
             <ImageView
-                android:id="@+id/ivArticulo"
+                android:id="@+id/ivImagenPrenda"
                 android:layout_width="112dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -37,7 +37,7 @@
                 android:layout_gravity="center">
 
                 <TextView
-                    android:id="@+id/tvNombreArticulo"
+                    android:id="@+id/tvNombrePrenda"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -47,7 +47,7 @@
                     android:textSize="25sp" />
 
                 <TextView
-                    android:id="@+id/tvCategoriaArticulo"
+                    android:id="@+id/tvCategoriaPrenda"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
