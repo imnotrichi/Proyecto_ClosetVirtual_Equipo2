@@ -10,61 +10,74 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import mx.edu.itson.clothhangerapp.dataclases.Articulo
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import mx.edu.itson.clothhangerapp.dataclases.Outfit
+import mx.edu.itson.clothhangerapp.viewmodels.OutfitsViewModel
 import java.util.Locale
 
 class OutfitsActivity : MenuNavegable() {
-    var outfits: ArrayList<Outfit> = ArrayList()
+
+    private lateinit var viewModel: OutfitsViewModel
+    private lateinit var llOutfits: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_outfits)
 
-        val llOutfits: LinearLayout =
-            findViewById(R.id.llOutfits) // Dentro de HorizontalScrollView en XML
-
+        llOutfits = findViewById(R.id.llOutfits)
         setupBottomNavigation()
         setSelectedItem(R.id.nav_outfits)
 
-        agregarOutfits()
+        viewModel = ViewModelProvider(this)[OutfitsViewModel::class.java]
+        viewModel.listaOutfitsUsuario.observe(this) { outfits ->
+            if (!outfits.isNullOrEmpty()) {
+                actualizarUIConOutfits(outfits)
+            }
+        }
 
-        // Agregar dinámicamente las vistas de los outfits al LinearLayout
+        viewModel.obtenerOutfitsDelUsuario()
+    }
+
+    private fun actualizarUIConOutfits(outfits: List<Outfit>) {
+        llOutfits.removeAllViews()
         val inflater = LayoutInflater.from(this)
+
         for (outfit in outfits) {
             val outfitView = inflater.inflate(R.layout.outfit_view, llOutfits, false)
-            val btnRegistrarOutfit: Button = findViewById(R.id.btnCrearOutfit)
 
-            setFecha(outfitView.findViewById(R.id.tvFechaOutfit), outfit.fecha)
-            setImagen(outfitView.findViewById(R.id.ivTop), outfit.top)
-            setImagen(outfitView.findViewById(R.id.ivBodysuit), outfit.bodysuit)
-            setImagen(outfitView.findViewById(R.id.ivBottom), outfit.bottom)
-            setImagen(outfitView.findViewById(R.id.ivZapatos), outfit.zapatos)
-            setImagen(outfitView.findViewById(R.id.ivAccesorio1), outfit.accesorio1)
-            setImagen(outfitView.findViewById(R.id.ivAccesorio2), outfit.accesorio2)
-            setImagen(outfitView.findViewById(R.id.ivAccesorio3), outfit.accesorio3)
+            // Asignar imágenes
+            setImagen(outfitView.findViewById(R.id.ivTop), outfit.top?.imagenUrl)
+            setImagen(outfitView.findViewById(R.id.ivBodysuit), outfit.bodysuit?.imagenUrl)
+            setImagen(outfitView.findViewById(R.id.ivBottom), outfit.bottom?.imagenUrl)
+            setImagen(outfitView.findViewById(R.id.ivZapatos), outfit.zapatos?.imagenUrl)
+            setImagen(outfitView.findViewById(R.id.ivAccesorio1), outfit.accesorio1?.imagenUrl)
+            setImagen(outfitView.findViewById(R.id.ivAccesorio2), outfit.accesorio2?.imagenUrl)
+            setImagen(outfitView.findViewById(R.id.ivAccesorio3), outfit.accesorio3?.imagenUrl)
 
+            // Evento para cada prenda
             outfitView.findViewById<ImageView>(R.id.ivTop).setOnClickListener {
-                abrirDetalleOutfit(outfit, "Top")
+                abrirDetalleOutfit(outfit, "top")
             }
 
+            // Evento botón dentro del outfitView
+            val btnRegistrarOutfit: Button = findViewById(R.id.btnCrearOutfit)
             btnRegistrarOutfit.setOnClickListener {
                 val intent = Intent(this, RegistroDiarioActivity::class.java)
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
             }
 
-            // Agregar evento de clic para abrir la pantalla de detalles
+            // Evento general para ver detalle completo
             outfitView.setOnClickListener {
                 val intent = Intent(this, DetalleOutfitActivity::class.java).apply {
-                    putExtra("fecha", outfit.fecha.timeInMillis)
-                    putExtra("top", outfit.top?.imagen ?: -1)
-                    putExtra("bodysuit", outfit.bodysuit?.imagen ?: -1)
-                    putExtra("bottom", outfit.bottom?.imagen ?: -1)
-                    putExtra("zapatos", outfit.zapatos?.imagen ?: -1)
-                    putExtra("accesorio1", outfit.accesorio1?.imagen ?: -1)
-                    putExtra("accesorio2", outfit.accesorio2?.imagen ?: -1)
-                    putExtra("accesorio3", outfit.accesorio3?.imagen ?: -1)
+                    putExtra("top", outfit.top?.imagenUrl ?: "")
+                    putExtra("bodysuit", outfit.bodysuit?.imagenUrl ?: "")
+                    putExtra("bottom", outfit.bottom?.imagenUrl ?: "")
+                    putExtra("zapatos", outfit.zapatos?.imagenUrl ?: "")
+                    putExtra("accesorio1", outfit.accesorio1?.imagenUrl ?: "")
+                    putExtra("accesorio2", outfit.accesorio2?.imagenUrl ?: "")
+                    putExtra("accesorio3", outfit.accesorio3?.imagenUrl ?: "")
                 }
                 startActivity(intent)
             }
@@ -75,84 +88,33 @@ class OutfitsActivity : MenuNavegable() {
 
     private fun abrirDetalleOutfit(outfit: Outfit, parte: String) {
         val intent = Intent(this, DetalleOutfitActivity::class.java).apply {
-            putExtra("fecha", outfit.fecha.timeInMillis)
-            putExtra("parteSeleccionada", parte) // Para identificar la imagen clicada
-            putExtra("top", outfit.top?.imagen ?: -1)
-            putExtra("bodysuit", outfit.bodysuit?.imagen ?: -1)
-            putExtra("bottom", outfit.bottom?.imagen ?: -1)
-            putExtra("zapatos", outfit.zapatos?.imagen ?: -1)
-            putExtra("accesorio1", outfit.accesorio1?.imagen ?: -1)
-            putExtra("accesorio2", outfit.accesorio2?.imagen ?: -1)
-            putExtra("accesorio3", outfit.accesorio3?.imagen ?: -1)
+            putExtra("fecha", outfit.fecha)
+            putExtra("parteSeleccionada", parte)
+            putExtra("top", outfit.top?.imagenUrl ?: "")
+            putExtra("bodysuit", outfit.bodysuit?.imagenUrl ?: "")
+            putExtra("bottom", outfit.bottom?.imagenUrl ?: "")
+            putExtra("zapatos", outfit.zapatos?.imagenUrl ?: "")
+            putExtra("accesorio1", outfit.accesorio1?.imagenUrl ?: "")
+            putExtra("accesorio2", outfit.accesorio2?.imagenUrl ?: "")
+            putExtra("accesorio3", outfit.accesorio3?.imagenUrl ?: "")
         }
         startActivity(intent)
     }
 
-    fun agregarOutfits() {
-        outfits.add(
-            Outfit(
-                Calendar.getInstance(),
-                Articulo("Top rosa", R.drawable.top_rosa_flores, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                null,
-                Articulo("Falda de mezclilla", R.drawable.falda_mezclilla, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                Articulo("Zapatitos rojo", R.drawable.zapatitos_rojos, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                null,
-                null,
-                null
-            )
-        )
-        outfits.add(
-            Outfit(
-                Calendar.getInstance(),
-                Articulo("Perro El Shirota", R.drawable.perro, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                null,
-                Articulo("Pantalones negros", R.drawable.pantalones_negros, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                Articulo("Crocs Rayo McQueen", R.drawable.crocs, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                Articulo("Lentes de broma", R.drawable.broma, "Cute", "Rosa", "Sí", "Cute", "20", "5"),
-                null,
-                null
-            )
-        )
-        outfits.add(
-            Outfit(
-                Calendar.getInstance(),
-                Articulo("Top rosita", R.drawable.top_rosita, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                null,
-                Articulo("Pantalones cafes", R.drawable.pantalones_cafes, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                Articulo("Tenis verdes", R.drawable.zapatos_verdes, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                Articulo("Aretes de gato", R.drawable.aretes_gato, "Cute", "Rosa", "Sí", "Cute", "20", "5"),
-                null,
-                null
-            )
-        )
-        outfits.add(
-            Outfit(
-                Calendar.getInstance(),
-                null,
-                Articulo("Bodysuit negro", R.drawable.bodysuit_negro, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                Articulo("Botas negras", R.drawable.botas, "Verano", "Rosa", "Sí", "Cute", "20", "5"),
-                null,
-                null,
-                null,
-                null
-            )
-        )
-    }
-
-    // Función para asignar imagen o esconder ImageView
-    private fun setImagen(imageView: ImageView, articulo: Articulo?) {
-        if (articulo != null) {
-            imageView.setImageResource(articulo.imagen)
+    // Asigna imagen o esconde el ImageView si no hay
+    private fun setImagen(imageView: ImageView, url: String?) {
+        if (!url.isNullOrEmpty()) {
             imageView.visibility = View.VISIBLE
+            // Aquí deberías usar Glide, Picasso o similar para cargar la URL
+            Glide.with(this).load(url).into(imageView)
         } else {
             imageView.visibility = View.GONE
         }
     }
 
     private fun setFecha(tvFecha: TextView, fecha: Calendar) {
-        val format =
-            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())  // El formato puede ser ajustado
-        val formattedDate = format.format(fecha.time)  // Convierte la fecha a String
-        tvFecha.text = formattedDate  // Establece el texto en el TextView
+        val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val formattedDate = format.format(fecha.time)
+        tvFecha.text = formattedDate
     }
 }

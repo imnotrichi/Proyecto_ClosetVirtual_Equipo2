@@ -44,21 +44,21 @@ class RegistroDiarioActivity : MenuNavegable() {
 
         btnTop.setOnClickListener{
             val intent = Intent(this, PrendaEspecificaActivity::class.java)
-            intent.putExtra("categoria", "Tops")
+            intent.putExtra("categoria", "Top")
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             launcher.launch(intent)
         }
 
         btnBottom.setOnClickListener{
             val intent = Intent(this, PrendaEspecificaActivity::class.java)
-            intent.putExtra("categoria", "Bottoms")
+            intent.putExtra("categoria", "Bottom")
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
 
         btnBodysuit.setOnClickListener{
             val intent = Intent(this, PrendaEspecificaActivity::class.java)
-            intent.putExtra("categoria", "Bodysuits")
+            intent.putExtra("categoria", "Bodysuit")
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }

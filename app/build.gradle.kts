@@ -68,6 +68,8 @@ dependencies {
     //ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
 
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
     implementation("androidx.activity:activity-ktx:1.8.0")
     implementation("com.google.android.material:material:1.11.0")
 

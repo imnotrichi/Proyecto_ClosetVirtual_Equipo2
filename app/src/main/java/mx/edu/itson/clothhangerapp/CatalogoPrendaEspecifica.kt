@@ -14,10 +14,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
+import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
 import java.security.Principal
 
 class CatalogoPrendaEspecifica : MenuNavegable() {
-
+    private lateinit var viewModel: PrendasViewModel
     var adapter: PrendaPreviewAdapter? = null
     var prendas = ArrayList<PrendaPreviewItem>()
 
@@ -30,17 +32,10 @@ class CatalogoPrendaEspecifica : MenuNavegable() {
 
         categoria = findViewById(R.id.tvCategoriaEspecifica)
 
-        val opcion = intent.getStringExtra("opcion")
-
-        when ("tops") {
-            "tops" -> cargarTops()
-            "bottoms" -> cargarBottoms()
-            "zapatos" -> cargarZapatos()
-            "body_suits" -> cargarBodysuits()
-            "accesorios" -> cargarAccesorios()
+        when (categoria.text.toString()) {
+            "Zapatos", "Top", "Bottoms", "Bodysuits", "Accesorios" -> viewModel.cargarPorCategoria(categoria.text.toString())
+            else -> viewModel.cargarPorCategoria(null) // O podrías mostrar un mensaje de error
         }
-
-
 
         adapter = PrendaPreviewAdapter(this, prendas)
         adapter = PrendaPreviewAdapter(this, prendas)
@@ -51,51 +46,6 @@ class CatalogoPrendaEspecifica : MenuNavegable() {
         setSelectedItem(R.id.nav_home)
 
     }
-
-    fun cargarTops() {
-        categoria.text = "Tops"
-
-        prendas.add(PrendaPreviewItem(R.drawable.prenda_floreada, "Blusa Floreada"))
-        prendas.add(PrendaPreviewItem(R.drawable.prenda_floreada, "Blusa Floreada"))
-        prendas.add(PrendaPreviewItem(R.drawable.prenda_floreada, "Blusa Floreada"))
-        prendas.add(PrendaPreviewItem(R.drawable.prenda_floreada, "Blusa Floreada"))
-    }
-
-    fun cargarBottoms() {
-        categoria.text = "Bottoms"
-
-        prendas.add(PrendaPreviewItem(R.drawable.pantalon_mezclilla, "Pantalón"))
-        prendas.add(PrendaPreviewItem(R.drawable.pantalon_mezclilla, "Pantalón"))
-        prendas.add(PrendaPreviewItem(R.drawable.pantalon_mezclilla, "Pantalón"))
-        prendas.add(PrendaPreviewItem(R.drawable.pantalon_mezclilla, "Pantalón"))
-    }
-
-    fun cargarZapatos() {
-        categoria.text = "Zapatos"
-
-        prendas.add(PrendaPreviewItem(R.drawable.zapatilla_roja, "Zapatilla"))
-        prendas.add(PrendaPreviewItem(R.drawable.zapatilla_roja, "Zapatilla"))
-        prendas.add(PrendaPreviewItem(R.drawable.zapatilla_roja, "Zapatilla"))
-        prendas.add(PrendaPreviewItem(R.drawable.zapatilla_roja, "Zapatilla"))
-    }
-
-    fun cargarBodysuits() {
-        categoria.text = "Bodysuits"
-
-        prendas.add(PrendaPreviewItem(R.drawable.bodysuit_negro, "Traje negro"))
-        prendas.add(PrendaPreviewItem(R.drawable.bodysuit_negro, "Traje negro"))
-        prendas.add(PrendaPreviewItem(R.drawable.bodysuit_negro, "Traje negro"))
-        prendas.add(PrendaPreviewItem(R.drawable.bodysuit_negro, "Traje negro"))
-    }
-
-    fun cargarAccesorios() {
-        categoria.text = "Accesorios"
-
-        prendas.add(PrendaPreviewItem(R.drawable.lentes_sol, "Lentes para sol"))
-        prendas.add(PrendaPreviewItem(R.drawable.lentes_sol, "Lentes para sol"))
-        prendas.add(PrendaPreviewItem(R.drawable.lentes_sol, "Lentes para sol"))
-        prendas.add(PrendaPreviewItem(R.drawable.lentes_sol, "Lentes para sol"))
-    }
 }
 
 class PrendaPreviewAdapter : BaseAdapter {
@@ -103,8 +53,8 @@ class PrendaPreviewAdapter : BaseAdapter {
     var prendas = ArrayList<PrendaPreviewItem>()
     var context: Context? = null
 
-    constructor(context: Context, articulos: ArrayList<PrendaPreviewItem>) : super() {
-        this.prendas = articulos
+    constructor(context: Context, prendas: ArrayList<PrendaPreviewItem>) : super() {
+        this.prendas = prendas
         this.context = context
     }
 
@@ -121,16 +71,20 @@ class PrendaPreviewAdapter : BaseAdapter {
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var articulo = prendas[position]
-        var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        var vista = inflator.inflate(R.layout.prenda_preview_item, null)
-        var imagen: ImageView = vista.findViewById(R.id.prenda_image_preview)
-        var nombre: TextView = vista.findViewById(R.id.prenda_titulo_preview)
+        val prenda = prendas[position]
+        val inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val vista = inflator.inflate(R.layout.prenda_preview_item, null)
+        val imagen: ImageView = vista.findViewById(R.id.prenda_image_preview)
+        val nombre: TextView = vista.findViewById(R.id.prenda_titulo_preview)
 
-        imagen.setImageResource(articulo.imagen)
-        nombre.setText(articulo.nombre)
+        // Cargar imagen desde URL con Glide
+        Glide.with(context!!)
+            .load(prenda.imagen)
+            .into(imagen)
 
-        imagen.setOnClickListener() {
+        nombre.text = prenda.nombre
+
+        imagen.setOnClickListener {
             val intento = Intent(context, PrincipalActivity::class.java)
             context!!.startActivity(intento)
         }
