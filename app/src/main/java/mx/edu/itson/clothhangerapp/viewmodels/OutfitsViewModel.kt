@@ -100,9 +100,7 @@ class OutfitsViewModel : ViewModel() {
                 Log.d("OutfitsViewModel", "Outfit registrado con éxito.")
                 _registroExitoso.postValue(true)
 
-                // --- AQUÍ IMPLEMENTAREMOS LUEGO EL INCREMENTO DE CONTADORES ---
-                // Necesitarás los IDs de las prendas que están DENTRO del objeto 'outfit'
-//                incrementarContadoresPrendas(outfit) // Llamar a función auxiliar
+                incrementarContadoresPrendas(outfit)
 
             } catch (e: Exception) {
                 Log.e("OutfitsViewModel", "Error al registrar outfit: ${e.message}", e) // Corregido Tag
@@ -142,7 +140,13 @@ class OutfitsViewModel : ViewModel() {
 
         if (prendasAActualizar.isEmpty()) {
             Log.d("OutfitsViewModel", "No hay prendas con ID en el outfit para incrementar contadores.")
-            return // No hay nada que hacer
+            return
+        } else {
+            // --- AQUÍ VA EL LOG QUE TE PEDÍ AÑADIR ---
+            prendasAActualizar.forEachIndexed { index, p ->
+                Log.d("OutfitsViewModel", "Prenda $index a actualizar: Nombre=${p.nombre}, ID=${p.id}")
+            }
+            // ----------------------------------------
         }
 
         Log.d("OutfitsViewModel", "Preparando batch para incrementar contadores de ${prendasAActualizar.size} prendas.")
