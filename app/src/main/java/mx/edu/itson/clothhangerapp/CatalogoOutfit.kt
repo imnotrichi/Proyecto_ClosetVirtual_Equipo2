@@ -111,37 +111,37 @@ class OutfitViewAdapter : BaseAdapter {
             .into(accesorio3)
 
         top.setOnClickListener {
-            val intento = Intent(context, PrincipalActivity::class.java)
+            val intento = Intent(context, DetalleOutfitActivity::class.java)
             context!!.startActivity(intento)
         }
 
         bodysuit.setOnClickListener {
-            val intento = Intent(context, PrincipalActivity::class.java)
+            val intento = Intent(context, DetalleOutfitActivity::class.java)
             context!!.startActivity(intento)
         }
 
         bottom.setOnClickListener {
-            val intento = Intent(context, PrincipalActivity::class.java)
+            val intento = Intent(context, DetalleOutfitActivity::class.java)
             context!!.startActivity(intento)
         }
 
         zapatos.setOnClickListener {
-            val intento = Intent(context, PrincipalActivity::class.java)
+            val intento = Intent(context, DetalleOutfitActivity::class.java)
             context!!.startActivity(intento)
         }
 
         accesorio1.setOnClickListener {
-            val intento = Intent(context, PrincipalActivity::class.java)
+            val intento = Intent(context, DetalleOutfitActivity::class.java)
             context!!.startActivity(intento)
         }
 
         accesorio2.setOnClickListener {
-            val intento = Intent(context, PrincipalActivity::class.java)
+            val intento = Intent(context, DetalleOutfitActivity::class.java)
             context!!.startActivity(intento)
         }
 
         accesorio3.setOnClickListener {
-            val intento = Intent(context, PrincipalActivity::class.java)
+            val intento = Intent(context, DetalleOutfitActivity::class.java)
             context!!.startActivity(intento)
         }
 

@@ -1,20 +1,15 @@
 package mx.edu.itson.clothhangerapp
 
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import mx.edu.itson.clothhangerapp.dataclases.Outfit
 import mx.edu.itson.clothhangerapp.viewmodels.OutfitsViewModel
-import java.util.Locale
 
 class OutfitsActivity : MenuNavegable() {
 
@@ -37,6 +32,11 @@ class OutfitsActivity : MenuNavegable() {
         }
 
         viewModel.obtenerOutfitsDelUsuario()
+
+        findViewById<View>(R.id.btnCrearOutfit).setOnClickListener {
+            val intent = Intent(this, RegistroDiarioActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun actualizarUIConOutfits(outfits: List<Outfit>) {
@@ -55,41 +55,18 @@ class OutfitsActivity : MenuNavegable() {
             setImagen(outfitView.findViewById(R.id.ivAccesorio2), outfit.accesorio2?.imagenUrl)
             setImagen(outfitView.findViewById(R.id.ivAccesorio3), outfit.accesorio3?.imagenUrl)
 
-            // Evento para cada prenda
-            outfitView.findViewById<ImageView>(R.id.ivTop).setOnClickListener {
-                abrirDetalleOutfit(outfit, "top")
-            }
-
-            // Evento botón dentro del outfitView
-            val btnRegistrarOutfit: Button = findViewById(R.id.btnCrearOutfit)
-            btnRegistrarOutfit.setOnClickListener {
-                val intent = Intent(this, RegistroDiarioActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-            }
-
-            // Evento general para ver detalle completo
-            outfitView.setOnClickListener {
-                val intent = Intent(this, DetalleOutfitActivity::class.java).apply {
-                    putExtra("top", outfit.top?.imagenUrl ?: "")
-                    putExtra("bodysuit", outfit.bodysuit?.imagenUrl ?: "")
-                    putExtra("bottom", outfit.bottom?.imagenUrl ?: "")
-                    putExtra("zapatos", outfit.zapatos?.imagenUrl ?: "")
-                    putExtra("accesorio1", outfit.accesorio1?.imagenUrl ?: "")
-                    putExtra("accesorio2", outfit.accesorio2?.imagenUrl ?: "")
-                    putExtra("accesorio3", outfit.accesorio3?.imagenUrl ?: "")
-                }
-                startActivity(intent)
+            // Agregar listener para TODO el layout del outfit
+            outfitView.findViewById<LinearLayout>(R.id.outfit).setOnClickListener {
+                abrirDetalleOutfit(outfit)
             }
 
             llOutfits.addView(outfitView)
         }
     }
 
-    private fun abrirDetalleOutfit(outfit: Outfit, parte: String) {
+    private fun abrirDetalleOutfit(outfit: Outfit) {
         val intent = Intent(this, DetalleOutfitActivity::class.java).apply {
             putExtra("fecha", outfit.fecha)
-            putExtra("parteSeleccionada", parte)
             putExtra("top", outfit.top?.imagenUrl ?: "")
             putExtra("bodysuit", outfit.bodysuit?.imagenUrl ?: "")
             putExtra("bottom", outfit.bottom?.imagenUrl ?: "")
@@ -101,20 +78,12 @@ class OutfitsActivity : MenuNavegable() {
         startActivity(intent)
     }
 
-    // Asigna imagen o esconde el ImageView si no hay
     private fun setImagen(imageView: ImageView, url: String?) {
         if (!url.isNullOrEmpty()) {
             imageView.visibility = View.VISIBLE
-            // Aquí deberías usar Glide, Picasso o similar para cargar la URL
             Glide.with(this).load(url).into(imageView)
         } else {
             imageView.visibility = View.GONE
         }
-    }
-
-    private fun setFecha(tvFecha: TextView, fecha: Calendar) {
-        val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val formattedDate = format.format(fecha.time)
-        tvFecha.text = formattedDate
     }
 }
