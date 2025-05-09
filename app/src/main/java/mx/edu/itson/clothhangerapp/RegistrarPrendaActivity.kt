@@ -191,9 +191,12 @@ class RegistrarPrendaActivity : MenuNavegable() {
         actualizarAparienciaEstampado(esSiSeleccionado = false) // O tu valor por defecto para estampado
         tieneEstampado = false
 
-        val defaultColorInt = ContextCompat.getColor(this, android.R.color.white)
-        binding.btnColor.setBackgroundColor(defaultColorInt)
-        colorSeleccionadoHex = String.format("#%08X", defaultColorInt) // Blanco opaco por defecto
+        binding.btnColor.setBackgroundResource(R.drawable.rainbow_bar) // <--- ESTABLECER EL DRAWABLE ARCOÍRIS
+        // Inicializar colorSeleccionadoHex a un valor por defecto (ej. blanco) o incluso a vacío/nulo
+        // si quieres indicar que ningún color sólido ha sido explícitamente seleccionado aún.
+        // Si el picker necesita un color por defecto al abrirse la primera vez, blanco está bien.
+        val defaultColorIntForPicker = ContextCompat.getColor(this, android.R.color.white)
+        colorSeleccionadoHex = String.format("#%08X", defaultColorIntForPicker) // Blanco opaco por defecto para el picker
 
         etiquetasSeleccionadas.clear()
         val toggleButtonsEtiquetasMap = mapOf(

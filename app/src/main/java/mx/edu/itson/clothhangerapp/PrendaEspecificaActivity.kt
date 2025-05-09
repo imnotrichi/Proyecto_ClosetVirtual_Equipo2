@@ -21,48 +21,41 @@ import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
 
 class PrendaEspecificaActivity : MenuNavegable() {
     private lateinit var viewModel: PrendasViewModel
-    private lateinit var adapter: PrendaPreviewAdapter // Usará la clase anidada
-    private var prendasMostradas = ArrayList<PrendaPreviewItem>() // Para el adaptador
-
-    // Para guardar la lista original de Prenda y poder acceder a todos sus datos
+    private lateinit var adapter: PrendaPreviewAdapter
+    private var prendasMostradas = ArrayList<PrendaPreviewItem>()
     private var prendasOriginales = listOf<Prenda>()
-
-    // Variables para recibir los extras del Intent
     private var categoriaRecibida: String? = null
-    private var slotOrigenRecibido: String? = null // Necesitamos recibir y devolver esto
+    private var slotOrigenRecibido: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_prenda_especifica) // Asigna el layout
+        setContentView(R.layout.activity_prenda_especifica)
 
-        // Inicializar ViewModel
         viewModel = ViewModelProvider(this)[PrendasViewModel::class.java]
 
-        // --- 1. Recibir datos del Intent ---
         categoriaRecibida = intent.getStringExtra("CATEGORIA")
-        slotOrigenRecibido = intent.getStringExtra("SLOT_ORIGEN") // ¡Recibir el slot!
+        slotOrigenRecibido = intent.getStringExtra("SLOT_ORIGEN")
 
         Log.d("PrendaEspecifica", "Categoría recibida: $categoriaRecibida, Slot Origen: $slotOrigenRecibido")
 
-        // Validar que recibimos la categoría Y EL SLOT
         if (categoriaRecibida.isNullOrEmpty() || slotOrigenRecibido.isNullOrEmpty()) {
-            finish() // Cerrar si no hay datos suficientes
+            // Es buena idea mostrar un Toast aquí también antes de cerrar
+            finish()
             return
         }
 
-        // Configurar el título (labelCategoria es tu TextView)
         val labelCategoria: TextView = findViewById(R.id.tvCategoriaEspecifica)
-        labelCategoria.text = categoriaRecibida // Mostrar la categoría
+        labelCategoria.text = categoriaRecibida
 
-        // --- 2. Configurar GridView y Adaptador ---
         val gridView: GridView = findViewById(R.id.gvPrviewPrendas)
+        // Se inicializa el adapter con la lista 'prendasMostradas' que se llenará con el observer
         adapter = PrendaPreviewAdapter(this, prendasMostradas)
-        gridView.adapter = adapter
+        gridView.adapter = adapter // Se asigna el adapter al GridView
 
-        // --- 3. Observar Cambios en las Prendas Filtradas del ViewModel ---
+        // Configurar observadores
         viewModel.listaPrendasUsuario.observe(this) { prendasFirestore ->
             Log.d("PrendaEspecifica", "Prendas recibidas del ViewModel: ${prendasFirestore.size}")
-            prendasOriginales = prendasFirestore // Guardar la lista original
+            prendasOriginales = prendasFirestore
             prendasMostradas.clear()
             prendasFirestore.forEach { prendaOriginal ->
                 prendasMostradas.add(
@@ -76,74 +69,56 @@ class PrendaEspecificaActivity : MenuNavegable() {
             adapter.notifyDataSetChanged()
         }
 
-        // Observar errores del ViewModel
         viewModel.errorMensaje.observe(this) { error ->
             error?.let {
-                viewModel.limpiarMensajeError()
+                viewModel.limpiarMensajeError() // Asume que tienes este método
             }
         }
 
-        // --- 4. Solicitar al ViewModel que cargue las prendas ---
-        // (Asegúrate que cargarPorCategoria en tu ViewModel filtre por 'categoriaRecibida')
+        // Solicitar datos al ViewModel
         viewModel.cargarPorCategoria(categoriaRecibida)
 
-        // --- 5. Configurar el Listener para Devolver la Prenda Seleccionada (EN EL GRIDVIEW) ---
+        // Configurar listener del GridView para devolver resultado
         gridView.setOnItemClickListener { _, _, position, _ ->
             if (position >= 0 && position < prendasOriginales.size) {
-                // Obtener la PRENDA ORIGINAL completa para tener todos sus datos
                 val prendaSeleccionadaOriginal = prendasOriginales[position]
-
                 Log.d("PrendaEspecifica", "Prenda seleccionada: ${prendaSeleccionadaOriginal.nombre}, ID: ${prendaSeleccionadaOriginal.id}")
-
                 val resultadoIntent = Intent()
                 resultadoIntent.putExtra("PRENDA_SELECCIONADA_ID", prendaSeleccionadaOriginal.id)
                 resultadoIntent.putExtra("PRENDA_SELECCIONADA_URL", prendaSeleccionadaOriginal.imagenUrl)
-                // Devolver el slotOrigen que recibimos al iniciar esta Activity
                 resultadoIntent.putExtra("SLOT_ORIGEN_DEVUELTO", slotOrigenRecibido)
-
                 setResult(Activity.RESULT_OK, resultadoIntent)
-                finish() // Cerrar y volver a RegistroDiarioActivity
+                finish()
             } else {
                 Log.e("PrendaEspecifica", "Error: Posición de clic inválida ($position)")
             }
         }
 
-        // Aquí iría tu setupBottomNavigation() si esta Activity también lo usa
+        // Si esta pantalla SÍ usa el menú de navegación inferior
         // setupBottomNavigation()
-        // setSelectedItem(R.id.nav_home)
-    } // Fin de onCreate
-        adapter = PrendaPreviewAdapter(this, prendas)
-        gridView.adapter = adapter
+        // setSelectedItem(R.id.nav_home) // O el ID de ítem que corresponda
 
-        setupBottomNavigation()
-    }
-}
+    } // --- FIN DE onCreate ---
 
 
-    // --- CLASE ADAPTADORA ANIDADA (CORREGIDA) ---
+    // --- CLASE ADAPTADORA ANIDADA ---
+    // Esta clase está DENTRO de PrendaEspecificaActivity, por eso es 'private class'
+    // Si la quisieras usar en otras Activities, deberías moverla a su propio archivo .kt en el paquete 'adapters'
     private class PrendaPreviewAdapter(
-        private val context: Context, // Cambiado a val y private para buenas prácticas
-        private var prendas: ArrayList<PrendaPreviewItem> // Puede ser List si no la modificas aquí
+        private val context: Context,
+        private var prendas: ArrayList<PrendaPreviewItem>
     ) : BaseAdapter() {
 
         private val inflator: LayoutInflater = LayoutInflater.from(context)
 
-        // ViewHolder para optimizar
         private class ViewHolder {
             lateinit var imagen: ImageView
             lateinit var nombre: TextView
         }
 
-        override fun getCount(): Int {
-            return prendas.size
-        }
-
-        override fun getItem(position: Int): Any {
-            return prendas[position]
-        }
-
+        override fun getCount(): Int { return prendas.size }
+        override fun getItem(position: Int): Any { return prendas[position] }
         override fun getItemId(position: Int): Long {
-            // Usar el hashcode del ID es más estable si los IDs son únicos y no nulos
             return prendas[position].id?.hashCode()?.toLong() ?: position.toLong()
         }
 
@@ -152,30 +127,27 @@ class PrendaEspecificaActivity : MenuNavegable() {
             val holder: ViewHolder
 
             if (convertView == null) {
-                vista = inflator.inflate(R.layout.prenda_preview_item, parent, false) // Usa tu layout de item
+                vista = inflator.inflate(R.layout.prenda_preview_item, parent, false)
                 holder = ViewHolder()
-                holder.imagen = vista.findViewById(R.id.prenda_image_preview) // ID de tu XML
-                holder.nombre = vista.findViewById(R.id.prenda_titulo_preview) // ID de tu XML
+                holder.imagen = vista.findViewById(R.id.prenda_image_preview)
+                holder.nombre = vista.findViewById(R.id.prenda_titulo_preview)
                 vista.tag = holder
             } else {
                 vista = convertView
                 holder = vista.tag as ViewHolder
             }
 
-            val prendaItem = prendas[position] // Es un PrendaPreviewItem
+            val prendaItem = prendas[position]
             holder.nombre.text = prendaItem.nombre
 
-            // Cargar imagen desde URL con Glide
-            Glide.with(context) // No necesitas !! si el constructor asegura que no es nulo
-                .load(prendaItem.imagenUrl) // Cargar desde imagenUrl
-                .placeholder(R.drawable.ic_launcher_background) // ¡REEMPLAZA con tu placeholder!
-                .error(R.drawable.ic_launcher_foreground)       // ¡REEMPLAZA con tu imagen de error!
+            Glide.with(context)
+                .load(prendaItem.imagenUrl)
+                .placeholder(R.drawable.ic_launcher_background) // CAMBIA ESTO
+                .error(R.drawable.ic_launcher_foreground)       // CAMBIA ESTO
                 .into(holder.imagen)
-
-            // --- NO HAY OnClickListener AQUÍ ---
-            // El clic se maneja en el setOnItemClickListener del GridView en la Activity
 
             return vista
         }
-    }
+    } // --- FIN DE PrendaPreviewAdapter ---
+
 }
