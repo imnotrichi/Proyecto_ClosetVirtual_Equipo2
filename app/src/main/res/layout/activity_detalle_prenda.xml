@@ -185,12 +185,11 @@
 
             <TextView
                 android:id="@+id/tvColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:fontFamily="@font/lexend_deca_light"
-                android:text="TextView"
-                android:textSize="16sp" />
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/darker_gray"
+                android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -232,6 +231,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lexend_deca_light"
                 android:text="TextView"
+                android:layout_marginLeft="5dp"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -257,6 +257,7 @@
                 android:layout_marginRight="120dp"
                 android:fontFamily="@font/lexend_deca_light"
                 android:text="TextView"
+                android:layout_marginLeft="5dp"
                 android:textSize="16sp" />
 
         </LinearLayout>

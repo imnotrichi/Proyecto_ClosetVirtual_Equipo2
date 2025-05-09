@@ -2,15 +2,20 @@ package mx.edu.itson.clothhangerapp
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.target.Target
 import mx.edu.itson.clothhangerapp.databinding.ActivityRegistroDiarioBinding
 import mx.edu.itson.clothhangerapp.dataclases.Prenda
 import mx.edu.itson.clothhangerapp.viewmodels.OutfitsViewModel
@@ -120,12 +125,15 @@ class RegistroDiarioActivity : MenuNavegable() {
     }
 
     private fun observarPrendasViewModel() {
-        Log.d("RegistroDiario", "FUNCIÓN observarPrendasViewModel LLAMADA - Configurando observadores.") // Puedes dejar este si quieres
+        Log.d("RegistroDiario", "FUNCIÓN observarPrendasViewModel LLAMADA - Configurando observadores.")
         prendasViewModel.prendaSeleccionadaDetalle.observe(this) { prendaRecibida ->
-            // Log original que tenías (puedes dejarlo o quitarlo ahora que sabemos que se dispara)
-            // Log.d("RegistroDiario", "Observador detalle activado. Prenda: ${prendaRecibida?.id}, Slot Actualizando: $slotActualizando")
+            Log.d("RegistroDiario", ">>>> OBSERVADOR PRENDA DETALLE SE DISPARÓ <<<<")
+            if (prendaRecibida != null) {
+                Log.d("RegistroDiario", "Observador: Prenda NO es null. Nombre: ${prendaRecibida.nombre}, Slot: $slotActualizando")
+            } else {
+                Log.d("RegistroDiario", "Observador: Prenda ES null. Slot: $slotActualizando")
+            }
 
-            // --- ¡DESCOMENTA ESTE BLOQUE! ---
             if (prendaRecibida != null && slotActualizando != null) {
                 Log.d("RegistroDiario", "Detalle recibido para slot $slotActualizando: ${prendaRecibida.nombre}")
                 val imageViewTarget: ImageButton? = when (slotActualizando) {
@@ -140,25 +148,49 @@ class RegistroDiarioActivity : MenuNavegable() {
                 }
 
                 imageViewTarget?.let { target ->
-                    val iconoOriginal = target.drawable
+                    val urlParaCargar = prendaRecibida.imagenUrl
+                    Log.d("RegistroDiario", "Target ID: ${resources.getResourceEntryName(target.id)}, URL a cargar: $urlParaCargar")
+
+                    // Para asegurar que no es el fondo del botón el que tapa la imagen
+                    target.setBackgroundResource(android.R.color.transparent) // Fondo transparente TEMPORALMENTE
+                    target.scaleType = ImageView.ScaleType.FIT_CENTER    // Un scaleType común TEMPORALMENTE
+
                     Glide.with(this)
-                        .load(prendaRecibida.imagenUrl)
-                        .placeholder(iconoOriginal)
+                        .load(urlParaCargar)
+                        // .placeholder(iconoOriginal) // Comentado TEMPORALMENTE
+                        // SIN .listener()
                         .into(target)
+                    Log.d("RegistroDiario_Glide", "Llamada a .into(target) realizada para ${resources.getResourceEntryName(target.id)} (SIN LISTENER).")
+
+                } ?: Log.w("RegistroDiario", "imageViewTarget fue null para slot $slotActualizando")
+
+                slotActualizando = null
+
+            } else if (slotActualizando != null) {
+                Log.w("RegistroDiario", "Prenda recibida fue null, pero se esperaba actualizar $slotActualizando")
+                slotActualizando = null
+                // Considera resetear la imagen del botón al icono original si la prenda es null
+                val imageViewTargetOriginal: ImageButton? = when (slotActualizando) { // Re-evaluar slotActualizando ya que pudo ser reseteado arriba
+                    "TOP" -> binding.btnSeleccionarTop
+                    "BOTTOM" -> binding.btnSeleccionarBottom
+                    // ... y así para los demás ...
+                    else -> null
                 }
-                slotActualizando = null
-            } else if (slotActualizando != null) { // Este 'else if' es por si prendaRecibida es null pero esperábamos un slot
-                Log.w("RegistroDiario", "Prenda recibida fue null para slot: $slotActualizando")
-                slotActualizando = null
+                imageViewTargetOriginal?.let { targetButton ->
+                    mapIconosCategoriaOriginal[targetButton]?.let { drawableId ->
+                        targetButton.setImageResource(drawableId)
+                        // También podrías querer resetear el fondo si lo cambiaste a transparente
+                        // targetButton.setBackgroundResource(R.drawable.round_button_negro)
+                    }
+                }
             }
-            // ---------------------------------
         }
 
         prendasViewModel.errorDetalle.observe(this) { error ->
             error?.let {
                 Log.e("RegistroDiario", "ErrorDetalle observado: $it")
                 Toast.makeText(this, "Error detalle: $it", Toast.LENGTH_LONG).show()
-                // Considera llamar a prendasViewModel.limpiarErrorDetalle() si tienes esa función
+                // prendasViewModel.limpiarErrorDetalle() // Si tienes este método
             }
         }
     }

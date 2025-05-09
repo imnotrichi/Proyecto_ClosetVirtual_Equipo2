@@ -21,6 +21,13 @@
     <string name="total_usos">Total de usos:</string>
     <string name="usos_mes">Usos este mes:</string>
     <string name="top_flores">Top Flores</string>
+    <string name="error">Error</string>
+    <string name="confirmacion">Confirmación</string>
+    <string name="confirmar_pregunta">¿Seguro que desea eliminar %s?</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="exito">La prenda %s ha sido eliminada con éxito.</string>
+    <string name="si">Sí</string>
+    <string name="no">No</string>
 
     //Pantalla Registro Diario
     <string name="titulo_hoy">Mi Outfit de Hoy</string>
@@ -69,6 +76,10 @@
     <string name="cute">Cute</string>
     <string name="imagen">Imagen</string>
     <string name="confirmar">Confirmar</string>
+    <string name="actualizar">Actualizar prenda</string>
+    <string name="registrar_prenda">Registrar prenda</string>
+    <string name="registro_exito">Prenda registrada con éxito.</string>
+    <string name="actualizacion_exito">Prenda actualizada con éxito.</string>
 
     // Card de guardar cambios
     <string name="guardar">¿Guardar cambios?</string>

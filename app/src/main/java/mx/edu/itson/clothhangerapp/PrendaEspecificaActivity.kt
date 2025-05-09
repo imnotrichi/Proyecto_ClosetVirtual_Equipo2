@@ -53,12 +53,6 @@ class PrendaEspecificaActivity : AppCompatActivity() {
 
         adapter = PrendaPreviewAdapter(this, prendas)
         gridView.adapter = adapter
-
-        gridView.setOnItemClickListener { _, _, position, _ ->
-            val intent = Intent(this, RegistroDiario2Activity::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-        }
     }
 }
 

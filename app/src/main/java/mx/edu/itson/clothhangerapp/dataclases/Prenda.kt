@@ -1,7 +1,10 @@
 package mx.edu.itson.clothhangerapp.dataclases
 
+import android.os.Parcelable
 import com.google.firebase.firestore.DocumentId
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Prenda(
     @DocumentId
     var id: String? = null,
@@ -14,7 +17,7 @@ data class Prenda(
     var etiquetas: MutableList<String> = mutableListOf(),
     var usosMensuales: Int = 0,
     var usosTotales: Int = 0
-) {
+) : Parcelable {
     constructor() : this(
         id = null,
         imagenUrl = "",

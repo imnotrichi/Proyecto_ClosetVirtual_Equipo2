@@ -1,14 +1,18 @@
 package mx.edu.itson.clothhangerapp
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import mx.edu.itson.clothhangerapp.dataclases.Prenda
@@ -35,11 +39,24 @@ class PrincipalActivity : MenuNavegable() {
 
     private var listaCompletaPrendas: List<Prenda> = emptyList()
 
+    private lateinit var detallePrendaLauncher: ActivityResultLauncher<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
 
         viewModel = ViewModelProvider(this)[PrendasViewModel::class.java]
+
+        detallePrendaLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // Este bloque se ejecutará si DetallePrendaActivity (o RegistrarPrendaActivity si fue una edición)
+                // llamó a setResult(Activity.RESULT_OK) antes de finish().
+                // Esto significa que una prenda fue borrada o editada.
+                Log.d("PrincipalActivity", "Resultado OK recibido. Recargando lista de prendas.")
+                viewModel.obtenerPrendasDelUsuario() // Vuelve a cargar las prendas
+            }
+        }
+
 
         // Inicialización de vistas
         lvArticulos = findViewById(R.id.lvArticulos)
@@ -62,6 +79,15 @@ class PrincipalActivity : MenuNavegable() {
         // ✅ Cargar todas las prendas desde el inicio
         viewModel.cargarTodas()
         llCategoria.visibility = View.GONE
+
+        lvArticulos.setOnItemClickListener { parent, view, position, id ->
+            val prendaSeleccionada = adaptador.getItem(position) as? Prenda // Cast seguro
+            prendaSeleccionada?.let {
+                val intent = Intent(this, DetallePrendaActivity::class.java)
+                intent.putExtra("PRENDA_DETALLE", it)
+                detallePrendaLauncher.launch(intent) // <<< --- CAMBIA startActivity(intent) POR ESTO
+            }
+        }
 
         viewModel.listaPrendasUsuario.observe(this) {
             listaCompletaPrendas = it // guarda todas las prendas cargadas
