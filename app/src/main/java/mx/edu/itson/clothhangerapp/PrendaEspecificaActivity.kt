@@ -3,6 +3,7 @@ package mx.edu.itson.clothhangerapp
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
 class PrendaEspecificaActivity : AppCompatActivity() {
     private lateinit var viewModel: PrendasViewModel
     private lateinit var adapter: PrendaPreviewAdapter
+    lateinit var labelCategoria: TextView
     var prendas = ArrayList<PrendaPreviewItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,11 +38,17 @@ class PrendaEspecificaActivity : AppCompatActivity() {
 
         val gridView:GridView = findViewById(R.id.gvPrviewPrendas)
         val categoria = intent.getStringExtra("categoria")
-        println(categoria)
+        Log.d("PrendaEspecificaActivity", "Categoría: ${categoria}")
+
+
+        labelCategoria = findViewById(R.id.tvCategoriaEspecifica)
+        if (categoria != null) {
+            labelCategoria.text = categoria
+        }
 
         when (categoria) {
             "Zapatos", "Top", "Bottoms", "Bodysuits", "Accesorios" -> viewModel.cargarPorCategoria(categoria)
-            else -> viewModel.cargarPorCategoria("Bottom") // O podrías mostrar un mensaje de error
+            else -> viewModel.cargarPorCategoria(null) // O podrías mostrar un mensaje de error
         }
 
         adapter = PrendaPreviewAdapter(this, prendas)
