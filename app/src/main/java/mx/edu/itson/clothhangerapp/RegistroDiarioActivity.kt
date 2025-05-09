@@ -50,6 +50,7 @@ class RegistroDiarioActivity : MenuNavegable() {
         setupBottomNavigation()
         setSelectedItem(R.id.nav_hoy)
 
+        Log.d("RegistroDiario", "onCreate: Llamando a observarPrendasViewModel y observarOutfitsViewModel")
         observarPrendasViewModel()
         observarOutfitsViewModel()
 
@@ -119,7 +120,12 @@ class RegistroDiarioActivity : MenuNavegable() {
     }
 
     private fun observarPrendasViewModel() {
+        Log.d("RegistroDiario", "FUNCIÓN observarPrendasViewModel LLAMADA - Configurando observadores.") // Puedes dejar este si quieres
         prendasViewModel.prendaSeleccionadaDetalle.observe(this) { prendaRecibida ->
+            // Log original que tenías (puedes dejarlo o quitarlo ahora que sabemos que se dispara)
+            // Log.d("RegistroDiario", "Observador detalle activado. Prenda: ${prendaRecibida?.id}, Slot Actualizando: $slotActualizando")
+
+            // --- ¡DESCOMENTA ESTE BLOQUE! ---
             if (prendaRecibida != null && slotActualizando != null) {
                 Log.d("RegistroDiario", "Detalle recibido para slot $slotActualizando: ${prendaRecibida.nombre}")
                 val imageViewTarget: ImageButton? = when (slotActualizando) {
@@ -140,17 +146,19 @@ class RegistroDiarioActivity : MenuNavegable() {
                         .placeholder(iconoOriginal)
                         .into(target)
                 }
-
                 slotActualizando = null
-
-            } else if (slotActualizando != null) {
+            } else if (slotActualizando != null) { // Este 'else if' es por si prendaRecibida es null pero esperábamos un slot
+                Log.w("RegistroDiario", "Prenda recibida fue null para slot: $slotActualizando")
                 slotActualizando = null
             }
+            // ---------------------------------
         }
 
         prendasViewModel.errorDetalle.observe(this) { error ->
             error?.let {
+                Log.e("RegistroDiario", "ErrorDetalle observado: $it")
                 Toast.makeText(this, "Error detalle: $it", Toast.LENGTH_LONG).show()
+                // Considera llamar a prendasViewModel.limpiarErrorDetalle() si tienes esa función
             }
         }
     }
