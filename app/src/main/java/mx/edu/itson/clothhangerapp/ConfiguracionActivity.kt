@@ -82,11 +82,8 @@ class ConfiguracionActivity : MenuNavegable() {
                 return@setOnClickListener
             }
 
-            // Generar hash de la nueva contraseña (opcional, si quieres guardarlo)
-            val passwordHash = hashPassword(nuevaContrasenia)
-
             // Actualizar en Firestore solamente
-            viewModel.actualizarDatosUsuario(nuevoNombre, nuevoEmail, passwordHash)
+            viewModel.actualizarDatosUsuario(nuevoNombre, nuevoEmail, nuevaContrasenia)
             Toast.makeText(this, "Datos actualizados correctamente", Toast.LENGTH_SHORT).show()
         }
 
@@ -101,11 +98,6 @@ class ConfiguracionActivity : MenuNavegable() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
-    }
-
-    private fun hashPassword(password: String): String {
-        val bytes = MessageDigest.getInstance("SHA-256").digest(password.toByteArray())
-        return bytes.joinToString("") { "%02x".format(it) }
     }
 }
 

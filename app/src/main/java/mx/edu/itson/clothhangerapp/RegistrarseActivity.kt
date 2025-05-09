@@ -5,46 +5,46 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.FirebaseFirestore
-import mx.edu.itson.clothhangerapp.dataclases.Usuario
-import java.security.MessageDigest
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import mx.edu.itson.clothhangerapp.viewmodels.UsuariosViewModel
 
 class RegistrarseActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel: UsuariosViewModel
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        auth = Firebase.auth
-
         setContentView(R.layout.activity_registrarse)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         val btnIniciarSesion: Button = findViewById(R.id.btnIniciarSesion)
         val textBoton = "iniciar sesión"
         val textBotonSpannableString = SpannableString(textBoton)
         textBotonSpannableString.setSpan(UnderlineSpan(), 0, textBotonSpannableString.length, 0)
         btnIniciarSesion.text = textBotonSpannableString
+
+        viewModel = ViewModelProvider(this)[UsuariosViewModel::class.java]
+
+        viewModel.errorMensaje.observe(this, Observer { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        viewModel.usuario.observe(this, Observer { usuario ->
+            if (usuario != null) {
+                // Si el registro es exitoso, redirigir a la pantalla principal
+                val intent = Intent(this, PrincipalActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()  // Esto cierra la actividad actual para que no pueda regresar al registro
+            }
+        })
 
         val etNombre: EditText = findViewById(R.id.etNombre)
         val etEmail: EditText = findViewById(R.id.etEmail)
@@ -64,34 +64,7 @@ class RegistrarseActivity : AppCompatActivity() {
                 val email = etEmail.text.toString()
                 val contrasenia = etContrasenia.text.toString()
 
-                auth.createUserWithEmailAndPassword(email, contrasenia).addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        val user = auth.currentUser
-                        user?.let {
-                            val uid = user.uid
-                            val hashedPassword = hashPassword(contrasenia)
-
-                            val usuario = Usuario()
-                            usuario.id = uid
-                            usuario.nombre = nombre
-                            usuario.email = email
-                            usuario.contraseniaHash = hashedPassword
-
-                            val db = FirebaseFirestore.getInstance()
-                            db.collection("usuarios").document(uid).set(usuario)
-                                .addOnSuccessListener {
-                                    val intent = Intent(this, PrincipalActivity::class.java)
-                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                                    startActivity(intent)
-                                }
-                                .addOnFailureListener {
-                                    Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres.", Toast.LENGTH_SHORT).show()
-                                }
-                        }
-                    } else {
-                        Toast.makeText(this, "Hubo un error al realizar el registro. Vuelva a intentarlo.", Toast.LENGTH_SHORT).show()
-                    }
-                }
+                viewModel.registrarUsuario(nombre, email, contrasenia)
 
             }
         }
@@ -101,11 +74,6 @@ class RegistrarseActivity : AppCompatActivity() {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
-    }
-
-    private fun hashPassword(password: String): String {
-        val bytes = MessageDigest.getInstance("SHA-256").digest(password.toByteArray())
-        return bytes.joinToString("") { "%02x".format(it) }
     }
 
 

@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -14,6 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import mx.edu.itson.clothhangerapp.dataclases.Usuario
+import java.security.MessageDigest
 
 class UsuariosViewModel : ViewModel() {
 
@@ -57,8 +57,14 @@ class UsuariosViewModel : ViewModel() {
                     }
 
                     _usuario.postValue(usuario)
-                    Log.e("UsuariosViewModel", "Nombre de usuario obtenido correctamente: ${usuario.nombre}")
-                    Log.e("UsuariosViewModel", "Email de usuario obtenido correctamente: ${usuario.email}")
+                    Log.e(
+                        "UsuariosViewModel",
+                        "Nombre de usuario obtenido correctamente: ${usuario.nombre}"
+                    )
+                    Log.e(
+                        "UsuariosViewModel",
+                        "Email de usuario obtenido correctamente: ${usuario.email}"
+                    )
                 } else {
                     _usuario.postValue(Usuario("", ""))
                     _errorMensaje.postValue("Usuario no encontrado en la base de datos.")
@@ -73,7 +79,49 @@ class UsuariosViewModel : ViewModel() {
         }
     }
 
-    fun actualizarDatosUsuario(nuevoNombre: String, nuevoEmail: String, nuevoHashContrasenia: String) {
+    fun registrarUsuario(nombre: String, email: String, contrasenia: String) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            try {
+                // Intentar crear el usuario con Firebase Authentication
+                val authResult = auth.createUserWithEmailAndPassword(email, contrasenia).await()
+
+                // Obtener UID del usuario recién creado
+                val userId = authResult.user?.uid
+
+                if (userId != null) {
+                    // Crear un objeto Usuario para guardar en Firestore
+                    val hashedPassword = hashPassword(contrasenia)
+
+                    var usuario = Usuario()
+                    usuario.id = userId
+                    usuario.nombre = nombre
+                    usuario.email = email
+                    usuario.contraseniaHash = hashedPassword
+
+                    // Guardar usuario en Firestore
+                    firestoreDb.collection("usuarios").document(userId).set(usuario).await()
+
+                    // Actualizar LiveData con el nuevo usuario
+                    _usuario.postValue(usuario)
+                } else {
+                    _errorMensaje.postValue("Error al crear el usuario. UID no disponible.")
+                }
+
+            } catch (e: Exception) {
+                // Verificar si el error es por correo ya en uso
+                if (e.message?.contains("The email address is already in use") == true) {
+                    _errorMensaje.postValue("El correo electrónico ya está en uso. Intente con otro.")
+                } else {
+                    _errorMensaje.postValue("Error al registrar usuario: ${e.message}")
+                }
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
+    }
+
+    fun actualizarDatosUsuario(nuevoNombre: String, nuevoEmail: String, nuevaContrasenia: String) {
         val userId = auth.currentUser?.uid
 
         _isLoading.value = true
@@ -87,7 +135,7 @@ class UsuariosViewModel : ViewModel() {
                             mapOf(
                                 "nombre" to nuevoNombre,
                                 "email" to nuevoEmail,
-                                "contraseniaHash" to nuevoHashContrasenia
+                                "contraseniaHash" to hashPassword(nuevaContrasenia)
                             )
                         ).await()
                 }
@@ -102,6 +150,11 @@ class UsuariosViewModel : ViewModel() {
                 _isLoading.postValue(false)
             }
         }
+    }
+
+    private fun hashPassword(password: String): String {
+        val bytes = MessageDigest.getInstance("SHA-256").digest(password.toByteArray())
+        return bytes.joinToString("") { "%02x".format(it) }
     }
 
 }
