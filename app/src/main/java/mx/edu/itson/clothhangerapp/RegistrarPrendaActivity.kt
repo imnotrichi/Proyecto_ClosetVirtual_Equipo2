@@ -119,7 +119,7 @@ class RegistrarPrendaActivity : MenuNavegable() {
 
         val toggleButtonsEtiquetas = mapOf(
             binding.tbCasual to "Casual", binding.tbFormal to "Formal",
-            binding.tbDeportivo to "Deportivo", binding.tbBasico to "Básico",
+            binding.tbDeportivo to "Deportivo", binding.tbBasico to "Basico",
             binding.tbFiesta to "Fiesta"
         )
         toggleButtonsEtiquetas.forEach { (toggleButton, etiquetaNombre) ->
