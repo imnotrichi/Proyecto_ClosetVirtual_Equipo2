@@ -112,9 +112,10 @@ class DetalleOutfitActivity : MenuNavegable() {
     }
 }
 
-private class AdaptadorOutfit: BaseAdapter {
-    var prendas= ArrayList<Prenda>()
-    var contexto: Context
+private class AdaptadorOutfit(
+    private val contexto: Context,
+    private val prendas: ArrayList<Prenda>
+) : BaseAdapter() {
 
     override fun getCount(): Int = prendas.size
 
