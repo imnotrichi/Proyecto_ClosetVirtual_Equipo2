@@ -33,12 +33,15 @@ class PrincipalActivity : MenuNavegable() {
 
     private var categoriaSeleccionada: String? = null
 
+    private var listaCompletaPrendas: List<Prenda> = emptyList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
 
         viewModel = ViewModelProvider(this)[PrendasViewModel::class.java]
 
+        // Inicialización de vistas
         lvArticulos = findViewById(R.id.lvArticulos)
         tbTops = findViewById(R.id.tbTops)
         tbBottoms = findViewById(R.id.tbBottoms)
@@ -53,13 +56,15 @@ class PrincipalActivity : MenuNavegable() {
         setupBottomNavigation()
         setSelectedItem(R.id.nav_home)
 
-        // Inicializar adaptador vacío una sola vez
         adaptador = AdaptadorPrendas(this, ArrayList())
         lvArticulos.adapter = adaptador
 
-        viewModel.obtenerPrendasDelUsuario()
+        // ✅ Cargar todas las prendas desde el inicio
+        viewModel.cargarTodas()
+        llCategoria.visibility = View.GONE
 
         viewModel.listaPrendasUsuario.observe(this) {
+            listaCompletaPrendas = it // guarda todas las prendas cargadas
             aplicarFiltros()
         }
 
@@ -67,19 +72,30 @@ class PrincipalActivity : MenuNavegable() {
         tbTops.setOnClickListener { manejarSeleccionCategoria("Top", tbTops, "Tops") }
         tbBottoms.setOnClickListener { manejarSeleccionCategoria("Bottom", tbBottoms, "Bottoms") }
         tbZapatos.setOnClickListener { manejarSeleccionCategoria("Zapatos", tbZapatos, "Zapatos") }
-        tbBodysuits.setOnClickListener { manejarSeleccionCategoria("Bodysuit", tbBodysuits, "Bodysuits") }
-        tbAccesorios.setOnClickListener { manejarSeleccionCategoria("Accesorio", tbAccesorios, "Accesorios") }
+        tbBodysuits.setOnClickListener {
+            manejarSeleccionCategoria(
+                "Bodysuit",
+                tbBodysuits,
+                "Bodysuits"
+            )
+        }
+        tbAccesorios.setOnClickListener {
+            manejarSeleccionCategoria(
+                "Accesorio",
+                tbAccesorios,
+                "Accesorios"
+            )
+        }
 
-        // Buscador
         etBuscar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 aplicarFiltros()
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        // Botón registrar
         btnRegistrarPrenda.setOnClickListener {
             val intent = Intent(this, RegistrarPrendaActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -87,42 +103,41 @@ class PrincipalActivity : MenuNavegable() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        llCategoria.visibility = View.GONE
+        viewModel.cargarTodas()
+    }
+
     private fun aplicarFiltros() {
         val textoBusqueda = etBuscar.text.toString().trim().lowercase()
 
-        if (categoriaSeleccionada == null && textoBusqueda.isNotEmpty()) {
-            viewModel.cargarTodas()
+        val filtradas = listaCompletaPrendas.filter { prenda ->
+            (categoriaSeleccionada == null || prenda.categoria.equals(
+                categoriaSeleccionada,
+                ignoreCase = true
+            )) &&
+                    (textoBusqueda.isEmpty() ||
+                            prenda.nombre.lowercase().contains(textoBusqueda) ||
+                            prenda.etiquetas.any { it.lowercase().contains(textoBusqueda) })
         }
 
-        val prendas = viewModel.listaPrendasUsuario.value ?: emptyList()
-
-        val filtradas = prendas.filter { prenda ->
-            textoBusqueda.isEmpty() ||
-                    prenda.nombre.lowercase().contains(textoBusqueda) ||
-                    prenda.etiquetas.any { it.lowercase().contains(textoBusqueda) }
-        }
-
-        if (categoriaSeleccionada == null && textoBusqueda.isEmpty()) {
-            adaptador.actualizarLista(emptyList())
-        } else {
-            adaptador.actualizarLista(filtradas)
-        }
+        adaptador.actualizarLista(filtradas)
     }
+
 
     private fun manejarSeleccionCategoria(categoria: String, boton: ImageButton, texto: String) {
         if (categoriaSeleccionada == categoria) {
             categoriaSeleccionada = null
-            viewModel.vaciarLista()
             actualizarEstilosBotones(null)
             llCategoria.visibility = View.GONE
-            adaptador.actualizarLista(emptyList())
         } else {
             categoriaSeleccionada = categoria
-            viewModel.cargarPorCategoria(categoriaSeleccionada)
             actualizarEstilosBotones(boton)
             tvCategoria.text = texto
             llCategoria.visibility = View.VISIBLE
         }
+        aplicarFiltros()
     }
 
     private fun actualizarEstilosBotones(botonSeleccionado: ImageButton?) {
