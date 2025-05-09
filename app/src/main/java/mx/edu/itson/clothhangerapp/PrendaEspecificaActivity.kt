@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide
 import mx.edu.itson.clothhangerapp.dataclases.PrendaPreviewItem
 import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
 
-class PrendaEspecificaActivity : AppCompatActivity() {
+class PrendaEspecificaActivity : MenuNavegable() {
     private lateinit var viewModel: PrendasViewModel
     private lateinit var adapter: PrendaPreviewAdapter
     lateinit var labelCategoria: TextView
@@ -53,6 +53,8 @@ class PrendaEspecificaActivity : AppCompatActivity() {
 
         adapter = PrendaPreviewAdapter(this, prendas)
         gridView.adapter = adapter
+
+        setupBottomNavigation()
     }
 }
 
