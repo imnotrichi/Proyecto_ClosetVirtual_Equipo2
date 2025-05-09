@@ -128,61 +128,53 @@ class RegistroDiarioActivity : MenuNavegable() {
         Log.d("RegistroDiario", "FUNCIÓN observarPrendasViewModel LLAMADA - Configurando observadores.")
         prendasViewModel.prendaSeleccionadaDetalle.observe(this) { prendaRecibida ->
             Log.d("RegistroDiario", ">>>> OBSERVADOR PRENDA DETALLE SE DISPARÓ <<<<")
+
             if (prendaRecibida != null) {
                 Log.d("RegistroDiario", "Observador: Prenda NO es null. Nombre: ${prendaRecibida.nombre}, Slot: $slotActualizando")
-            } else {
-                Log.d("RegistroDiario", "Observador: Prenda ES null. Slot: $slotActualizando")
-            }
 
-            if (prendaRecibida != null && slotActualizando != null) {
-                Log.d("RegistroDiario", "Detalle recibido para slot $slotActualizando: ${prendaRecibida.nombre}")
-                val imageViewTarget: ImageButton? = when (slotActualizando) {
-                    "TOP" -> { prendaTopSeleccionada = prendaRecibida; binding.btnSeleccionarTop }
-                    "BOTTOM" -> { prendaBottomSeleccionada = prendaRecibida; binding.btnSeleccionarBottom }
-                    "BODYSUIT" -> { prendaBodysuitSeleccionada = prendaRecibida; binding.btnSeleccionarBodysuit }
-                    "ZAPATOS" -> { prendaZapatosSeleccionada = prendaRecibida; binding.btnSeleccionarZapatos }
-                    "ACC1" -> { prendaAccesorio1Seleccionada = prendaRecibida; binding.btnSeleccionarAccesorios1 }
-                    "ACC2" -> { prendaAccesorio2Seleccionada = prendaRecibida; binding.btnSeleccionarAccesorios2 }
-                    "ACC3" -> { prendaAccesorio3Seleccionada = prendaRecibida; binding.btnSeleccionarAccesorios3 }
-                    else -> null
-                }
-
-                imageViewTarget?.let { target ->
-                    val urlParaCargar = prendaRecibida.imagenUrl
-                    Log.d("RegistroDiario", "Target ID: ${resources.getResourceEntryName(target.id)}, URL a cargar: $urlParaCargar")
-
-                    // Para asegurar que no es el fondo del botón el que tapa la imagen
-                    target.setBackgroundResource(android.R.color.transparent) // Fondo transparente TEMPORALMENTE
-                    target.scaleType = ImageView.ScaleType.FIT_CENTER    // Un scaleType común TEMPORALMENTE
-
-                    Glide.with(this)
-                        .load(urlParaCargar)
-                        // .placeholder(iconoOriginal) // Comentado TEMPORALMENTE
-                        // SIN .listener()
-                        .into(target)
-                    Log.d("RegistroDiario_Glide", "Llamada a .into(target) realizada para ${resources.getResourceEntryName(target.id)} (SIN LISTENER).")
-
-                } ?: Log.w("RegistroDiario", "imageViewTarget fue null para slot $slotActualizando")
-
-                slotActualizando = null
-
-            } else if (slotActualizando != null) {
-                Log.w("RegistroDiario", "Prenda recibida fue null, pero se esperaba actualizar $slotActualizando")
-                slotActualizando = null
-                // Considera resetear la imagen del botón al icono original si la prenda es null
-                val imageViewTargetOriginal: ImageButton? = when (slotActualizando) { // Re-evaluar slotActualizando ya que pudo ser reseteado arriba
-                    "TOP" -> binding.btnSeleccionarTop
-                    "BOTTOM" -> binding.btnSeleccionarBottom
-                    // ... y así para los demás ...
-                    else -> null
-                }
-                imageViewTargetOriginal?.let { targetButton ->
-                    mapIconosCategoriaOriginal[targetButton]?.let { drawableId ->
-                        targetButton.setImageResource(drawableId)
-                        // También podrías querer resetear el fondo si lo cambiaste a transparente
-                        // targetButton.setBackgroundResource(R.drawable.round_button_negro)
+                // SOLO actuar si también tenemos un slot que actualizar
+                if (slotActualizando != null) {
+                    Log.d("RegistroDiario", "Detalle recibido para slot $slotActualizando: ${prendaRecibida.nombre}")
+                    val imageViewTarget: ImageButton? = when (slotActualizando) {
+                        "TOP" -> { prendaTopSeleccionada = prendaRecibida; binding.btnSeleccionarTop }
+                        "BOTTOM" -> { prendaBottomSeleccionada = prendaRecibida; binding.btnSeleccionarBottom }
+                        "BODYSUIT" -> { prendaBodysuitSeleccionada = prendaRecibida; binding.btnSeleccionarBodysuit }
+                        "ZAPATOS" -> { prendaZapatosSeleccionada = prendaRecibida; binding.btnSeleccionarZapatos }
+                        "ACC1" -> { prendaAccesorio1Seleccionada = prendaRecibida; binding.btnSeleccionarAccesorios1 }
+                        "ACC2" -> { prendaAccesorio2Seleccionada = prendaRecibida; binding.btnSeleccionarAccesorios2 }
+                        "ACC3" -> { prendaAccesorio3Seleccionada = prendaRecibida; binding.btnSeleccionarAccesorios3 }
+                        else -> null
                     }
+
+                    imageViewTarget?.let { target ->
+                        val urlParaCargar = prendaRecibida.imagenUrl
+                        Log.d("RegistroDiario", "Target ID: ${resources.getResourceEntryName(target.id)}, URL a cargar: $urlParaCargar")
+
+                        target.setBackgroundResource(android.R.color.transparent)
+                        target.scaleType = ImageView.ScaleType.FIT_CENTER
+
+                        Glide.with(this)
+                            .load(urlParaCargar)
+                            .into(target)
+                        Log.d("RegistroDiario_Glide", "Llamada a .into(target) realizada para ${resources.getResourceEntryName(target.id)} (SIN LISTENER).")
+
+                    } ?: Log.w("RegistroDiario", "imageViewTarget fue null para slot $slotActualizando")
+
+                    // Resetear slot DESPUÉS de haberlo usado con una prenda válida
+                    slotActualizando = null
+                } else {
+                    // Prenda recibida pero no sabemos para qué slot era (slotActualizando ya era null)
+                    // Esto podría pasar si el LiveData se re-emite por algún motivo de ciclo de vida.
+                    // Generalmente seguro ignorarlo si ya no hay un slot activo.
+                    Log.d("RegistroDiario", "Prenda recibida pero slotActualizando es null, ignorando actualización de UI.")
                 }
+
+            } else { // prendaRecibida ES null
+                Log.d("RegistroDiario", "Observador: Prenda ES null. Slot: $slotActualizando")
+                // Si prendaRecibida es null, no hacemos nada con la UI de imagen,
+                // pero NO reseteamos slotActualizando aquí, porque todavía estamos esperando
+                // la prenda real para ese slot.
+                // El slotActualizando solo se resetea después de una actualización exitosa o si la selección se cancela/falla.
             }
         }
 
@@ -190,7 +182,8 @@ class RegistroDiarioActivity : MenuNavegable() {
             error?.let {
                 Log.e("RegistroDiario", "ErrorDetalle observado: $it")
                 Toast.makeText(this, "Error detalle: $it", Toast.LENGTH_LONG).show()
-                // prendasViewModel.limpiarErrorDetalle() // Si tienes este método
+                slotActualizando = null // Si hay error al obtener detalle, reseteamos el slot
+                // Considera llamar a prendasViewModel.limpiarErrorDetalle()
             }
         }
     }
@@ -219,17 +212,49 @@ class RegistroDiarioActivity : MenuNavegable() {
     }
 
     private fun validarOutfitMinimo(): Boolean {
-        Log.d("RegistroDiario", "Validando outfit: T:${prendaTopSeleccionada!=null} B:${prendaBottomSeleccionada!=null} Z:${prendaZapatosSeleccionada!=null} BS:${prendaBodysuitSeleccionada!=null}")
-        val topOk = prendaTopSeleccionada != null
-        val bottomOk = prendaBottomSeleccionada != null
-        val zapatosOk = prendaZapatosSeleccionada != null
-        val bodysuitOk = prendaBodysuitSeleccionada != null
+        val hayTop = prendaTopSeleccionada != null
+        val hayBottom = prendaBottomSeleccionada != null
+        val hayZapatos = prendaZapatosSeleccionada != null
+        val hayBodysuit = prendaBodysuitSeleccionada != null
 
-        val condicion1 = topOk && bottomOk && zapatosOk
-        val condicion2 = bodysuitOk && zapatosOk
-        val condicion3 = bodysuitOk && bottomOk && zapatosOk
+        Log.d("RegistroDiario", "Validando outfit -> Top: $hayTop, Bottom: $hayBottom, Zapatos: $hayZapatos, Bodysuit: $hayBodysuit")
 
-        return condicion1 || condicion2 || condicion3
+        // Condición 1: Outfit "tradicional" -> Top, Bottom y Zapatos (y NO hay bodysuit seleccionado)
+        val condicion1 = hayTop && hayBottom && hayZapatos && !hayBodysuit
+
+        // Condición 2: Outfit con Bodysuit -> Bodysuit y Zapatos (y NO hay top seleccionado, el bottom es opcional aquí)
+        // Esta cubre:
+        //    - Bodysuit + Zapatos
+        //    - Bodysuit + Bottom + Zapatos
+        val condicion2 = hayBodysuit && hayZapatos && !hayTop
+
+        // Condición 3: Outfit con Bodysuit Y Top -> Bodysuit, Top, Bottom y Zapatos (tu nueva regla explícita)
+        val condicion3 = hayBodysuit && hayTop && hayBottom && hayZapatos
+
+        // Si se cumple CUALQUIERA de estas condiciones, el outfit es válido
+        if (condicion1 || condicion2 || condicion3) {
+            Log.d("RegistroDiario", "Validación MÍNIMA CUMPLIDA (Cond1: $condicion1, Cond2: $condicion2, Cond3: $condicion3)")
+            return true
+        } else {
+            // Si no se cumple ninguna, damos mensajes de error más específicos
+            // Estos mensajes ayudan al usuario a entender qué falta. Puedes personalizarlos.
+            if (!hayZapatos) {
+                Toast.makeText(this, "El outfit necesita al menos Zapatos.", Toast.LENGTH_LONG).show()
+            } else if (hayTop && !hayBottom && !hayBodysuit) { // Tiene Top, pero no Bottom (y no es un caso con Bodysuit)
+                Toast.makeText(this, "Un Top necesita un Bottom.", Toast.LENGTH_LONG).show()
+            } else if (hayBodysuit && !hayTop && !hayZapatos) { // Tiene Bodysuit, pero no Zapatos (ya cubierto por !hayZapatos arriba pero por claridad)
+                // Este caso ya está cubierto por el primer if (!hayZapatos)
+            } else if (!hayTop && !hayBodysuit) { // No tiene ni Top ni Bodysuit (y ya sabemos que tiene zapatos)
+                Toast.makeText(this, "Necesitas seleccionar un Top o un Bodysuit.", Toast.LENGTH_LONG).show()
+            }
+            // Puedes añadir más lógica de mensajes de error específicos si lo deseas
+            // o un mensaje genérico final
+            else {
+                Toast.makeText(this, "Combinación de prendas no válida. Revisa las prendas mínimas.", Toast.LENGTH_LONG).show()
+            }
+            Log.d("RegistroDiario", "Validación MÍNIMA NO CUMPLIDA")
+            return false
+        }
     }
 
     private fun guardarOutfit() {

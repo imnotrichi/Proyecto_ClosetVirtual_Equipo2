@@ -76,8 +76,8 @@
     <string name="cute">Cute</string>
     <string name="imagen">Imagen</string>
     <string name="confirmar">Confirmar</string>
-    <string name="actualizar">Actualizar prenda</string>
-    <string name="registrar_prenda">Registrar prenda</string>
+    <string name="actualizar">Actualizar Prenda</string>
+    <string name="registrar_prenda">Registrar Prenda</string>
     <string name="registro_exito">Prenda registrada con éxito.</string>
     <string name="actualizacion_exito">Prenda actualizada con éxito.</string>
 

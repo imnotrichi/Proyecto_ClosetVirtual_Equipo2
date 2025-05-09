@@ -17,6 +17,8 @@ import kotlinx.coroutines.withContext
 import mx.edu.itson.clothhangerapp.dataclases.Outfit
 import mx.edu.itson.clothhangerapp.dataclases.Prenda
 import java.util.UUID
+import com.google.firebase.firestore.FieldValue // <-- ¡IMPORTANTE PARA INCREMENT!
+import com.google.firebase.firestore.WriteBatch
 
 class OutfitsViewModel : ViewModel() {
 
@@ -109,6 +111,71 @@ class OutfitsViewModel : ViewModel() {
             } finally {
                 _isLoading.postValue(false)
             }
+        }
+    }
+
+    /**
+     * Incrementa los contadores de uso (usosTotales, usosMensuales) para cada
+     * prenda válida incluida en el outfit recién guardado.
+     * Utiliza un Batch Write para eficiencia y atomicidad parcial.
+     *
+     * @param outfit El objeto Outfit que se acaba de guardar (ya debe tener el userId asignado).
+     */
+    private suspend fun incrementarContadoresPrendas(outfit: Outfit) {
+        val userId = outfit.userId // El userId del dueño del outfit (y de las prendas originales)
+        if (userId == null) {
+            Log.e("OutfitsViewModel", "No se puede incrementar contadores: userId es nulo en el outfit.")
+            return
+        }
+
+        // Crear una lista con todas las prendas (no nulas) del outfit
+        // que también tengan un ID (el ID original de la prenda)
+        val prendasAActualizar = listOfNotNull(
+            outfit.top,
+            outfit.bottom,
+            outfit.bodysuit,
+            outfit.zapatos,
+            outfit.accesorio1,
+            outfit.accesorio2,
+            outfit.accesorio3
+        ).filter { !it.id.isNullOrBlank() } // Filtrar solo las que tengan un ID válido
+
+        if (prendasAActualizar.isEmpty()) {
+            Log.d("OutfitsViewModel", "No hay prendas con ID en el outfit para incrementar contadores.")
+            return // No hay nada que hacer
+        }
+
+        Log.d("OutfitsViewModel", "Preparando batch para incrementar contadores de ${prendasAActualizar.size} prendas.")
+
+        try {
+            val batch: WriteBatch = firestoreDb.batch()
+
+            prendasAActualizar.forEach { prendaEnOutfit ->
+                // El ID de la prenda original está en prendaEnOutfit.id
+                val prendaOriginalId = prendaEnOutfit.id!! // Usamos !! porque ya filtramos por no nulo/blanco
+
+                // Ruta al documento original de la prenda en la subcolección del usuario
+                val prendaOriginalRef = firestoreDb.collection("usuarios")
+                    .document(userId) // Usa el userId del dueño del outfit
+                    .collection("prendas")
+                    .document(prendaOriginalId)
+
+                batch.update(prendaOriginalRef, mapOf(
+                    "usosTotales" to FieldValue.increment(1),
+                    "usosMensuales" to FieldValue.increment(1)
+                ))
+                Log.d("OutfitsViewModel", "Batch: Incrementar usos para prenda ID: $prendaOriginalId")
+            }
+
+            // Ejecutar el Batch Write
+            withContext(Dispatchers.IO) {
+                batch.commit().await()
+            }
+            Log.d("OutfitsViewModel", "Contadores de uso de prendas actualizados con éxito.")
+
+        } catch (e: Exception) {
+            Log.e("OutfitsViewModel", "Error al actualizar contadores de uso de prendas: ${e.message}", e)
+            // Considera cómo quieres manejar este error secundario. Por ahora, solo se loguea.
         }
     }
 
