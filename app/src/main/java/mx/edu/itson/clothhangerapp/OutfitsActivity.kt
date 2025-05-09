@@ -67,13 +67,34 @@ class OutfitsActivity : MenuNavegable() {
     private fun abrirDetalleOutfit(outfit: Outfit) {
         val intent = Intent(this, DetalleOutfitActivity::class.java).apply {
             putExtra("fecha", outfit.fecha)
-            putExtra("top", outfit.top?.imagenUrl ?: "")
-            putExtra("bodysuit", outfit.bodysuit?.imagenUrl ?: "")
-            putExtra("bottom", outfit.bottom?.imagenUrl ?: "")
-            putExtra("zapatos", outfit.zapatos?.imagenUrl ?: "")
-            putExtra("accesorio1", outfit.accesorio1?.imagenUrl ?: "")
-            putExtra("accesorio2", outfit.accesorio2?.imagenUrl ?: "")
-            putExtra("accesorio3", outfit.accesorio3?.imagenUrl ?: "")
+
+            putExtra("top_name", outfit.top?.nombre ?: "")
+            putExtra("top_image", outfit.top?.imagenUrl ?: "")
+            putExtra("top_category", outfit.top?.categoria ?: "")
+
+            putExtra("bodysuit_name", outfit.bodysuit?.nombre ?: "")
+            putExtra("bodysuit_image", outfit.bodysuit?.imagenUrl ?: "")
+            putExtra("bodysuit_category", outfit.bodysuit?.categoria ?: "")
+
+            putExtra("bottom_name", outfit.bottom?.nombre ?: "")
+            putExtra("bottom_image", outfit.bottom?.imagenUrl ?: "")
+            putExtra("bottom_category", outfit.bottom?.categoria ?: "")
+
+            putExtra("zapatos_name", outfit.zapatos?.nombre ?: "")
+            putExtra("zapatos_image", outfit.zapatos?.imagenUrl ?: "")
+            putExtra("zapatos_category", outfit.zapatos?.categoria ?: "")
+
+            putExtra("accesorio1_name", outfit.accesorio1?.nombre ?: "")
+            putExtra("accesorio1_image", outfit.accesorio1?.imagenUrl ?: "")
+            putExtra("accesorio1_category", outfit.accesorio1?.categoria ?: "")
+
+            putExtra("accesorio2_name", outfit.accesorio1?.nombre ?: "")
+            putExtra("accesorio2_image", outfit.accesorio1?.imagenUrl ?: "")
+            putExtra("accesorio2_category", outfit.accesorio1?.categoria ?: "")
+
+            putExtra("accesorio3_name", outfit.accesorio1?.nombre ?: "")
+            putExtra("accesorio3_image", outfit.accesorio1?.imagenUrl ?: "")
+            putExtra("accesorio3_category", outfit.accesorio1?.categoria ?: "")
         }
         startActivity(intent)
     }
