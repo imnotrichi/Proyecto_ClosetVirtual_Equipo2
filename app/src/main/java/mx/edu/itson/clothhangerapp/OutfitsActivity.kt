@@ -2,14 +2,18 @@ package mx.edu.itson.clothhangerapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.google.firebase.Timestamp
 import mx.edu.itson.clothhangerapp.dataclases.Outfit
 import mx.edu.itson.clothhangerapp.viewmodels.OutfitsViewModel
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class OutfitsActivity : MenuNavegable() {
 
@@ -66,7 +70,18 @@ class OutfitsActivity : MenuNavegable() {
 
     private fun abrirDetalleOutfit(outfit: Outfit) {
         val intent = Intent(this, DetalleOutfitActivity::class.java).apply {
-            putExtra("fecha", outfit.fecha)
+
+
+            val timestamp: Timestamp = outfit.fecha
+            val date = timestamp.toDate()
+
+            val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val formattedDate = formatter.format(date)
+
+            Log.d("DETALLE - OUTFIT", "Fecha: ${formattedDate}")
+            putExtra("fecha", formattedDate)
+
+
 
             putExtra("top_name", outfit.top?.nombre ?: "")
             putExtra("top_image", outfit.top?.imagenUrl ?: "")
