@@ -19,7 +19,7 @@ import mx.edu.itson.clothhangerapp.dataclases.Prenda
 import mx.edu.itson.clothhangerapp.dataclases.PrendaPreviewItem
 import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
 
-class PrendaEspecificaActivity : AppCompatActivity() {
+class PrendaEspecificaActivity : MenuNavegable() {
     private lateinit var viewModel: PrendasViewModel
     private lateinit var adapter: PrendaPreviewAdapter // Usará la clase anidada
     private var prendasMostradas = ArrayList<PrendaPreviewItem>() // Para el adaptador
@@ -112,6 +112,12 @@ class PrendaEspecificaActivity : AppCompatActivity() {
         // setupBottomNavigation()
         // setSelectedItem(R.id.nav_home)
     } // Fin de onCreate
+        adapter = PrendaPreviewAdapter(this, prendas)
+        gridView.adapter = adapter
+
+        setupBottomNavigation()
+    }
+}
 
 
     // --- CLASE ADAPTADORA ANIDADA (CORREGIDA) ---
