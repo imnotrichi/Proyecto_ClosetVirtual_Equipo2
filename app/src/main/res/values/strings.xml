@@ -87,4 +87,7 @@
     <string name="deportivo">Deportivo</string>
     <string name="b_sico">Básico</string>
     <string name="fiesta">Fiesta</string>
+
+    // Pantalla de detalle outfit
+    <string name="titulo_outfit">Outfit del</string>
 </resources>

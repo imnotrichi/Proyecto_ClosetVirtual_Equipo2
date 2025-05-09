@@ -1,18 +1,21 @@
 package mx.edu.itson.clothhangerapp
 
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import mx.edu.itson.clothhangerapp.dataclases.Outfit
 import mx.edu.itson.clothhangerapp.viewmodels.OutfitsViewModel
+import java.util.Locale
 
 class OutfitsActivity : MenuNavegable() {
-
+    val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private lateinit var viewModel: OutfitsViewModel
     private lateinit var llOutfits: LinearLayout
 
@@ -45,6 +48,10 @@ class OutfitsActivity : MenuNavegable() {
 
         for (outfit in outfits) {
             val outfitView = inflater.inflate(R.layout.outfit_view, llOutfits, false)
+            val fechaTextView = outfitView.findViewById<TextView>(R.id.tvFechaOutfit)
+
+            // Formatear fecha desde Timestamp
+            fechaTextView.text = outfit.fecha.toDate().let { sdf.format(it) }
 
             // Asignar imágenes
             setImagen(outfitView.findViewById(R.id.ivTop), outfit.top?.imagenUrl)
@@ -88,13 +95,13 @@ class OutfitsActivity : MenuNavegable() {
             putExtra("accesorio1_image", outfit.accesorio1?.imagenUrl ?: "")
             putExtra("accesorio1_category", outfit.accesorio1?.categoria ?: "")
 
-            putExtra("accesorio2_name", outfit.accesorio1?.nombre ?: "")
-            putExtra("accesorio2_image", outfit.accesorio1?.imagenUrl ?: "")
-            putExtra("accesorio2_category", outfit.accesorio1?.categoria ?: "")
+            putExtra("accesorio2_name", outfit.accesorio2?.nombre ?: "")
+            putExtra("accesorio2_image", outfit.accesorio2?.imagenUrl ?: "")
+            putExtra("accesorio2_category", outfit.accesorio2?.categoria ?: "")
 
-            putExtra("accesorio3_name", outfit.accesorio1?.nombre ?: "")
-            putExtra("accesorio3_image", outfit.accesorio1?.imagenUrl ?: "")
-            putExtra("accesorio3_category", outfit.accesorio1?.categoria ?: "")
+            putExtra("accesorio3_name", outfit.accesorio3?.nombre ?: "")
+            putExtra("accesorio3_image", outfit.accesorio3?.imagenUrl ?: "")
+            putExtra("accesorio3_category", outfit.accesorio3?.categoria ?: "")
         }
         startActivity(intent)
     }
