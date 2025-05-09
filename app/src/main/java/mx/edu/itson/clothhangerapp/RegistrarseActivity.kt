@@ -20,6 +20,7 @@ import com.google.firebase.auth.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import mx.edu.itson.clothhangerapp.dataclases.Usuario
+import java.security.MessageDigest
 
 class RegistrarseActivity : AppCompatActivity() {
 
@@ -65,18 +66,20 @@ class RegistrarseActivity : AppCompatActivity() {
 
                 auth.createUserWithEmailAndPassword(email, contrasenia).addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Registro exitoso, obtener el usuario actual
                         val user = auth.currentUser
                         user?.let {
                             val uid = user.uid
-                            // Crear el objeto Usuario
-                            val usuario = Usuario(id = uid, nombre = nombre, email = email)
+                            val hashedPassword = hashPassword(contrasenia)
 
-                            // Usar Firestore en lugar de Realtime Database
+                            val usuario = Usuario()
+                            usuario.id = uid
+                            usuario.nombre = nombre
+                            usuario.email = email
+                            usuario.contraseniaHash = hashedPassword
+
                             val db = FirebaseFirestore.getInstance()
                             db.collection("usuarios").document(uid).set(usuario)
                                 .addOnSuccessListener {
-                                    // Si el guardado es exitoso, ir a la actividad principal
                                     val intent = Intent(this, PrincipalActivity::class.java)
                                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                                     startActivity(intent)
@@ -89,6 +92,7 @@ class RegistrarseActivity : AppCompatActivity() {
                         Toast.makeText(this, "Hubo un error al realizar el registro. Vuelva a intentarlo.", Toast.LENGTH_SHORT).show()
                     }
                 }
+
             }
         }
 
@@ -98,5 +102,11 @@ class RegistrarseActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    private fun hashPassword(password: String): String {
+        val bytes = MessageDigest.getInstance("SHA-256").digest(password.toByteArray())
+        return bytes.joinToString("") { "%02x".format(it) }
+    }
+
 
 }

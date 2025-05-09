@@ -30,36 +30,37 @@ class UsuariosViewModel : ViewModel() {
     val errorMensaje: LiveData<String?> = _errorMensaje
 
     fun cargarDatosUsuario() {
-        val userId = auth.currentUser?.uid // Get user ID from Auth
+        val userId = auth.currentUser?.uid // Obtener UID desde Auth
 
         _isLoading.value = true
         viewModelScope.launch {
             try {
-                // Get user data from Firestore
+                // Obtener datos del usuario desde Firestore
                 val doc = withContext(Dispatchers.IO) {
-                    if (userId != null) { // Check if userId is not null
+                    if (userId != null) {
                         firestoreDb.collection("usuarios")
                             .document(userId)
                             .get()
                             .await()
                     } else {
-                        null // Handle the case where the user is not authenticated
+                        null
                     }
                 }
 
-                if (doc?.exists() == true) { // Use the safe call operator ?.
-                    val nombre = doc.getString("nombre") ?: "" // Get name, default to ""
-                    val email = auth.currentUser?.email ?: "" // Get email from Auth, default to ""
-                    var usuario = Usuario()
-                    usuario.nombre = nombre
-                    usuario.email = email
+                if (doc?.exists() == true) {
+                    val nombre = doc.getString("nombre") ?: ""
+                    val email = doc.getString("email") ?: "" // Obtener email desde Firestore
+
+                    val usuario = Usuario().apply {
+                        this.nombre = nombre
+                        this.email = email
+                    }
+
                     _usuario.postValue(usuario)
                     Log.e("UsuariosViewModel", "Nombre de usuario obtenido correctamente: ${usuario.nombre}")
                     Log.e("UsuariosViewModel", "Email de usuario obtenido correctamente: ${usuario.email}")
                 } else {
-                    // Handle the case where the document doesn't exist or user is not logged in
-                    val email = auth.currentUser?.email ?: ""
-                    _usuario.postValue(Usuario("", email)) // Or set an error message
+                    _usuario.postValue(Usuario("", ""))
                     _errorMensaje.postValue("Usuario no encontrado en la base de datos.")
                 }
 
@@ -72,11 +73,7 @@ class UsuariosViewModel : ViewModel() {
         }
     }
 
-    /**
-     * Actualiza el nombre del usuario en Firestore.
-     * The email is updated in the ConfiguracionActivity, not here.
-     */
-    fun actualizarDatosUsuario(nuevoNombre: String, nuevoEmail: String) { // Added nuevoEmail, but not used.
+    fun actualizarDatosUsuario(nuevoNombre: String, nuevoEmail: String, nuevoHashContrasenia: String) {
         val userId = auth.currentUser?.uid
 
         _isLoading.value = true
@@ -85,18 +82,18 @@ class UsuariosViewModel : ViewModel() {
                 // Actualizar datos en Firestore
                 withContext(Dispatchers.IO) {
                     firestoreDb.collection("usuarios")
-                        .document(userId!!) //handled null in cargarDatosUsuario
+                        .document(userId!!) // Ya se controla null al obtener el UID
                         .update(
                             mapOf(
                                 "nombre" to nuevoNombre,
-                                // "email" to nuevoEmail  // Email is handled by Firebase Auth
+                                "email" to nuevoEmail,
+                                "contraseniaHash" to nuevoHashContrasenia
                             )
                         ).await()
                 }
 
-                // Update the current Usuario object.  Keep email from auth.
-                val currentEmail = auth.currentUser?.email ?: ""
-                _usuario.postValue(Usuario(nuevoNombre, currentEmail))
+                // Actualizar el objeto Usuario en LiveData
+                _usuario.postValue(Usuario(nuevoNombre, nuevoEmail))
 
             } catch (e: Exception) {
                 Log.e("UsuariosViewModel", "Error al actualizar usuario: ${e.message}", e)
@@ -107,41 +104,5 @@ class UsuariosViewModel : ViewModel() {
         }
     }
 
-    /**
-     * Reautentica al usuario con su contraseña actual (necesario para actualizar email o contraseña).
-     */
-    fun reautenticarUsuario(email: String, contraseñaActual: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
-        val usuario = auth.currentUser
-        val credential = EmailAuthProvider.getCredential(email, contraseñaActual)
-
-        usuario?.reauthenticate(credential)
-            ?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    onSuccess()
-                } else {
-                    onError(task.exception?.message ?: "Error de reautenticación")
-                }
-            }
-    }
-
-    /**
-     * Cambia la contraseña del usuario en Firebase Authentication.
-     */
-    fun cambiarContraseña(nuevaContraseña: String) {
-        val usuario = auth.currentUser
-
-        _isLoading.value = true
-        viewModelScope.launch {
-            try {
-                usuario?.updatePassword(nuevaContraseña)?.await()
-                Log.d("UsuariosViewModel", "Contraseña actualizada correctamente")
-            } catch (e: Exception) {
-                Log.e("UsuariosViewModel", "Error al cambiar la contraseña: ${e.message}", e)
-                _errorMensaje.postValue("No se pudo cambiar la contraseña. Intenta reautenticarte.")
-            } finally {
-                _isLoading.postValue(false)
-            }
-        }
-    }
 }
 

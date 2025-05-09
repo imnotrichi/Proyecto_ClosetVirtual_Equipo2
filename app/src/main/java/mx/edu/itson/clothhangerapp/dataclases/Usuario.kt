@@ -6,7 +6,8 @@ class Usuario(
     @DocumentId
     var id: String = "",
     var nombre: String = "",
-    var email: String = ""
+    var email: String = "",
+    var contraseniaHash: String = ""
 ) {
     override fun toString(): String {
         return nombre

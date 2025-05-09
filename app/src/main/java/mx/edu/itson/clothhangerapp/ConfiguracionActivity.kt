@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import mx.edu.itson.clothhangerapp.viewmodels.UsuariosViewModel
+import java.security.MessageDigest
 
 class ConfiguracionActivity : MenuNavegable() {
 
@@ -62,80 +63,31 @@ class ConfiguracionActivity : MenuNavegable() {
 
             val nuevoNombre = etNombre.text.toString().trim()
             val nuevoEmail = etEmail.text.toString().trim()
-            val contraseniaActual = etContrasenia.text.toString()
-            val nuevaContrasenia = etConfirmarContrasenia.text.toString()
+            val nuevaContrasenia = etContrasenia.text.toString()
+            val nuevaContraseniaConfirmar = etConfirmarContrasenia.text.toString()
 
-            val cambiarEmail = nuevoEmail != emailOriginal
-            val cambiarContrasenia = nuevaContrasenia.isNotEmpty()
-
-            // Validación de contraseña nueva
-            if (cambiarContrasenia && nuevaContrasenia.length < 6) {
-                Toast.makeText(this, "La nueva contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
+            // Validar campos
+            if (nuevoNombre.isBlank() || nuevoEmail.isBlank() || nuevaContrasenia.isBlank()) {
+                Toast.makeText(this, "Todos los campos deben estar completos.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            if (cambiarEmail || cambiarContrasenia) {
-                if (contraseniaActual.isBlank()) {
-                    Toast.makeText(this, "Debes ingresar tu contraseña actual para confirmar", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                val user = auth.currentUser
-                val credential = EmailAuthProvider.getCredential(emailOriginal!!, contraseniaActual) // Use non-null emailOriginal
-
-                if (user != null) { // Check if user is not null
-                    user.reauthenticate(credential)
-                        .addOnCompleteListener { reauthResult ->
-                            if (reauthResult.isSuccessful) {
-                                viewModel.actualizarDatosUsuario(nuevoNombre, nuevoEmail) // Update Firestore data
-
-                                if (cambiarEmail) {
-                                    user.updateEmail(nuevoEmail)
-                                        .addOnCompleteListener { emailUpdateTask ->
-                                            if (emailUpdateTask.isSuccessful) {
-                                                Log.d("ConfiguracionActivity", "Email updated successfully")
-                                            } else {
-                                                Log.e("ConfiguracionActivity", "Failed to update email: ${emailUpdateTask.exception?.message}")
-                                                Toast.makeText(this, "Failed to update email: ${emailUpdateTask.exception?.message}", Toast.LENGTH_LONG).show()
-                                                return@addOnCompleteListener // IMPORTANT: Return on failure
-                                            }
-                                        }
-                                }
-
-                                if (cambiarContrasenia) {
-                                    user.updatePassword(nuevaContrasenia)
-                                        .addOnCompleteListener { passwordUpdateTask ->
-                                            if (passwordUpdateTask.isSuccessful) {
-                                                Log.d("ConfiguracionActivity", "Password updated successfully")
-                                            } else {
-                                                Log.e("ConfiguracionActivity", "Failed to update password: ${passwordUpdateTask.exception?.message}")
-                                                Toast.makeText(this, "Failed to update password: ${passwordUpdateTask.exception?.message}", Toast.LENGTH_LONG).show()
-                                                return@addOnCompleteListener // IMPORTANT: Return on failure
-                                            }
-                                        }
-                                }
-                                Toast.makeText(this, "Datos actualizados correctamente", Toast.LENGTH_SHORT).show()
-
-                            } else {
-                                Log.e("ConfiguracionActivity", "Reauthentication failed: ${reauthResult.exception?.message}")
-                                if (reauthResult.exception is FirebaseAuthInvalidCredentialsException) {
-                                    Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_LONG).show()
-                                } else if (reauthResult.exception is FirebaseAuthUserCollisionException){
-                                    Toast.makeText(this, "El correo electrónico ya está en uso.", Toast.LENGTH_LONG).show()
-                                }
-                                else{
-                                    Toast.makeText(this, "Reautenticación fallida: ${reauthResult.exception?.message}", Toast.LENGTH_LONG).show()
-                                }
-                            }
-                        }
-                }
-                else{
-                    Toast.makeText(this, "No hay usuario autenticado.", Toast.LENGTH_LONG).show()
-                }
-            } else {
-                viewModel.actualizarDatosUsuario(nuevoNombre, nuevoEmail)
-                Toast.makeText(this, "Datos actualizados correctamente", Toast.LENGTH_SHORT).show()
+            if (!nuevaContrasenia.equals(nuevaContraseniaConfirmar)) {
+                Toast.makeText(this, "Las contraseñas deben coincidir.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            if (nuevaContrasenia.length < 8) {
+                Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Generar hash de la nueva contraseña (opcional, si quieres guardarlo)
+            val passwordHash = hashPassword(nuevaContrasenia)
+
+            // Actualizar en Firestore solamente
+            viewModel.actualizarDatosUsuario(nuevoNombre, nuevoEmail, passwordHash)
+            Toast.makeText(this, "Datos actualizados correctamente", Toast.LENGTH_SHORT).show()
         }
 
         btnNo.setOnClickListener {
@@ -149,6 +101,11 @@ class ConfiguracionActivity : MenuNavegable() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
+    }
+
+    private fun hashPassword(password: String): String {
+        val bytes = MessageDigest.getInstance("SHA-256").digest(password.toByteArray())
+        return bytes.joinToString("") { "%02x".format(it) }
     }
 }
 
