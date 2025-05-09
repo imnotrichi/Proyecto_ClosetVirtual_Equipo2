@@ -3,6 +3,7 @@ package mx.edu.itson.clothhangerapp
 import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -111,10 +112,9 @@ class DetalleOutfitActivity : MenuNavegable() {
     }
 }
 
-private class AdaptadorOutfit(
-    private val contexto: Context,
-    private val prendas: ArrayList<Prenda>
-) : BaseAdapter() {
+private class AdaptadorOutfit: BaseAdapter {
+    var prendas= ArrayList<Prenda>()
+    var contexto: Context
 
     override fun getCount(): Int = prendas.size
 
