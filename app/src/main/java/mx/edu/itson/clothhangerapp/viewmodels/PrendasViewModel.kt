@@ -127,6 +127,13 @@ class PrendasViewModel : ViewModel() {
 
                 _listaPrendasUsuario.postValue(filtradas)
 
+                Log.d("PrendasViewModel", "Prendas totales: ${prendas.size}")
+                Log.d("PrendasViewModel", "Filtradas por '$categoria': ${filtradas.size}")
+                filtradas.forEach {
+                    Log.d("PrendasViewModel", "Prenda: ${it.nombre}, Categoría: ${it.categoria}")
+                }
+
+
             } catch (e: Exception) {
                 Log.e("PrendasViewModel", "Error al filtrar por categoría: ${e.message}", e)
                 _errorMensaje.postValue("Error al cargar prendas.")
