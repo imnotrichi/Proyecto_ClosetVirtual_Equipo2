@@ -113,6 +113,7 @@
             android:fontFamily="@font/lexend_deca_medium"
             android:hint="@string/hint_nombre"
             android:inputType="textPersonName"
+            android:maxLength="100"
             android:paddingHorizontal="10dp"
             android:shadowColor="#000000"
             android:shadowDx="1"
