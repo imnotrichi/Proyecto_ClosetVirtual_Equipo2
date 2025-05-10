@@ -1,7 +1,9 @@
 package mx.edu.itson.clothhangerapp
 
 import android.app.Activity // --- NUEVO --- (Para setResult)
+import androidx.appcompat.app.AlertDialog
 import android.content.Intent // --- NUEVO --- (Para setResult)
+import android.content.pm.PackageManager
 import android.graphics.Color // --- NUEVO --- (Asegúrate de importar esta)
 import android.net.Uri
 import android.os.Build // --- NUEVO --- (Para la comprobación de versión de SDK)
@@ -9,20 +11,18 @@ import android.os.Bundle
 import android.util.Log // --- NUEVO --- (Para logging)
 import android.widget.ImageButton
 import android.widget.Toast
-// import androidx.activity.enableEdgeToEdge // Comentado si no lo usas activamente
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity // O tu clase base MenuNavegable
-import android.widget.ToggleButton
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-// import androidx.core.view.ViewCompat // Comentado si no lo usas activamente
-// import androidx.core.view.WindowInsetsCompat // Comentado si no lo usas activamente
+import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide // --- NUEVO --- (Para cargar la imagen en edición)
 import com.mrudultora.colorpicker.ColorPickerPopUp
 import mx.edu.itson.clothhangerapp.databinding.ActivityRegistrarPrendaBinding
 import mx.edu.itson.clothhangerapp.dataclases.Prenda
 import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
+import java.io.File
 
 class RegistrarPrendaActivity : MenuNavegable() {
 
@@ -43,6 +43,9 @@ class RegistrarPrendaActivity : MenuNavegable() {
     private var esModoEdicion: Boolean = false
     private var imagenUrlOriginal: String? = null
 
+    private lateinit var tomarFotoLauncher: ActivityResultLauncher<Uri>
+    private var uriFotoTemporal: Uri? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrarPrendaBinding.inflate(layoutInflater)
@@ -51,7 +54,7 @@ class RegistrarPrendaActivity : MenuNavegable() {
         viewModel = ViewModelProvider(this)[PrendasViewModel::class.java]
 
         inicializarMapasDeIconos()
-        configurarLauncherSeleccionImagen()
+        configurarLaunchersImagen()
         configurarListenersUI()
         configurarEstadoInicialUI()
         observarViewModel()
@@ -70,23 +73,23 @@ class RegistrarPrendaActivity : MenuNavegable() {
                 esModoEdicion = true
                 imagenUrlOriginal = prendaAEditar?.imagenUrl // Guardar URL original
                 cargarDatosParaEdicion(prendaAEditar!!)
-                binding.btnRegistrarPrenda.text = getString(R.string.actualizar) // Ej: "Actualizar Prenda" (Define en strings.xml)
-                // Opcional: Cambiar título de la Activity/Toolbar
-                // supportActionBar?.title = getString(R.string.editar_prenda_titulo) // Define en strings.xml
+                binding.btnRegistrarPrenda.text = getString(R.string.actualizar) // Ej: "Actualizar Prenda"
             } else {
                 Log.e("RegistrarPrenda", "MODO EDICIÓN: Prenda extra es null.")
-                // Proceder como si fuera nueva prenda si la carga falla
                 esModoEdicion = false
                 configurarEstadoInicialUI()
             }
         } else {
-            // Modo creación de nueva prenda
             esModoEdicion = false
             configurarEstadoInicialUI()
         }
-        configurarListenersUI()
     }
 
+    private fun crearUriParaFoto(): Uri {
+        val nombreArchivo = "foto_prenda_${System.currentTimeMillis()}.jpg"
+        val archivo = File(externalCacheDir, nombreArchivo)
+        return FileProvider.getUriForFile(this, "${packageName}.provider", archivo)
+    }
 
     private fun inicializarMapasDeIconos() {
         mapIconosCategoriaOriginal = mapOf(
@@ -105,30 +108,74 @@ class RegistrarPrendaActivity : MenuNavegable() {
         )
     }
 
-    private fun configurarLauncherSeleccionImagen() {
+    private fun configurarLaunchersImagen() {
         seleccionarImagenLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
                 imagenUriParaSubir = it
                 binding.ibAgregarImagen.setImageURI(it)
             }
         }
+
+        tomarFotoLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { exito ->
+            if (exito && uriFotoTemporal != null) {
+                imagenUriParaSubir = uriFotoTemporal
+                binding.ibAgregarImagen.setImageURI(uriFotoTemporal)
+            }
+        }
+    }
+
+    private fun mostrarDialogoSeleccionFuente() {
+        val opciones = arrayOf("Galería", "Cámara")
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Selecciona una fuente")
+        builder.setItems(opciones) { _, cual ->
+            when (cual) {
+                0 -> seleccionarImagenLauncher.launch("image/*")
+                1 -> verificarPermisoCamara()  // Cambiar de tomarFotoLauncher.launch(uri) a verificarPermisoCamara()
+            }
+        }
+        builder.show()
+    }
+
+    private fun verificarPermisoCamara() {
+        // Verificar si ya tenemos permiso para usar la cámara
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            // Si ya tenemos permiso, lanzamos la cámara
+            lanzarCamara()
+        } else {
+            // Si no tenemos permiso, lo solicitamos
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 100)
+        }
+    }
+
+    private fun lanzarCamara() {
+        val uri = crearUriParaFoto()
+        uriFotoTemporal = uri
+        tomarFotoLauncher.launch(uri)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        // Si el permiso es concedido
+        if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // Lanzamos la cámara
+            lanzarCamara()
+        } else {
+            // Si el permiso es denegado, mostramos un mensaje al usuario
+            Toast.makeText(this, "Permiso para usar la cámara denegado", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun cargarDatosParaEdicion(prenda: Prenda) {
-        Log.d("RegistrarPrenda", "Iniciando cargarDatosParaEdicion. ID de prenda recibida: ${prenda.id}, Nombre: ${prenda.nombre}")
-        Log.d("RegistrarPrenda", "Cargando datos para editar: ${prenda.nombre}, ImagenURL: ${prenda.imagenUrl}")
-
         binding.etNombrePrenda.setText(prenda.nombre)
-
-        // Imagen: Mostrar la imagen existente
-        imagenUriParaSubir = null // Importante: resetear, solo se llena si el usuario elige OTRA imagen
+        imagenUriParaSubir = null
         if (prenda.imagenUrl.isNotEmpty()) {
             Glide.with(this)
                 .load(prenda.imagenUrl)
                 .into(binding.ibAgregarImagen)
         }
 
-        // Categoría
         categoriaSeleccionada = prenda.categoria
         val nombresCategorias = listOf("Top", "Bottom", "Zapatos", "Bodysuit", "Accesorio")
         val imageButtonsCategorias = listOf(binding.ibTop, binding.ibBottom, binding.ibZapatos, binding.ibBodysuit, binding.ibAccesorio)
@@ -136,14 +183,12 @@ class RegistrarPrendaActivity : MenuNavegable() {
         if (indiceCategoria != -1) {
             actualizarAparienciaCategorias(imageButtonsCategorias[indiceCategoria], imageButtonsCategorias)
         } else {
-            actualizarAparienciaCategorias(null, imageButtonsCategorias) // Deseleccionar todas
+            actualizarAparienciaCategorias(null, imageButtonsCategorias)
         }
 
-        // Estampado
         tieneEstampado = prenda.estampado
         actualizarAparienciaEstampado(esSiSeleccionado = prenda.estampado)
 
-        // Color
         colorSeleccionadoHex = prenda.colorHex
         if (prenda.colorHex.isNotEmpty()) {
             try {
@@ -151,14 +196,12 @@ class RegistrarPrendaActivity : MenuNavegable() {
                 val colorInt = Color.parseColor(colorString)
                 binding.btnColor.setBackgroundColor(colorInt)
             } catch (e: IllegalArgumentException) {
-                Log.e("RegistrarPrenda", "Error al parsear color para edición: '${prenda.colorHex}'", e)
-                binding.btnColor.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray)) // Color de error
+                binding.btnColor.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray))
             }
         } else {
-            binding.btnColor.setBackgroundColor(ContextCompat.getColor(this, android.R.color.white)) // Color por defecto
+            binding.btnColor.setBackgroundColor(ContextCompat.getColor(this, android.R.color.white))
         }
 
-        // Etiquetas
         etiquetasSeleccionadas.clear()
         etiquetasSeleccionadas.addAll(prenda.etiquetas)
         val toggleButtonsEtiquetasMap = mapOf(
@@ -168,7 +211,7 @@ class RegistrarPrendaActivity : MenuNavegable() {
         )
         toggleButtonsEtiquetasMap.forEach { (toggleButton, etiquetaNombre) ->
             val isSelected = etiquetasSeleccionadas.contains(etiquetaNombre)
-            toggleButton.isChecked = isSelected // Establecer estado antes de que el listener se active
+            toggleButton.isChecked = isSelected
             if (isSelected) {
                 toggleButton.setBackgroundResource(R.drawable.tag_view_on)
                 toggleButton.setTextColor(ContextCompat.getColor(this, R.color.white))
@@ -219,7 +262,7 @@ class RegistrarPrendaActivity : MenuNavegable() {
 
     private fun configurarListenersUI() {
         binding.ibAgregarImagen.setOnClickListener {
-            seleccionarImagenLauncher.launch("image/*")
+            mostrarDialogoSeleccionFuente()
         }
 
         binding.btnColor.setOnClickListener {
