@@ -47,12 +47,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginVertical="15dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/lexend_deca_semi_bold"
         android:text="@string/titulo_outfit"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/tvFechaOutfit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/lexend_deca_semi_bold"
+        android:text="10/05/2025"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="28sp" />
 
     <View
         android:layout_width="match_parent"
@@ -69,18 +81,6 @@
             android:id="@+id/lvPrendasDelDia"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <Button
-            android:id="@+id/btnFixed"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:background="@drawable/button_agregar_prenda"
-            android:gravity="center"
-            android:text="@string/agregar_prenda"
-            android:textColor="@color/cream"
-            android:textSize="45sp" />
 
     </FrameLayout>
 

@@ -21,6 +21,7 @@ class DetalleOutfitActivity : MenuNavegable() {
 
     var outfit: ArrayList<Prenda> = ArrayList()
     lateinit var fechaOutfit: TextView
+    lateinit var tvTitulo: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +51,10 @@ class DetalleOutfitActivity : MenuNavegable() {
             val fechaFormateada = formato.format(date)
 
             // Mostrar en el TextView
-            fechaOutfit = findViewById(R.id.tvTitulo)
-            fechaOutfit.text = "Outfit del $fechaFormateada"
+            tvTitulo = findViewById(R.id.tvTitulo)
+            fechaOutfit = findViewById(R.id.tvFechaOutfit)
+            tvTitulo.text = "Outfit del"
+            fechaOutfit.text = "$fechaFormateada"
         } ?: run {
             // Si el timestamp es nulo, mostrar un mensaje predeterminado
             fechaOutfit = findViewById(R.id.tvTitulo)

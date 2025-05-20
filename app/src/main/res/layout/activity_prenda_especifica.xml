@@ -63,7 +63,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:layout_marginTop="10dp">
 
         <GridView
             android:id="@+id/gvPrviewPrendas"
@@ -76,7 +77,7 @@
             />
 
         <Button
-            android:id="@+id/btnFixed"
+            android:id="@+id/btnAgregarPrenda"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="bottom|end"

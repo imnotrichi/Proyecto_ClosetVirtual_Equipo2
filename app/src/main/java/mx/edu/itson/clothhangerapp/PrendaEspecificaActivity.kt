@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,6 +23,7 @@ import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
 class PrendaEspecificaActivity : MenuNavegable() {
     private lateinit var viewModel: PrendasViewModel
     private lateinit var adapter: PrendaPreviewAdapter
+    private lateinit var btnAgregarPrenda: Button
     private var prendasMostradas = ArrayList<PrendaPreviewItem>()
     private var prendasOriginales = listOf<Prenda>()
     private var categoriaRecibida: String? = null
@@ -31,7 +33,10 @@ class PrendaEspecificaActivity : MenuNavegable() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prenda_especifica)
 
+        setupBottomNavigation()
+
         viewModel = ViewModelProvider(this)[PrendasViewModel::class.java]
+        btnAgregarPrenda = findViewById(R.id.btnAgregarPrenda)
 
         categoriaRecibida = intent.getStringExtra("CATEGORIA")
         slotOrigenRecibido = intent.getStringExtra("SLOT_ORIGEN")
@@ -94,10 +99,11 @@ class PrendaEspecificaActivity : MenuNavegable() {
             }
         }
 
-        // Si esta pantalla SÍ usa el menú de navegación inferior
-        // setupBottomNavigation()
-        // setSelectedItem(R.id.nav_home) // O el ID de ítem que corresponda
-
+        btnAgregarPrenda.setOnClickListener {
+            val intent = Intent(this, RegistrarPrendaActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
     } // --- FIN DE onCreate ---
 
 

@@ -6,17 +6,15 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import mx.edu.itson.clothhangerapp.dataclases.Prenda
-
 
 class DetallePrendaActivity : MenuNavegable() {
 
@@ -28,8 +26,8 @@ class DetallePrendaActivity : MenuNavegable() {
     private lateinit var tvTags: TextView
     private lateinit var tvTotalUsos: TextView
     private lateinit var tvUsosMes: TextView
-    private lateinit var btnEditar: Button
-    private lateinit var btnBorrar: Button
+    private lateinit var btnEditar: ImageButton
+    private lateinit var btnBorrar: ImageButton
 
     private var prendaActual: Prenda? = null
 

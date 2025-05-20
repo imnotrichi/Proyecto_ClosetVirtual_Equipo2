@@ -2,8 +2,6 @@ package mx.edu.itson.clothhangerapp
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
@@ -13,10 +11,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.target.Target
+import com.google.firebase.Timestamp
 import mx.edu.itson.clothhangerapp.databinding.ActivityRegistroDiarioBinding
+import mx.edu.itson.clothhangerapp.dataclases.Outfit
 import mx.edu.itson.clothhangerapp.dataclases.Prenda
 import mx.edu.itson.clothhangerapp.viewmodels.OutfitsViewModel
 import mx.edu.itson.clothhangerapp.viewmodels.PrendasViewModel
@@ -37,7 +34,6 @@ class RegistroDiarioActivity : MenuNavegable() {
     private var prendaAccesorio3Seleccionada: Prenda? = null
     private var slotActualizando: String? = null
     private lateinit var mapIconosCategoriaOriginal: Map<ImageButton, Int>
-    private lateinit var mapIconosCategoriaSeleccionado: Map<ImageButton, Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -204,7 +200,7 @@ class RegistroDiarioActivity : MenuNavegable() {
             if (exito) {
                 Toast.makeText(this, "¡Outfit guardado con éxito!", Toast.LENGTH_SHORT).show()
                 outfitsViewModel.limpiarEstadoRegistro()
-                val intent = Intent(this, PrincipalActivity::class.java)
+                val intent = Intent(this, OutfitsActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -258,8 +254,8 @@ class RegistroDiarioActivity : MenuNavegable() {
     }
 
     private fun guardarOutfit() {
-        val outfitParaGuardar = mx.edu.itson.clothhangerapp.dataclases.Outfit(
-            fecha = com.google.firebase.Timestamp.now(),
+        val outfitParaGuardar = Outfit(
+            fecha = Timestamp.now(),
             top = prendaTopSeleccionada,
             bottom = prendaBottomSeleccionada,
             bodysuit = prendaBodysuitSeleccionada,

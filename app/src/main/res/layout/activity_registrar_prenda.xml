@@ -72,6 +72,7 @@
             android:layout_height="130dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:scaleType="fitXY"
             android:background="@drawable/dark_round_button"
             android:src="@drawable/agregar" />
 
@@ -269,10 +270,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvCategoria"
@@ -358,20 +358,21 @@
 
             </HorizontalScrollView>
 
-            <Button
-                android:id="@+id/btnRegistrarPrenda"
-                android:layout_width="280dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:background="@drawable/dark_round_button"
-                android:fontFamily="@font/lexend_deca_medium"
-                android:text="@string/confirmar"
-                android:textAllCaps="false"
-                android:textColor="@color/cream"
-                android:textSize="24sp" />
-
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnRegistrarPrenda"
+            android:layout_width="280dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/dark_round_button"
+            android:fontFamily="@font/lexend_deca_medium"
+            android:text="@string/confirmar"
+            android:textAllCaps="false"
+            android:textColor="@color/cream"
+            android:textSize="24sp" />
+
     </LinearLayout>
 
     <include
